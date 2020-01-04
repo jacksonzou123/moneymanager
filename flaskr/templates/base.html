@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% block style %}{% endblock %}
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  {% block content %}{% endblock %}
+  {% block footer %}
+  <footer>
+    <small>
+      &copy; Copyright 2019 {% block copyright %}{% endblock %}.
+    </small>
+  </footer>
+  {% endblock %}
+  {% block scripts %}{% endblock %}
+</body>
+
+</html>
