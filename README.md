@@ -1,4 +1,4 @@
-# To be determined
+# Spendie
 
 **Spendie** by JaJeJu
 
