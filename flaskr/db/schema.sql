@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
@@ -10,13 +10,22 @@ CREATE TABLE IF NOT EXISTS transactions (
   transaction_name TEXT NOT NULL,
   transaction_amount REAL NOT NULL,
   transaction_note TEXT,
-  FOREIGN KEY (user_id) REFERENCES user (id)
+  tag_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (tag_id) REFERENCES tags (tag_id)
 );
 
-CREATE TABLE IF NOT EXISTS bookmark (
-  bookmark_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  transaction_id INTEGER NOT NULL,
-  bookmark_type TEXT NOT NULL,
-  bookmark_note TEXT,
-  FOREIGN KEY (transaction_id) REFERENCES transactions (transaction_id) 
+CREATE TABLE IF NOT EXISTS tags (
+  tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  tag_type TEXT NOT NULL,
+  tag_summary TEXT,
+);
+
+CREATE TABLE IF NOT EXISTS todos (
+  todo_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  todo_title TEXT NOT NULL,
+  todo_body TEXT,
+  todo_deadline TEXT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES users (id)
 );
