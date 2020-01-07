@@ -6,17 +6,7 @@
   <title>Our Website {% block head %}{% endblock %}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <style>
-    @font-face {
-      font-family: "San Francisco";
-      font-weight: 400;
-      src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
-    }
-
-    body {
-      font-family: San Francisco;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="static/styles/custom.css">
 </head>
 
 <body>
@@ -30,19 +20,28 @@
   <div style="padding: 30px;">
 
 
-    <div class="container-fluid" style="max-width:60%;">
-      <h2>Welcome back, Jeff!</h2>
-      <div class="row ">
+    <div class="container-fluid">
 
-        <div class="col-lg border">
-          Hello
+      <div class="row">
+        <div class="col">
+          <h2 class="hellotitle">Hello, Jeff!</h2>
+          <!-- <div class="md-form active-pink active-pink-2 mb-3 mt-0">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+          </div> -->
         </div>
-
-        <div class="col-lg border">
-          Hello
-        </div>
-
       </div>
+
+      <div class="container rounded border">
+        <div class="row rounded">
+          <div class="col-md border">
+            Hello
+          </div>
+          <div class="col-md border">
+            Hello
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
