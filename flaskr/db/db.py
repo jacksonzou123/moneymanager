@@ -13,7 +13,6 @@ def access_db():
         g.db.row_factory = dict_factory
     return g.db
 
-
 def close_access():
     """Close a stored database connection"""
     db = g.pop('db', None)
@@ -26,7 +25,6 @@ def build_db():
     db = access_db()
     with current_app.open_resource('db/schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
-
 
 def init_db():
     """Initialize the SQLite3 database"""
