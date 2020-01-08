@@ -1,18 +1,13 @@
 """Flask app authentication"""
 
-from functools import wraps
-
-from flask import (Blueprint, request, g, flash, redirect, url_for,
-                   render_template, session)
+from flask import (Blueprint, request, g, flash, redirect, render_template,
+                   session)
 from werkzeug.security import check_password_hash, generate_password_hash
 
 BP = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@BP.route('/register', methods=(
-    'GET',
-    'POST',
-))
+@BP.route('/register', methods=['GET', 'POST'])
 def register():
     """Register user in this app"""
     if request.method == 'POST':
@@ -27,20 +22,16 @@ def register():
                 f'INSERT INTO user(username, password) VALUES ("{username}", "{generate_password_hash(password)}")'
             )
             g.db.commit()
-            return redirect(url_for('auth.login'))
+            return redirect('/auth/signin')
         flash(error)
-    return render_template('auth/register.html')
+    return render_template('auth.html')
 
 
-@BP.route('/login', methods=(
-    'GET',
-    'POST',
-))
+@BP.route('/signin', methods=['GET', 'POST'])
 def login():
     """Log in user in this app"""
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username, password = request.form['username'], request.form['password']
         error = None
         user = g.db.execute(
             f'SELECT * FROM user WHERE username = "{username}"').fetchone()
@@ -50,26 +41,15 @@ def login():
             error = f'Entered password is incorrect.'
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
-            session['username'] = user['username']
-            return redirect(url_for('index'))
+            session['user_id'], session['username'] = user['id'], user[
+                'username']
+            return redirect('/')
         flash(error)
-    return render_template('auth/login.html')
+    return render_template('auth.html')
 
 
-@BP.route('/logout', methods=('GET', ))
+@BP.route('/logout', methods=['GET'])
 def logout():
     """Clear session and logout the user"""
     session.clear()
-    return redirect(url_for('index'))
-
-
-def require_login(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
+    return redirect('/')

@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE TABLE IF NOT EXISTS tags (
   tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
   tag_type TEXT NOT NULL,
-  tag_summary TEXT,
+  tag_summary TEXT
 );
 
 CREATE TABLE IF NOT EXISTS todos (
