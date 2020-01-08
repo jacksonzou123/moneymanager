@@ -8,13 +8,13 @@ from . import auth, view
 from .db import init_db, access_db, close_access
 
 
-def init_flask_app():
+def init_flask_app(config={'SECRET_KEY': 'dev'}):
     """Initialize and return the Flask app"""
     app = Flask(__name__)
     app.register_blueprint(auth.BP)
     app.register_blueprint(view.BP)
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY=config['SECRET_KEY'],
         DATABASE=path.join(app.instance_path, 'flaskr.db'),
     )
     try:
