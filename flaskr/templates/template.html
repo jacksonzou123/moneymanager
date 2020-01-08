@@ -6,21 +6,9 @@
   <title>Our Website {% block head %}{% endblock %}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="static/styles/mainpage.css">
+  <link rel="stylesheet" type="text/css" href="/static/styles/mainpage.css">
   <style>
-  .searchbar {
-    float: right;
-  }
-  @media only screen and (max-width: 576px){
-    .col-sm {
-      text-align: center;
-    }
-    .searchbar {
-      float: none;
-      margin-left:auto;
-      margin-right:auto;
-    }
-  }
+
   </style>
 </head>
 
@@ -40,9 +28,7 @@
           <h2>Hello, {{ name }}!</h2>
         </div>
         <div class="col-sm">
-          <div class="form active-pink active-pink-2 searchbar" style="width:20em;">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-          </div>
+          <input class="form-control searchbar" type="text" placeholder="Search" aria-label="Search">
         </div>
       </div>
 
