@@ -1,7 +1,7 @@
 const signin = `
 <form class='form-signin text-center' action='/auth/signin' method='POST'>
   <h1 class='h3 mb-3 font-weight-normal'>Sign In</h1>
-  <input type='text' class='form-control' placeholder='Username' name='username' oninput='matchPassword()' required autofocus>
+  <input type='text' class='form-control' placeholder='Username' name='username' required autofocus>
   <input type='password' class='form-control' placeholder='Password' name='password' oninput='matchPassword()' required>
   <hr>
   <button class='btn btn-md btn-primary btn-block' type='submit'>Sign in</button>
@@ -14,7 +14,7 @@ const signin = `
 const register = `
 <form class='form-signin text-center' action='/auth/register' method='POST'>
   <h1 class='h3 mb-3 font-weight-normal'>Register</h1>
-  <input type='text' class='form-control' placeholder='Username' name='username' oninput='matchPassword()' required autofocus>
+  <input type='text' class='form-control' placeholder='Username' name='username' required autofocus>
   <input type='password' class='form-control' placeholder='Password' name='password' oninput='matchPassword()' required>
   <input type='password' class='form-control' placeholder='Confirm Password' oninput='matchPassword()' name='confirmPassword' required>
   <hr>
@@ -46,14 +46,12 @@ const matchPassword = _ => {
   const but = document.querySelector('button');
   const password = document.querySelector('input[name=password]').value;
   const confirmPassword = document.querySelector('input[name=confirmPassword').value;
-  console.log(but.attributes)
-  console.log(confirmPassword)
-  if ((password !== confirmPassword) || (!password && !confirmPassword)) {
-    but.className = but.className + ' disabled';
+  if ((password !== confirmPassword) || (password === '' && confirmPassword === '')) {
+    but.className = but.className.match(/disabled/) ? but.className + ' disabled' : but.className;
     but.attributes = but.setAttribute('disabled', '');
   }
   else {
-    but.className = but.className.replace('disabled', '');
+    but.className = but.className.replace(/disabled/, '');
     but.attributes = but.removeAttribute('disabled');
   }
 }

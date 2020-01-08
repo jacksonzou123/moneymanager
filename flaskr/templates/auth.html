@@ -12,8 +12,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
     background-color: #f5f5f5;
   }
 
@@ -43,7 +41,7 @@
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 {% for message in messages %}
-<div>{{message}}</div>
+<div class='text-danger small'>{{message}}</div>
 {% endfor %}
 {% endif %}
 <div id='auth-form'></div id='auth-form'>
@@ -52,5 +50,5 @@
 
 {% block scripts %}
 {{ super() }}
-<script type='text/javascript' src='../static/assets/auth.js'></script>
+<script defer type='text/javascript' src='../static/assets/auth.js'></script>
 {% endblock %}
