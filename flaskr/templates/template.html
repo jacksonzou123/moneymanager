@@ -6,7 +6,22 @@
   <title>Our Website {% block head %}{% endblock %}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="static/styles/custom.css">
+  <link rel="stylesheet" type="text/css" href="static/styles/mainpage.css">
+  <style>
+  .searchbar {
+    float: right;
+  }
+  @media only screen and (max-width: 576px){
+    .col-sm {
+      text-align: center;
+    }
+    .searchbar {
+      float: none;
+      margin-left:auto;
+      margin-right:auto;
+    }
+  }
+  </style>
 </head>
 
 <body>
@@ -18,26 +33,33 @@
   </div>
 
   <div style="padding: 30px;">
-
-
     <div class="container-fluid">
 
-      <div class="row">
-        <div class="col">
-          <h2 class="hellotitle">Hello, Jeff!</h2>
-          <!-- <div class="md-form active-pink active-pink-2 mb-3 mt-0">
+      <div class="row" style="padding-bottom: 30px;">
+        <div class="col-sm">
+          <h2>Hello, {{ name }}!</h2>
+        </div>
+        <div class="col-sm">
+          <div class="form active-pink active-pink-2 searchbar" style="width:20em;">
             <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-          </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="padding-bottom: 50px;">
+        <div class="col" style="text-align: center">
+          <h4>Add Transaction</h4>
+          <a href="#" class="addButton"></a>
         </div>
       </div>
 
       <div class="container rounded border">
         <div class="row rounded">
           <div class="col-md border">
-            Hello
+            <h4>Quick Stats</h4>
           </div>
           <div class="col-md border">
-            Hello
+            <h4>Tags</h4>
           </div>
         </div>
       </div>
