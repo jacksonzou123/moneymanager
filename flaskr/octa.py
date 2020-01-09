@@ -11,4 +11,6 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @require_login
 def user_info():
     if request.method == 'POST':
-        return jsonify(session['user'])
+        response = jsonify(session['user'])
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
