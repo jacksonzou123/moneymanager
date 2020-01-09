@@ -1,3 +1,6 @@
+ZouJ -- 2020-01-08 14:50
+	Implemented database creator and added adding to transactions method
+
 leiJ -- 2020-01-04 18:58
 	Added reusable code from previous project.
 

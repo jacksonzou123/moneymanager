@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   transaction_name TEXT NOT NULL,
   transaction_amount REAL NOT NULL,
   transaction_note TEXT,
+  transaction_date TEXT,
   tag_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (tag_id) REFERENCES tags (tag_id)
@@ -29,3 +30,13 @@ CREATE TABLE IF NOT EXISTS todos (
   todo_deadline TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES users (id)
 );
+
+CREATE TABLE IF NOT EXISTS request {
+  req_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sender_id INTEGER NOT NULL,
+  recipient_id INTEGER NOT NULL,
+  req_amount INTEGER NOT NULL,
+  req_note TEXT,
+  FOREIGN KEY (sender_id) REFERENCES users (id)
+  FOREIGN KEY (recipient_id) REFERENCES users (id)
+}

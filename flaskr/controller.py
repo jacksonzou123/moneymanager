@@ -10,7 +10,6 @@ def require_login(f):
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
             return redirect('/auth/signin')
-
         return f(*args, **kwargs)
 
     return decorated_function
@@ -29,3 +28,8 @@ def assert_fields(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+def newTransaction(name, amount, note, bookmark):
+    g.db.execute(f'INSERT INTO transactions (NULL, "{session["user"]["id"]}", "{name}", {amount}, "{note}", date("now"), "{bookmark}")')
+    g.db.commit()
+    return True
