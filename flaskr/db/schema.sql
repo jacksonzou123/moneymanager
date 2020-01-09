@@ -31,12 +31,12 @@ CREATE TABLE IF NOT EXISTS todos (
   FOREIGN KEY (author_id) REFERENCES users (id)
 );
 
-CREATE TABLE IF NOT EXISTS request {
+CREATE TABLE IF NOT EXISTS request (
   req_id INTEGER PRIMARY KEY AUTOINCREMENT,
   sender_id INTEGER NOT NULL,
   recipient_id INTEGER NOT NULL,
   req_amount INTEGER NOT NULL,
   req_note TEXT,
-  FOREIGN KEY (sender_id) REFERENCES users (id)
+  FOREIGN KEY (sender_id) REFERENCES users (id),
   FOREIGN KEY (recipient_id) REFERENCES users (id)
-}
+)

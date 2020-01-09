@@ -1,3 +1,6 @@
+leiJ -- 2020-01-08 21:59
+  Added javascript to templates to allow for functionalities without reload
+
 ZouJ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 

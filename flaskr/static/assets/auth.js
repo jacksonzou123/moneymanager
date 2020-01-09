@@ -35,10 +35,12 @@ const switchAuth = target => {
   if (target === 'register') {
     history.pushState(null, '', '/auth/register');
     renderAuth(register);
+    document.title = 'Register';
   }
   else if (target === 'signin') {
     history.pushState(null, '', '/auth/signin');
     renderAuth(signin);
+    document.title = 'Sign In';
   }
 };
 
@@ -57,9 +59,13 @@ const matchPassword = _ => {
 }
 
 window.onload = _ => {
-  if (window.location.pathname.includes('signin'))
+  if (window.location.pathname.includes('signin')) {
     switchAuth('signin');
-  else
+    document.title = 'Sign In';
+  }
+  else {
     switchAuth('register');
+    document.title = 'Register';
+  }
 };
 
