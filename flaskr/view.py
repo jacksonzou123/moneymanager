@@ -10,4 +10,4 @@ BP = Blueprint('view', __name__, url_prefix='')
 @BP.route('/', methods=['GET'])
 @require_login
 def index():
-    return render_template('template.html')
+    return render_template('app.html')
