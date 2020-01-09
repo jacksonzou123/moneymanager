@@ -5,8 +5,20 @@
 ## Roster
 
 * Jackson Zou
+  * Project Manager
+  * Back-end
+    * Flask Routes
+    * Database Actions
 * Jeff Lin
+  * Front-end
+    * Templates
+    * CSS Styling
 * Jun Tao Lei
+  * Front-end
+    * Javascript Functionalities
+  * Back-end
+    * Setup Database and File System Transfer
+    * Setup Authentication
 
 ## What is Spendie
 
@@ -14,7 +26,8 @@ Spendie is a budget/money management web application designed to track your spen
 
 ## API Dependencies
 
-To be determined...
+* [Google Maps Embed API](../blob/master/doc/api_googlemapsembed.pdf)
+* [Google Sheets API](../blob/master/doc/api_googlesheets.pdf)
 
 ## Run Instruction
 
@@ -41,10 +54,10 @@ To be determined...
 5. Install the required third party packages.
 
    ```bash
-   pip3 install -r requirements.txt
+   pip3 install -r doc/requirements.txt
    ```
 
-6. Export any required enviroment variables.
+6. Export any required enviroment variables(skip for now).
 
    ```bash
    to be determined...
