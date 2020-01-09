@@ -75,6 +75,15 @@ def getTags():
     except Error:
         return False
 
+def deleteTag(id):
+    try:
+        g.db.execute(
+            f'DELETE FROM tags WHERE tag_id = {id}'
+        )
+        return True
+    except Error:
+        return False
+
 def newTodo(title, body, deadline):
     try:
         g.db.execute(
