@@ -1,8 +1,9 @@
 """Flask app controller"""
 
+from sqlite3 import Error
 from functools import wraps
 
-from flask import session, redirect, request, render_template, flash
+from flask import session, redirect, request, flash
 
 
 def require_login(f):
@@ -19,7 +20,6 @@ def assert_fields(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if request.method == 'POST':
-            print(request.environ['REMOTE_ADDR'])
             error = None
             for name in request.form:
                 if not request.form[name]:
@@ -29,7 +29,13 @@ def assert_fields(f):
 
     return decorated_function
 
-def newTransaction(name, amount, note, bookmark):
-    g.db.execute(f'INSERT INTO transactions (NULL, "{session["user"]["id"]}", "{name}", {amount}, "{note}", date("now"), "{bookmark}")')
-    g.db.commit()
-    return True
+
+def newTransaction(name, amount, note, tag):
+    try:
+        g.db.execute(
+            f'INSERT INTO transactions (NULL, "{session["user"]["id"]}", "{name}", {amount}, "{note}", date("now"), "{tag}")'
+        )
+        g.db.commit()
+        return True
+    except Error:
+        return False

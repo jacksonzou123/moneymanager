@@ -1,40 +1,8 @@
 {% extends 'base.html' %}
 
 {% block style %}
-<style>
-  html,
-  body {
-    height: 100%;
-  }
-
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f5f5f5;
-  }
-
-  .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-  }
-
-  .form-signin .checkbox {
-    font-weight: 400;
-  }
-
-  .form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-</style>
+{{ super() }}
+<link rel="stylesheet" href="../static/styles/auth.css">
 {% endblock %}
 
 {% block content %}
