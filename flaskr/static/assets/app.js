@@ -1,15 +1,87 @@
 let state = {
   'username': '',
-  'addTransaction': false,
+  'addTransaction': false
 };
 
-const focus = props => {
+let homeState;
+
+const setState = (update, currentState = state) => {
+  state = Object.assign({}, currentState, update);
+};
+
+const renderApp = (name, component) => {
+  document.title = name;
+  document.getElementById('app').innerHTML = component;
+};
+
+const handleAddTransaction = app => {
+  setState({ addTransaction: true });
+  renderApp('Add Transaction', app(state));
+}
+
+const handleHome = app => {
+  setState({}, homeState);
+  renderApp('Home', app(state));
+}
+
+const transactionForm = `
+  <form>
+    <input type="text" name="transactionName">
+    <input type="text" name="transactionAmount">
+    <input type="text" name="transactionNone">
+    <input type="text" name="transactionTag">
+    <button type="button" class="btn btn-sm btn-primary rounded-pill">
+      Submite New Transaction
+    </button>
+  </form>
+`;
+
+const app = props => {
+  return (
+    `
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-brand btn btn-link" type="button" onClick="handleHome(app)">Spendie</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/transactions">Transactions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/requests">Requests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/todos">Todos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/settings">Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/logout">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav >
+      <div class="p-3">
+        <div class="container-fluid">
+          ${props.addTransaction ? transactionForm : home({ 'username': props.username })}
+        </div>
+      </div>
+    `
+  );
+};
+
+const home = props => {
   return (
     `
     <div class="d-flex justify-content-between pb-4">
       <h3>Hello, ${props.username}!</h3>
-      ${addTransaction}
-    </div>
+      <button type="button" class="btn btn-sm btn-primary rounded-pill" onClick='handleAddTransaction(app)' >
+        Add Transaction
+      </button >
+      </div >
     <div class="focus-container container rounded-pill border">
       <div class="row rounded">
         <div class="col-md border-right">
@@ -24,52 +96,13 @@ const focus = props => {
   );
 };
 
-const transactionForm = `
-  <form>
-    <input type="text" name="transactionName">
-    <input type="text" name="transactionAmount">
-    <input type="text" name="transactionNone">
-    <input type="text" name="transactionTag">
-    <button type="button">
-      Submite New Transaction
-    </button>
-  </form>
-`;
-
-const addTransaction = `
-  <button type="button" class="btn btn-sm btn-primary rounded-pill" onClick={handleAddTransaction()}>
-    Add Transaction
-  </button>
-`;
-
-const handleAddTransaction = props => {
-  state = Object.assign({}, state, { addTransaction: true });
-  renderApp(home(state));
-}
-
-const home = props => {
-  return (
-    `
-    <div class="p-3">
-      <div class="container-fluid">
-        ${state.addTransaction ? transactionForm : focus({ 'username': props.username })}
-      </div>
-    </div>
-    `
-  );
-};
-
-const renderApp = component => {
-  document.getElementById('app').innerHTML = component;
-};
-
 window.onload = async _ => {
   const url = 'http://localhost:5000';
   if (window.location.pathname === '/') {
     const response = await fetch(`${url}/octa/userinfo`, { method: 'POST' });
     const responseObject = await response.json();
-    state = Object.assign({}, state, { 'username': responseObject.username })
-    renderApp(home(state));
-    document.title = 'Home';
+    setState({ 'username': responseObject.username })
+    homeState = state;
+    renderApp('Home', app(state));
   };
 };
