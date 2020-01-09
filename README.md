@@ -12,9 +12,10 @@
 
 Spendie is a budget/money management web application designed to track your spending and visualize it in a intuitive way.
 
-## API Dependencies
+## API's
 
-To be determined...
+Google Sheets
+Google Maps Embed
 
 ## Run Instruction
 
@@ -44,7 +45,7 @@ To be determined...
    pip3 install -r requirements.txt
    ```
 
-6. Export any required enviroment variables.
+6. Export any required environment variables.
 
    ```bash
    to be determined...
