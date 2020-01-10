@@ -16,22 +16,24 @@ const renderApp = (name, component) => {
 
 const handleAddTransaction = app => {
   setState({ addTransaction: true });
-  history.pushState(null, '', '/add/transaction')
+  history.pushState(null, '', '/add/transaction');
   renderApp('Add Transaction', app(state));
 }
 
 const handleHome = app => {
   setState({}, homeState);
+  history.pushState(null, '', '/');
   renderApp('Home', app(state));
 }
 
 const transactionForm = `
-  <form class='form-group text-center mw-50'>
+  <form class='d-flex justify-content-center flex-column form-group text-center m-auto' style='max-width: 330px;'>
     <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
     <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
+    <input type="date" class='form-control mb-3' name="transactionDate" placeholder="Transaction Date">
     <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
     <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
-    <button type="button" class="btn btn-sm btn-primary rounded-pill">
+    <button type="button" class="btn btn-sm btn-primary rounded">
       Submit New Transaction
     </button>
   </form>
@@ -60,7 +62,7 @@ const app = props => {
               <a class="nav-link" href="/settings">Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/auth/logout">Log Out</a>
+              <a class="nav-link" href="/logout">Log Out</a>
             </li>
           </ul>
         </div>
@@ -77,19 +79,21 @@ const app = props => {
 const home = props => {
   return (
     `
-    <div class="d-flex justify-content-between pb-4">
-      <h3>Hello, ${props.username}!</h3>
-      <button type="button" class="btn btn-sm btn-primary rounded-pill" onClick='handleAddTransaction(app)' >
-        Add Transaction
-      </button >
-      </div >
-    <div class="container rounded-pill border">
-      <div class="row rounded">
-        <div class="col-md border-right">
-          <h4>Quick Stats</h4>
-        </div>
-        <div class="col-md">
-          <h4>Tags</h4>
+    <div class="d-flex justify-content-between flex-column pb-4">
+      <div class="container d-flex flex-row mb-3"> 
+        <h3>Hello, ${props.username}!</h3>
+        <button type="button" class="btn btn-sm btn-primary rounded ml-auto" onClick='handleAddTransaction(app)' >
+          Add Transaction
+        </button >
+      </div>
+      <div class="container rounded border">
+        <div class="row rounded">
+          <div class="col-md border-right">
+            <h4>Quick Stats</h4>
+          </div>
+          <div class="col-md">
+            <h4>Tags</h4>
+          </div>
         </div>
       </div>
     </div>
@@ -97,13 +101,18 @@ const home = props => {
   );
 };
 
-window.onload = _ => {
-  const url = 'http://localhost:5000';
+window.onload = async _ => {
+  const url = window.location.origin;
+
+  const response = await fetch(`${url}/octa/userinfo`, { method: 'FETCH' });
+  const responseObject = await response.json();
+  setState({ 'username': responseObject.username })
+  homeState = state;
+
   if (window.location.pathname === '/') {
-    fetch(`${url}/octa/userinfo`, { method: 'POST' })
-      .then(response => response)
-      .then(response => response.json())
-      .then(({ username }) => renderApp(home({ name: username })));
-    document.title = 'Home';
+    renderApp('Home', app(state));
+  }
+  else if (window.location.pathname.includes('add/transaction')) {
+    handleAddTransaction(app)
   }
 };

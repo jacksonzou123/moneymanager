@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS tags (
   tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
   tag_type TEXT NOT NULL,
-  tag_summary TEXT
+  tag_summary TEXT,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

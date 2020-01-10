@@ -3,14 +3,14 @@
 from sqlite3 import Error
 from functools import wraps
 
-from flask import session, redirect, request, flash
+from flask import session, redirect, request, flash, jsonify
 
 
 def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            return redirect('/auth/signin')
+            return redirect('/signin')
         return f(*args, **kwargs)
 
     return decorated_function
@@ -35,14 +35,14 @@ def jsonify_response(f):
     @require_login
     @assert_fields
     def decorated_function(*args, **kwargs):
-        response = f(*args, **kwargs)
+        response = jsonify(f(*args, **kwargs))
         response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
     return decorated_function
 
 
-def newTransaction(name, amount, note, tag, date = 'date("now")'):
+def newTransaction(name, amount, note, tag, date='date("now")'):
     try:
         g.db.execute(
             f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{name}", {amount}, "{note}", {date}, "{tag}")'
@@ -61,6 +61,7 @@ def getTransactions():
     except Error:
         return False
 
+
 def editTransaction(id, name, amount, note, date, tag):
     try:
         g.db.execute(
@@ -70,11 +71,10 @@ def editTransaction(id, name, amount, note, date, tag):
     except Error:
         return False
 
+
 def deleteTransaction(id):
     try:
-        g.db.execute(
-            f'DELETE FROM transactions WHERE transaction_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM transactions WHERE transaction_id = {id}')
         return True
     except Error:
         return False
@@ -94,7 +94,7 @@ def newTag(name, note):
 def getTags():
     try:
         return g.db.execute(
-            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}''
+            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
         return False
@@ -102,12 +102,11 @@ def getTags():
 
 def deleteTag(id):
     try:
-        g.db.execute(
-            f'DELETE FROM tags WHERE tag_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM tags WHERE tag_id = {id}')
         return True
     except Error:
         return False
+
 
 def newTodo(title, body, deadline):
     try:
@@ -118,11 +117,10 @@ def newTodo(title, body, deadline):
     except Error:
         return False
 
+
 def deleteTodo(id):
     try:
-        g.db.execute(
-            f'DELETE FROM todos WHERE todo_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM todos WHERE todo_id = {id}')
         return True
     except Error:
         return False
