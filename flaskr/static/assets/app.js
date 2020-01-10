@@ -16,12 +16,13 @@ const renderApp = (name, component) => {
 
 const handleAddTransaction = app => {
   setState({ addTransaction: true });
-  history.pushState(null, '', '/add/transaction')
+  history.pushState(null, '', '/add/transaction');
   renderApp('Add Transaction', app(state));
 }
 
 const handleHome = app => {
   setState({}, homeState);
+  history.pushState(null, '', '');
   renderApp('Home', app(state));
 }
 
@@ -77,19 +78,21 @@ const app = props => {
 const home = props => {
   return (
     `
-    <div class="d-flex justify-content-between pb-4">
-      <h3>Hello, ${props.username}!</h3>
-      <button type="button" class="btn btn-sm btn-primary rounded-pill" onClick='handleAddTransaction(app)' >
-        Add Transaction
-      </button >
-      </div >
-    <div class="container rounded-pill border">
-      <div class="row rounded">
-        <div class="col-md border-right">
-          <h4>Quick Stats</h4>
-        </div>
-        <div class="col-md">
-          <h4>Tags</h4>
+    <div class="d-flex justify-content-between flex-column pb-4">
+      <div class="container d-flex flex-row mb-3"> 
+        <h3>Hello, ${props.username}!</h3>
+        <button type="button" class="btn btn-sm btn-primary rounded ml-auto" onClick='handleAddTransaction(app)' >
+          Add Transaction
+        </button >
+      </div>
+      <div class="container rounded border">
+        <div class="row rounded">
+          <div class="col-md border-right">
+            <h4>Quick Stats</h4>
+          </div>
+          <div class="col-md">
+            <h4>Tags</h4>
+          </div>
         </div>
       </div>
     </div>
@@ -98,9 +101,9 @@ const home = props => {
 };
 
 window.onload = async _ => {
-  const url = 'http://localhost:5000';
+  const url = window.location.origin;
   if (window.location.pathname === '/') {
-    const response = await fetch(`${url}/octa/userinfo`, { method: 'POST' });
+    const response = await fetch(`${url}/octa/userinfo`, { method: 'FETCH' });
     const responseObject = await response.json();
     setState({ 'username': responseObject.username })
     homeState = state;

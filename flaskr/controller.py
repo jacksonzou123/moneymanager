@@ -3,7 +3,7 @@
 from sqlite3 import Error
 from functools import wraps
 
-from flask import session, redirect, request, flash
+from flask import session, redirect, request, flash, jsonify
 
 
 def require_login(f):
@@ -35,7 +35,7 @@ def jsonify_response(f):
     @require_login
     @assert_fields
     def decorated_function(*args, **kwargs):
-        response = f(*args, **kwargs)
+        response = jsonify(f(*args, **kwargs))
         response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
