@@ -27,12 +27,13 @@ const handleHome = app => {
 }
 
 const transactionForm = `
-  <form class='form-group text-center mw-50'>
+  <form class='d-flex justify-content-center flex-column form-group text-center m-auto' style='max-width: 330px;'>
     <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
     <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
+    <input type="date" class='form-control mb-3' name="transactionDate" placeholder="Transaction Date">
     <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
     <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
-    <button type="button" class="btn btn-sm btn-primary rounded-pill">
+    <button type="button" class="btn btn-sm btn-primary rounded">
       Submit New Transaction
     </button>
   </form>
@@ -61,7 +62,7 @@ const app = props => {
               <a class="nav-link" href="/settings">Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/auth/logout">Log Out</a>
+              <a class="nav-link" href="/logout">Log Out</a>
             </li>
           </ul>
         </div>
@@ -102,11 +103,16 @@ const home = props => {
 
 window.onload = async _ => {
   const url = window.location.origin;
+
+  const response = await fetch(`${url}/octa/userinfo`, { method: 'FETCH' });
+  const responseObject = await response.json();
+  setState({ 'username': responseObject.username })
+  homeState = state;
+
   if (window.location.pathname === '/') {
-    const response = await fetch(`${url}/octa/userinfo`, { method: 'FETCH' });
-    const responseObject = await response.json();
-    setState({ 'username': responseObject.username })
-    homeState = state;
     renderApp('Home', app(state));
-  };
+  }
+  else if (window.location.pathname.includes('add/transaction')) {
+    handleAddTransaction(app)
+  }
 };

@@ -10,7 +10,7 @@ def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            return redirect('/auth/signin')
+            return redirect('/signin')
         return f(*args, **kwargs)
 
     return decorated_function
