@@ -22,7 +22,7 @@ const handleAddTransaction = app => {
 
 const handleHome = app => {
   setState({}, homeState);
-  history.pushState(null, '', '');
+  history.pushState(null, '', '/');
   renderApp('Home', app(state));
 }
 

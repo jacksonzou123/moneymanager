@@ -35,11 +35,7 @@ def jsonify_response(f):
     @require_login
     @assert_fields
     def decorated_function(*args, **kwargs):
-<<<<<<< HEAD
         response = jsonify(f(*args, **kwargs))
-=======
-        response = f(*args, **kwargs)
->>>>>>> c570dfd9f96324d162fba0049e95684c0e139c72
         response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
@@ -90,7 +86,7 @@ def newTag(name, note):
 def getTags():
     try:
         return g.db.execute(
-            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}''
+            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
         return False
