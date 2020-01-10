@@ -18,8 +18,10 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 CREATE TABLE IF NOT EXISTS tags (
   tag_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
   tag_type TEXT NOT NULL,
-  tag_summary TEXT
+  tag_summary TEXT,
+  FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS todos (
@@ -28,6 +30,7 @@ CREATE TABLE IF NOT EXISTS todos (
   todo_title TEXT NOT NULL,
   todo_body TEXT,
   todo_deadline TEXT NOT NULL,
+  todo_done INTEGER NOT NULL,
   FOREIGN KEY (author_id) REFERENCES users (id)
 );
 

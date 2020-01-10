@@ -1,55 +1,71 @@
 let state = {
   'username': '',
-  'addTransaction': false,
+  'addTransaction': false
 };
 
-const focus = props => {
+let homeState;
+
+const setState = (update, currentState = state) => {
+  state = Object.assign({}, currentState, update);
+};
+
+const renderApp = (name, component) => {
+  document.title = name;
+  document.getElementById('app').innerHTML = component;
+};
+
+const handleAddTransaction = app => {
+  setState({ addTransaction: true });
+  history.pushState(null, '', '/add/transaction');
+  renderApp('Add Transaction', app(state));
+}
+
+const handleHome = app => {
+  setState({}, homeState);
+  history.pushState(null, '', '/');
+  renderApp('Home', app(state));
+}
+
+const transactionForm = `
+  <form class='form-group text-center mw-50'>
+    <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
+    <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
+    <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
+    <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
+    <button type="button" class="btn btn-sm btn-primary rounded-pill">
+      Submit New Transaction
+    </button>
+  </form>
+`;
+
+const app = props => {
   return (
     `
-    <div style="padding: 30px;">
-      <div class="container-fluid">
-
-        <div class="row" style="padding-bottom: 30px;">
-          <div class="col-sm">
-            <h2>Hello, ${props.username}!</h2>
-          </div>
-          <div class="col-sm">
-            <input class="form-control searchbar" type="text" placeholder="Search" aria-label="Search">
-          </div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-brand btn btn-link" type="button" onClick="handleHome(app)">Spendie</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/transactions">Transactions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/requests">Requests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/todos">Todos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/settings">Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/logout">Log Out</a>
+            </li>
+          </ul>
         </div>
-
-        <div class="row" style="padding-bottom: 50px;">
-          <div class="col" style="text-align: center">
-            <h4>Add Transaction</h4>
-            ${addTransaction}
-          </div>
-        </div>
-
-        <div class="row" style="padding-bottom: 50px;">
-          <div class="container rounded border">
-            <div class="row rounded">
-              <div class="col-md col-md-custom border">
-                <h4>Quick Stats</h4>
-              </div>
-              <div class="col-md col-md-custom border">
-                <h4>Tags</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" style="padding-bottom: 50px;">
-          <div class="container rounded border">
-            <div class="row rounded">
-              <div class="col-md col-md-custom border">
-                <h4>Recent Transactions</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+      </nav >
     `
   );
 };
@@ -67,7 +83,7 @@ const transactionForm = `
             <input type="date" class="mb-3" name="transactionDate">
             <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Amount">
             <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Note">
-            <button type="button" class="btn btn-success">Submit New Transaction</button>
+            <button type="button" class="btn">Submit New Transaction</button>
           </form>
         </div>
       </div>
@@ -87,26 +103,35 @@ const handleAddTransaction = props => {
 const home = props => {
   return (
     `
-    <div class="p-3">
-      <div class="container-fluid">
-        ${state.addTransaction ? transactionForm : focus({ 'username': props.username })}
+    <div class="d-flex justify-content-between flex-column pb-4">
+      <div class="container d-flex flex-row mb-3">
+        <h3>Hello, ${props.username}!</h3>
+        <button type="button" class="btn btn-sm btn-primary rounded ml-auto" onClick='handleAddTransaction(app)' >
+          Add Transaction
+        </button >
+      </div>
+      <div class="container rounded border">
+        <div class="row rounded">
+          <div class="col-md border-right">
+            <h4>Quick Stats</h4>
+          </div>
+          <div class="col-md">
+            <h4>Tags</h4>
+          </div>
+        </div>
       </div>
     </div>
     `
   );
 };
 
-const renderApp = component => {
-  document.getElementById('app').innerHTML = component;
-};
-
 window.onload = async _ => {
-  const url = 'http://localhost:5000';
+  const url = window.location.origin;
   if (window.location.pathname === '/') {
-    const response = await fetch(`${url}/octa/userinfo`, { method: 'POST', mode: 'cors' });
+    const response = await fetch(`${url}/octa/userinfo`, { method: 'FETCH' });
     const responseObject = await response.json();
-    state = Object.assign({}, state, { 'username': responseObject.username })
-    renderApp(home(state));
-    document.title = 'Home';
+    setState({ 'username': responseObject.username })
+    homeState = state;
+    renderApp('Home', app(state));
   };
 };

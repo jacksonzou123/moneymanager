@@ -1,7 +1,11 @@
+zouJ -- 2020-01-09 14:44
+  Added more database mutator and accessor methods
+  Adjusted database table columns 
+
 leiJ -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
 
-ZouJ -- 2020-01-08 14:50
+zouJ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 
 leiJ -- 2020-01-04 18:58

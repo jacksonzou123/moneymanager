@@ -24,7 +24,7 @@
 
 Spendie is a budget/money management web application designed to track your spending and visualize it in a intuitive way.
 
-## API Dependencies
+## API's
 
 * [Google Maps Embed API](./doc/api_googlemapsembed.pdf)
 * [Google Sheets API](./doc/api_googlesheets.pdf)
