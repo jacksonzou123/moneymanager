@@ -6,13 +6,6 @@
 {% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<div class='text-danger small'>{{message}}</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
 <div id='app' class='container mw-100 p-0 m-0'></div>
 {% endblock %}
 

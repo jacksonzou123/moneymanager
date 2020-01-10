@@ -16,6 +16,7 @@ const renderApp = (name, component) => {
 
 const handleAddTransaction = app => {
   setState({ addTransaction: true });
+  history.pushState(null, '', '/add/transaction')
   renderApp('Add Transaction', app(state));
 }
 
@@ -25,13 +26,13 @@ const handleHome = app => {
 }
 
 const transactionForm = `
-  <form>
-    <input type="text" name="transactionName">
-    <input type="text" name="transactionAmount">
-    <input type="text" name="transactionNone">
-    <input type="text" name="transactionTag">
+  <form class='form-group text-center mw-50'>
+    <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
+    <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
+    <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
+    <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
     <button type="button" class="btn btn-sm btn-primary rounded-pill">
-      Submite New Transaction
+      Submit New Transaction
     </button>
   </form>
 `;
@@ -82,7 +83,7 @@ const home = props => {
         Add Transaction
       </button >
       </div >
-    <div class="focus-container container rounded-pill border">
+    <div class="container rounded-pill border">
       <div class="row rounded">
         <div class="col-md border-right">
           <h4>Quick Stats</h4>

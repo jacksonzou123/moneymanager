@@ -30,6 +30,18 @@ def assert_fields(f):
     return decorated_function
 
 
+def jsonify_response(f):
+    @wraps(f)
+    @require_login
+    @assert_fields
+    def decorated_function(*args, **kwargs):
+        response = f(*args, **kwargs)
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        return response
+
+    return decorated_function
+
+
 def newTransaction(name, amount, note, tag):
     try:
         g.db.execute(
