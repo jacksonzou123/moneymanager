@@ -30,6 +30,18 @@ def assert_fields(f):
     return decorated_function
 
 
+def jsonify_response(f):
+    @wraps(f)
+    @require_login
+    @assert_fields
+    def decorated_function(*args, **kwargs):
+        response = f(*args, **kwargs)
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        return response
+
+    return decorated_function
+
+
 def newTransaction(name, amount, note, tag):
     try:
         g.db.execute(
@@ -40,6 +52,7 @@ def newTransaction(name, amount, note, tag):
     except Error:
         return False
 
+      
 def getTransactions():
     try:
         return g.db.execute(
@@ -48,6 +61,7 @@ def getTransactions():
     except Error:
         return False
 
+      
 def deleteTransaction(id):
     try:
         g.db.execute(
@@ -57,6 +71,7 @@ def deleteTransaction(id):
     except Error:
         return False
 
+      
 def newTag(name, note):
     try:
         g.db.execute(
@@ -67,6 +82,7 @@ def newTag(name, note):
     except Error:
         return False
 
+      
 def getTags():
     try:
         return g.db.execute(
@@ -75,6 +91,7 @@ def getTags():
     except Error:
         return False
 
+      
 def deleteTag(id):
     try:
         g.db.execute(
@@ -84,6 +101,7 @@ def deleteTag(id):
     except Error:
         return False
 
+      
 def newTodo(title, body, deadline):
     try:
         g.db.execute(
