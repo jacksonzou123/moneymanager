@@ -16,20 +16,13 @@ const renderApp = (name, component) => {
 
 const handleAddTransaction = app => {
   setState({ addTransaction: true });
-<<<<<<< HEAD
   history.pushState(null, '', '/add/transaction');
-=======
-  history.pushState(null, '', '/add/transaction')
->>>>>>> cf8783101dc96439abb5051d21d4f0505559d4f0
   renderApp('Add Transaction', app(state));
 }
 
 const handleHome = app => {
   setState({}, homeState);
-<<<<<<< HEAD
   history.pushState(null, '', '');
-=======
->>>>>>> cf8783101dc96439abb5051d21d4f0505559d4f0
   renderApp('Home', app(state));
 }
 
@@ -85,7 +78,6 @@ const app = props => {
 const home = props => {
   return (
     `
-<<<<<<< HEAD
     <div class="d-flex justify-content-between flex-column pb-4">
       <div class="container d-flex flex-row mb-3"> 
         <h3>Hello, ${props.username}!</h3>
@@ -101,21 +93,6 @@ const home = props => {
           <div class="col-md">
             <h4>Tags</h4>
           </div>
-=======
-    <div class="d-flex justify-content-between pb-4">
-      <h3>Hello, ${props.username}!</h3>
-      <button type="button" class="btn btn-sm btn-primary rounded-pill" onClick='handleAddTransaction(app)' >
-        Add Transaction
-      </button >
-      </div >
-    <div class="container rounded-pill border">
-      <div class="row rounded">
-        <div class="col-md border-right">
-          <h4>Quick Stats</h4>
-        </div>
-        <div class="col-md">
-          <h4>Tags</h4>
->>>>>>> cf8783101dc96439abb5051d21d4f0505559d4f0
         </div>
       </div>
     </div>
@@ -123,7 +100,6 @@ const home = props => {
   );
 };
 
-<<<<<<< HEAD
 window.onload = async _ => {
   const url = window.location.origin;
   if (window.location.pathname === '/') {
@@ -133,15 +109,4 @@ window.onload = async _ => {
     homeState = state;
     renderApp('Home', app(state));
   };
-=======
-window.onload = _ => {
-  const url = 'http://localhost:5000';
-  if (window.location.pathname === '/') {
-    fetch(`${url}/octa/userinfo`, { method: 'POST' })
-      .then(response => response)
-      .then(response => response.json())
-      .then(({ username }) => renderApp(home({ name: username })));
-    document.title = 'Home';
-  }
->>>>>>> cf8783101dc96439abb5051d21d4f0505559d4f0
 };
