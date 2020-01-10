@@ -1,5 +1,5 @@
 const signin = `
-<form class='form-signin text-center' action='/auth/signin' method='POST'>
+<form class='form-signin text-center' action='/signin' method='POST'>
   <h1 class='h3 mb-3 font-weight-normal'>Sign In</h1>
   <input type='text' class='form-control' placeholder='Username' name='username' required autofocus>
   <input type='password' class='form-control' placeholder='Password' name='password' oninput='matchPassword()' required>
@@ -12,7 +12,7 @@ const signin = `
 `;
 
 const register = `
-<form class='form-signin text-center' action='/auth/register' method='POST'>
+<form class='form-signin text-center' action='/register' method='POST'>
   <h1 class='h3 mb-3 font-weight-normal'>Register</h1>
   <input type='text' class='form-control' placeholder='Username' name='username' required autofocus>
   <input type='password' class='form-control' placeholder='Password' name='password' oninput='matchPassword()' required>
@@ -33,12 +33,12 @@ const renderAuth = component => {
 
 const switchAuth = target => {
   if (target === 'register') {
-    history.pushState(null, '', '/auth/register');
+    history.pushState(null, '', '/register');
     renderAuth(register);
     document.title = 'Register';
   }
   else if (target === 'signin') {
-    history.pushState(null, '', '/auth/signin');
+    history.pushState(null, '', '/signin');
     renderAuth(signin);
     document.title = 'Sign In';
   }

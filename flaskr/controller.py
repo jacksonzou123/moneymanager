@@ -10,7 +10,7 @@ def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            return redirect('/auth/signin')
+            return redirect('/signin')
         return f(*args, **kwargs)
 
     return decorated_function
@@ -42,17 +42,17 @@ def jsonify_response(f):
     return decorated_function
 
 
-def newTransaction(name, amount, note, tag):
+def newTransaction(name, amount, note, tag, date='date("now")'):
     try:
         g.db.execute(
-            f'INSERT INTO transactions (NULL, "{session["user"]["id"]}", "{name}", {amount}, "{note}", date("now"), "{tag}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{name}", {amount}, "{note}", {date}, "{tag}")'
         )
         g.db.commit()
         return True
     except Error:
         return False
 
-      
+
 def getTransactions():
     try:
         return g.db.execute(
@@ -61,17 +61,25 @@ def getTransactions():
     except Error:
         return False
 
-      
-def deleteTransaction(id):
+
+def editTransaction(id, name, amount, note, date, tag):
     try:
         g.db.execute(
-            f'DELETE FROM transactions WHERE transaction_id = {id}'
+            f'UPDATE transactions SET transaction_name = {name}, transaction_amount = {amount}, transaction_note = {note}, transaction_date = {date}, tag_id = {tag}'
         )
         return True
     except Error:
         return False
 
-      
+
+def deleteTransaction(id):
+    try:
+        g.db.execute(f'DELETE FROM transactions WHERE transaction_id = {id}')
+        return True
+    except Error:
+        return False
+
+
 def newTag(name, note):
     try:
         g.db.execute(
@@ -82,7 +90,7 @@ def newTag(name, note):
     except Error:
         return False
 
-      
+
 def getTags():
     try:
         return g.db.execute(
@@ -91,22 +99,28 @@ def getTags():
     except Error:
         return False
 
-      
+
 def deleteTag(id):
     try:
-        g.db.execute(
-            f'DELETE FROM tags WHERE tag_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM tags WHERE tag_id = {id}')
         return True
     except Error:
         return False
 
-      
+
 def newTodo(title, body, deadline):
     try:
         g.db.execute(
             f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{title}", "{body}", "{deadline}", 0)'
         )
+        return True
+    except Error:
+        return False
+
+
+def deleteTodo(id):
+    try:
+        g.db.execute(f'DELETE FROM todos WHERE todo_id = {id}')
         return True
     except Error:
         return False
