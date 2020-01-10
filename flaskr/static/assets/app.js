@@ -97,13 +97,13 @@ const home = props => {
   );
 };
 
-window.onload = async _ => {
+window.onload = _ => {
   const url = 'http://localhost:5000';
   if (window.location.pathname === '/') {
-    const response = await fetch(`${url}/octa/userinfo`, { method: 'POST' });
-    const responseObject = await response.json();
-    setState({ 'username': responseObject.username })
-    homeState = state;
-    renderApp('Home', app(state));
-  };
+    fetch(`${url}/octa/userinfo`, { method: 'POST' })
+      .then(response => response)
+      .then(response => response.json())
+      .then(({ username }) => renderApp(home({ name: username })));
+    document.title = 'Home';
+  }
 };
