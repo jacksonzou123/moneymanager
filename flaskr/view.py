@@ -1,8 +1,7 @@
 """Flask template view"""
 
 from flask import Blueprint, render_template
-
-from .controller import require_login
+from .controller import require_login, newTag, newTransaction, newTodo
 
 BP = Blueprint('view', __name__, url_prefix='')
 
@@ -12,3 +11,8 @@ BP = Blueprint('view', __name__, url_prefix='')
 @require_login
 def index(path):
     return render_template('app.html')
+
+@BP.route('/testing')
+def testing():
+    newTodo("go poop", "pooping is important")
+    return "success"
