@@ -42,19 +42,6 @@ def jsonify_response(f):
     return decorated_function
 
 
-#WORKS
-def newTransaction(name, amount, note, tag, date='date("now")'):
-    try:
-        g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{name}", {amount}, "{note}", {date}, "{tag}")'
-        )
-        g.db.commit()
-        return True
-    except Error:
-        raise (Error)
-        return False
-
-
 def getTransactions():
     try:
         return g.db.execute(

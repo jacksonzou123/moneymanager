@@ -6,16 +6,27 @@ export const transactionForm = props => {
       </div>
       <div class='row mx-auto mb-3'>
         <form class='d-flex justify-content-center flex-column form-group text-center m-auto' style='max-width: 330px;'>
-          <input type='text' class='form-control mb-3' name='transactionName' placeholder='Transaction Name'>
-          <input type='date' class='form-control mb-3' name='transactionDate'>
-          <input type='number' class='form-control mb-3' name='transactionAmount' placeholder='Amount'>
-          <input type='text' class='form-control mb-3' name='transactionNote' placeholder='Note'>
-          <button type='button' class='btn btn-md btn-primary'>Submit New Transaction</button>
+          <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
+          <input type='date' class='form-control mb-3' name='date'>
+          <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
+          <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+          <input type='text' class='form-control mb-3' name='tag' placeholder='Tag'>
+          <button type='button' id='submitTransaction' class='btn btn-md btn-primary'>Submit New Transaction</button>
         </form>
       </div>
     `
   );
 };
+
+export const transaction = props => {
+  return (
+    `
+      <div>
+      ${props.transaction.map(t => JSON.stringify(t))}
+      </div>
+    `
+  )
+}
 
 export const home = props => {
   return (
@@ -43,6 +54,16 @@ export const home = props => {
 };
 
 export const app = props => {
+  const view = _ => {
+    switch (props.view) {
+      case 'addTransaction':
+        return transactionForm(props)
+      case 'transaction':
+        return transaction(props)
+      default:
+        return home(props)
+    }
+  }
   return (
     `
       <nav class='navbar navbar-expand-lg navbar-light bg-light'>
@@ -53,7 +74,7 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
-              <a class='nav-link' href='/transactions'>Transactions</a>
+              <a type='button' id='toTransaction' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
               <a class='nav-link' href='/requests'>Requests</a>
@@ -72,7 +93,7 @@ export const app = props => {
       </nav >
       <div class='p-3'>
         <div class='container-fluid'>
-          ${props.addTransaction ? transactionForm(props) : home(props)}
+          ${view()}
         </div>
       </div>
     `

@@ -1,4 +1,4 @@
-export let state = { 'username': '', 'addTransaction': false };
+export let state = { 'user': {}, 'view': 'home' };
 
 export const setState = update => {
   state = Object.assign({}, state, update);
