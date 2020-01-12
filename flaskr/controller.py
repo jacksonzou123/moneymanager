@@ -2,6 +2,7 @@
 
 from sqlite3 import Error
 from functools import wraps
+
 from flask import session, redirect, request, flash, jsonify, g
 
 
