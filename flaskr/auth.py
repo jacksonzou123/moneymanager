@@ -1,23 +1,13 @@
+"""Flask app authentication"""
+
 from flask import (Blueprint, request, g, flash, redirect, render_template,
                    session)
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flask import Blueprint, render_template
-from .controller import require_login, newTag, newTransaction, newTodo, assert_fields
+from .controller import require_login, assert_fields
 
-BP = Blueprint('view', __name__, url_prefix='')
+BP = Blueprint('auth', __name__, url_prefix='/auth')
 
-
-@BP.route('/', defaults={'path': ''})
-@BP.route('/<path:path>')
-@require_login
-def index(path):
-    return render_template('app.html')
-
-@BP.route('/testing')
-def testing():
-    newTodo("go poop", "pooping is important")
-    return "success"
 
 @BP.route('/register', methods=['GET', 'POST'])
 @assert_fields
