@@ -40,6 +40,7 @@ def jsonify_response(f):
 
     return decorated_function
 
+
 #WORKS
 def newTransaction(name, amount, note, tag, date='date("now")'):
     try:
@@ -49,7 +50,7 @@ def newTransaction(name, amount, note, tag, date='date("now")'):
         g.db.commit()
         return True
     except Error:
-        raise(Error)
+        raise (Error)
         return False
 
 
@@ -79,6 +80,7 @@ def deleteTransaction(id):
     except Error:
         return False
 
+
 #WORKS
 def newTag(name, note):
     try:
@@ -89,7 +91,7 @@ def newTag(name, note):
         return True
     except Error:
         print(session["user"]["id"])
-        raise(Error)
+        raise (Error)
         return False
 
 
@@ -110,7 +112,7 @@ def deleteTag(id):
         return False
 
 
-def newTodo(title, body, deadline = 'date("now")'):
+def newTodo(title, body, deadline='date("now")'):
     try:
         g.db.execute(
             f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{title}", "{body}", {deadline}, 0)'
@@ -118,7 +120,7 @@ def newTodo(title, body, deadline = 'date("now")'):
         g.db.commit()
         return True
     except Error:
-        raise(Error)
+        raise (Error)
         return False
 
 
