@@ -18,12 +18,10 @@ BP = Blueprint('view', __name__, url_prefix='')
 def index(path):
     return render_template('app.html')
 
-<<<<<<< HEAD
 @BP.route('/testing')
 def testing():
     newTodo("go poop", "pooping is important")
     return "success"
-=======
 
 @BP.route('/register', methods=['GET', 'POST'])
 @assert_fields
@@ -72,4 +70,3 @@ def logout():
     """Clear session and logout the user"""
     session.clear()
     return redirect('/')
->>>>>>> d70e42fa84fed90d49637f8d59558598b800be51
