@@ -18,16 +18,6 @@ export const transactionForm = props => {
   );
 };
 
-export const transaction = props => {
-  return (
-    `
-      <div>
-      ${props.transaction.map(t => JSON.stringify(t))}
-      </div>
-    `
-  )
-}
-
 export const home = props => {
   return (
     `
@@ -53,13 +43,62 @@ export const home = props => {
   );
 };
 
+export const transaction = props => {
+  return (
+    `
+      <div>
+      <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
+        Add Transaction
+      </button >
+      ${props.transaction.map(t => JSON.stringify(t))}
+      </div>
+    `
+  );
+};
+
+export const requests = props => {
+  return (
+    `
+      <div>
+      requests
+      </div>
+    `
+  );
+};
+
+export const todos = props => {
+  return (
+    `
+      <div>
+      todos
+      </div>
+    `
+  );
+};
+
+export const settings = props => {
+  return (
+    `
+      <div>
+      settings
+      </div>
+    `
+  );
+};
+
 export const app = props => {
   const view = _ => {
     switch (props.view) {
       case 'addTransaction':
-        return transactionForm(props)
+        return transactionForm(props);
       case 'transaction':
-        return transaction(props)
+        return transaction(props);
+      case 'requests':
+        return requests(props);
+      case 'todos':
+        return todos(props);
+      case 'settings':
+        return settings(props);
       default:
         return home(props)
     }
@@ -74,16 +113,16 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
-              <a type='button' id='toTransaction' class='navbar-link btn btn-link text-muted'>Transactions</a>
+              <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/requests'>Requests</a>
+              <a type='button' id='toRequests' class='navbar-link btn btn-link text-muted'>Requests</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/todos'>Todos</a>
+              <a type='button' id='toTodos' class='navbar-link btn btn-link text-muted'>Todos</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/settings'>Settings</a>
+              <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
             </li>
             <li class='nav-item'>
               <a class='nav-link' href='/logout'>Log Out</a>

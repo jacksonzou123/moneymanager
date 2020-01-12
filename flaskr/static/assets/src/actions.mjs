@@ -12,6 +12,24 @@ const serializeForm = query => {
   return JSON.stringify(obj)
 }
 
+export const fetchUserInfo = async _ => {
+  const response = await fetch(
+    `${window.location.origin}/octa/fetch/userinfo`,
+    { method: 'FETCH' }
+  );
+  const responseObject = await response.json();
+  setState({ 'user': { 'username': responseObject.username, 'id': responseObject.id } });
+};
+
+export const fetchTransactions = async _ => {
+  const response = await fetch(
+    `${window.location.origin}/octa/fetch/transaction`,
+    { method: 'FETCH' }
+  );
+  const responseObject = await response.json();
+  setState({ 'transaction': responseObject });
+};
+
 export const renderApp = (name, component) => {
   document.title = name;
   g('app').innerHTML = component;
@@ -19,9 +37,21 @@ export const renderApp = (name, component) => {
     'click',
     _ => handleHome(app)
   );
-  g('toTransaction').addEventListener(
+  g('toTransactions').addEventListener(
     'click',
-    _ => handleTransaction(app)
+    _ => handleTransactions(app)
+  );
+  g('toRequests').addEventListener(
+    'click',
+    _ => handleRequests(app)
+  )
+  g('toTodos').addEventListener(
+    'click',
+    _ => handleTodos(app)
+  )
+  g('toSettings').addEventListener(
+    'click',
+    _ => handleSettings(app)
   )
 };
 
@@ -38,21 +68,41 @@ export const handleAddTransaction = app => {
       );
       const responseObject = await response.json();
       if (responseObject.success) {
+        await fetchTransactions();
         handleAddTransaction(app);
       }
     }
   );
 }
 
-export const handleTransaction = app => {
+export const handleTransactions = app => {
   setState({ 'view': 'transaction' })
   history.pushState(null, '', '/transactions');
   renderApp('Transactions', app(state));
-  g('returnHome').addEventListener(
+  g('addTransaction').addEventListener(
     'click',
-    _ => handleHome(app)
+    _ => handleAddTransaction(app)
   );
+};
+
+export const handleRequests = app => {
+  setState({ 'view': 'requests' });
+  history.pushState(null, '', '/requests');
+  renderApp('Requests', app(state));
 }
+
+export const handleTodos = app => {
+  setState({ 'view': 'todos' });
+  history.pushState(null, '', '/todos');
+  renderApp('Todos', app(state));
+};
+
+export const handleSettings = app => {
+  setState({ 'view': 'settings' });
+  history.pushState(null, '', '/settings');
+  renderApp('Settings', app(state));
+};
+
 
 export const handleHome = app => {
   setState({ 'view': 'home' });
@@ -62,4 +112,4 @@ export const handleHome = app => {
     'click',
     _ => handleAddTransaction(app)
   );
-}
+};
