@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<div id='app' class='container mw-100 p-0 m-0'></div>
+<div id='app' class='container-fluid m-0 p-0'></div>
 {% endblock %}
 
 {% block footer %}
@@ -19,5 +19,5 @@
 
 {% block scripts %}
 {{ super() }}
-<script defer type='text/javascript' src='../static/assets/app.js'></script>
+<script defer type='module' src='{{ url_for("static", filename="assets/app.mjs") }}'></script>
 {% endblock %}
