@@ -9,7 +9,7 @@ def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            return redirect('/auth/signin')
+            return redirect('/signin')
         return f(*args, **kwargs)
 
     return decorated_function
@@ -41,10 +41,10 @@ def jsonify_response(f):
     return decorated_function
 
 #WORKS
-def newTransaction(name, amount, note, tag):
+def newTransaction(name, amount, note, tag, date='date("now")'):
     try:
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, "{session["user"]["id"]}", "{name}", {amount}, "{note}", date("now"), "{tag}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{name}", {amount}, "{note}", {date}, "{tag}")'
         )
         g.db.commit()
         return True
@@ -61,6 +61,7 @@ def getTransactions():
     except Error:
         return False
 
+
 def editTransaction(id, name, amount, note, date, tag):
     try:
         g.db.execute(
@@ -70,11 +71,10 @@ def editTransaction(id, name, amount, note, date, tag):
     except Error:
         return False
 
+
 def deleteTransaction(id):
     try:
-        g.db.execute(
-            f'DELETE FROM transactions WHERE transaction_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM transactions WHERE transaction_id = {id}')
         return True
     except Error:
         return False
@@ -104,9 +104,7 @@ def getTags():
 
 def deleteTag(id):
     try:
-        g.db.execute(
-            f'DELETE FROM tags WHERE tag_id = {id}'
-        )
+        g.db.execute(f'DELETE FROM tags WHERE tag_id = {id}')
         return True
     except Error:
         return False
@@ -121,4 +119,12 @@ def newTodo(title, body, deadline = 'date("now")'):
         return True
     except Error:
         raise(Error)
+        return False
+
+
+def deleteTodo(id):
+    try:
+        g.db.execute(f'DELETE FROM todos WHERE todo_id = {id}')
+        return True
+    except Error:
         return False

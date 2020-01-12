@@ -1,9 +1,48 @@
-html, body {
-  height: 100%;
+.searchbar {
+  float: right;
+  width: 20em;
 }
-
+@media only screen and (max-width: 576px){
+  .col-sm {
+    text-align: center;
+  }
+  .searchbar {
+    float: none;
+    width: 80%;
+    margin: auto;
+  }
+}
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+.addButton {
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background-color:#44c767;
+	border-radius:10px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+  font-family:Arial;
+  font-size:40px;
+  font-weight:bold;
+  padding:0px 20px;
+  text-shadow:0px 1px 0px #2f6627;
+}
+.addButton:hover {
+	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	background-color:#5cbf2a;
+}
+.addButton:active {
+	position:relative;
+	top:1px;
+}
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  font-family: San Francisco;
+}
+.col-md-custom {
+  padding: 10px;
+  overflow-y: auto;
+  height: 200px;
 }
