@@ -113,6 +113,9 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
+              <input class="form-control" type="text" placeholder="Search">
+            </li>
+            <li class='nav-item'>
               <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
