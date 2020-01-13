@@ -56,15 +56,9 @@ def login():
         flash(error)
     return render_template('auth.html')
 
-
 @BP.route('/logout', methods=['GET'])
 @require_login
 def logout():
     """Clear session and logout the user"""
     session.clear()
     return redirect('/')
-
-@BP.route('/testing')
-def testing():
-    deleteTag(2)
-    return "dab"

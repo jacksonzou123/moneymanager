@@ -56,14 +56,16 @@ def editTransaction(id, name, amount, note, date, tag):
         g.db.execute(
             f'UPDATE transactions SET transaction_name = {name}, transaction_amount = {amount}, transaction_note = {note}, transaction_date = {date}, tag_id = {tag}'
         )
+        g.db.commit()
         return True
     except Error:
         return False
 
-
+#WORKS
 def deleteTransaction(id):
     try:
         g.db.execute(f'DELETE FROM transactions WHERE transaction_id = {id}')
+        g.db.commit()
         return True
     except Error:
         return False
@@ -101,7 +103,7 @@ def deleteTag(id):
         raise(Error)
         return False
 
-
+#WORKS
 def newTodo(title, body, deadline='date("now")'):
     try:
         g.db.execute(
@@ -113,10 +115,11 @@ def newTodo(title, body, deadline='date("now")'):
         raise (Error)
         return False
 
-
+#WORKS
 def deleteTodo(id):
     try:
         g.db.execute(f'DELETE FROM todos WHERE todo_id = {id}')
+        g.db.commit()
         return True
     except Error:
         return False
