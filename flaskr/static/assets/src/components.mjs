@@ -21,22 +21,26 @@ export const transactionForm = props => {
 export const home = props => {
   return (
     `
-    <div class="container-fluid body-container">
-      <div class="row mb-3">
+    <div class="container-fluid p-0 m-0">
+      <div class="row mb-3 mx-5">
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
-      <div class="row mb-3">
-        <div class="col text-center d-flex justify-content-center flex-column">
+      <div class="row mb-3 d-flex justify-content-center mx-3">
+        <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
-          <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton px-3 text-white rounded mx-auto' id='addTransaction'>+</a>
+          <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
-      <div class="row rounded">
-        <div class="col-md col-md-custom border">
-          <h4>Quick Stats</h4>
+      <div class="card-group mx-5">
+        <div class="card">
+          <div class='card-body'>
+            <h4>Quick Stats</h4>
+          </div>
         </div>
-        <div class="col-md col-md-custom border">
-          <h4>Tags</h4>
+        <div class="col-md border">
+          <div class='card-body'>
+            <h4>Tags</h4>
+          </div>
         </div>
       </div>
     `
@@ -133,8 +137,8 @@ export const app = props => {
           </ul>
         </div>
       </nav >
-      <div class='p-3'>
-        <div class='d-flex justify-content-center flex-column container-fluid mx-3'>
+      <div class='p-5'>
+        <div class='d-flex justify-content-center flex-column container-fluid px-3'>
           ${view()}
         </div>
       </div>

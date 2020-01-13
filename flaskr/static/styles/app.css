@@ -1,8 +1,8 @@
-@font-face {
+/* @font-face {
   font-family: "San Francisco";
   font-weight: 400;
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
-}
+} */
 
 html, body {
   height: 100%;
@@ -13,29 +13,6 @@ body {
   flex-direction: column;
   height: 100%;
   font-family: San Francisco;
-}
-
-.body-container {
-  width: 70%;
-}
-
-.searchbar {
-  float: right;
-  width: 20em;
-}
-
-@media only screen and (max-width: 760px){
-  .hello-title {
-    text-align: center;
-  }
-  .searchbar {
-    float: none;
-    width: 80%;
-    margin: auto;
-  }
-  .body-container {
-    width: 100%;
-  }
 }
 
 .addButton {
