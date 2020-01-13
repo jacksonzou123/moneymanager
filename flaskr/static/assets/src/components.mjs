@@ -18,36 +18,84 @@ export const transactionForm = props => {
   );
 };
 
+export const home = props => {
+  return (
+    `
+      <div style="padding: 30px;">
+        <div class="container-fluid body-container">
+
+          <div class="row">
+            <div class="col-md">
+              <h2 class="hello-title">Hello, ${props.user.username}!</h2>
+            </div>
+            <div class="col-md">
+              <input class="form-control searchbar" type="text" placeholder="Search" aria-label="Search">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col col-md-custom" style="text-align: center">
+              <h4>Add Transaction</h4>
+              <a class='addButton' id='addTransaction' style='color: white'>+</a>
+            </div>
+          </div>
+
+          <div class="container rounded border">
+            <div class="row rounded">
+              <div class="col-md col-md-custom border">
+                <h4>Quick Stats</h4>
+              </div>
+              <div class="col-md col-md-custom border">
+                <h4>Tags</h4>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    `
+  );
+};
+
 export const transaction = props => {
   return (
     `
       <div>
+      <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
+        Add Transaction
+      </button >
       ${props.transaction.map(t => JSON.stringify(t))}
       </div>
     `
-  )
-}
+  );
+};
 
-export const home = props => {
+export const requests = props => {
   return (
     `
-      <div class='d-flex justify-content-between flex-column pb-4'>
-        <div class='container d-flex flex-row mb-3'>
-          <h3>Hello, ${props.user.username}!</h3>
-          <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
-            Add Transaction
-          </button >
-        </div>
-        <div class='container rounded border'>
-          <div class='row rounded'>
-            <div class='col-md border-right'>
-              <h4>Quick Stats</h4>
-            </div>
-            <div class='col-md'>
-              <h4>Tags</h4>
-            </div>
-          </div>
-        </div>
+      <div>
+      requests
+      </div>
+    `
+  );
+};
+
+export const todos = props => {
+  return (
+    `
+      <div>
+      todos
+      </div>
+    `
+  );
+};
+
+export const settings = props => {
+  return (
+    `
+      <div>
+      settings
       </div>
     `
   );
@@ -57,9 +105,15 @@ export const app = props => {
   const view = _ => {
     switch (props.view) {
       case 'addTransaction':
-        return transactionForm(props)
+        return transactionForm(props);
       case 'transaction':
-        return transaction(props)
+        return transaction(props);
+      case 'requests':
+        return requests(props);
+      case 'todos':
+        return todos(props);
+      case 'settings':
+        return settings(props);
       default:
         return home(props)
     }
@@ -74,16 +128,16 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
-              <a type='button' id='toTransaction' class='navbar-link btn btn-link text-muted'>Transactions</a>
+              <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/requests'>Requests</a>
+              <a type='button' id='toRequests' class='navbar-link btn btn-link text-muted'>Requests</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/todos'>Todos</a>
+              <a type='button' id='toTodos' class='navbar-link btn btn-link text-muted'>Todos</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/settings'>Settings</a>
+              <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
             </li>
             <li class='nav-item'>
               <a class='nav-link' href='/logout'>Log Out</a>
