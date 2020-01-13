@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flask import Blueprint, render_template
 from .controller import require_login, assert_fields
+from .controller import newTag, getTags, deleteTag, getTransactions, editTransaction, deleteTransaction, newTodo, deleteTodo
 
 BP = Blueprint('view', __name__, url_prefix='')
 
@@ -62,3 +63,8 @@ def logout():
     """Clear session and logout the user"""
     session.clear()
     return redirect('/')
+
+@BP.route('/testing')
+def testing():
+    deleteTag(2)
+    return "dab"

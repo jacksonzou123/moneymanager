@@ -82,7 +82,7 @@ def newTag(name, note):
         raise (Error)
         return False
 
-
+#WORKS
 def getTags():
     try:
         return g.db.execute(
@@ -91,12 +91,14 @@ def getTags():
     except Error:
         return False
 
-
+#WORKS
 def deleteTag(id):
     try:
         g.db.execute(f'DELETE FROM tags WHERE tag_id = {id}')
+        g.db.commit()
         return True
     except Error:
+        raise(Error)
         return False
 
 
