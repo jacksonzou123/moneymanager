@@ -27,16 +27,28 @@ const handleHome = app => {
 }
 
 const transactionForm = `
-  <form class='d-flex justify-content-center flex-column form-group text-center m-auto' style='max-width: 330px;'>
-    <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
-    <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
-    <input type="date" class='form-control mb-3' name="transactionDate" placeholder="Transaction Date">
-    <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
-    <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
-    <button type="button" class="btn btn-sm btn-primary rounded">
-      Submit New Transaction
-    </button>
-  </form>
+  <div style="padding: 30px;">
+    <div class="container-fluid">
+
+      <div class="row">
+        <h3>Add New Transaction</h3>
+      </div>
+
+      <div class="row">
+        <form class='d-flex justify-content-center flex-column form-group text-center m-auto'>
+          <input type="text" class='form-control mb-3' name="transactionName" placeholder="Transaction Name">
+          <input type="number" class='form-control mb-3' name="transactionAmount" placeholder="Transaction Amount">
+          <input type="date" class='form-control mb-3' name="transactionDate" placeholder="Transaction Date">
+          <input type="text" class='form-control mb-3' name="transactionNote" placeholder="Transaction Note">
+          <input type="text" class='form-control mb-3' name="transactionTag" placeholder="Transaction Tag">
+          <button type="button" class="btn btn-sm btn-primary rounded">
+            Submit New Transaction
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
 `;
 
 const app = props => {
@@ -79,23 +91,38 @@ const app = props => {
 const home = props => {
   return (
     `
-    <div class="d-flex justify-content-between flex-column pb-4">
-      <div class="container d-flex flex-row mb-3"> 
-        <h3>Hello, ${props.username}!</h3>
-        <button type="button" class="btn btn-sm btn-primary rounded ml-auto" onClick='handleAddTransaction(app)' >
-          Add Transaction
-        </button >
-      </div>
-      <div class="container rounded border">
-        <div class="row rounded">
-          <div class="col-md border-right">
-            <h4>Quick Stats</h4>
+    <div style="padding: 30px;">
+      <div class="container-fluid">
+
+        <div class="row" style="padding-bottom: 30px;">
+          <div class="col-sm">
+            <h2>Hello, ${props.username}!</h2>
           </div>
-          <div class="col-md">
-            <h4>Tags</h4>
+          <div class="col-sm">
+            <input class="form-control searchbar" type="text" placeholder="Search" aria-label="Search">
           </div>
         </div>
+
+        <div class="row" style="padding-bottom: 50px;">
+          <div class="col col-md-custom" style="text-align: center">
+            <h4>Add Transaction</h4>
+            <button href="#" class="addButton" onClick='handleAddTransaction(app)'>+</button>
+          </div>
+        </div>
+
+        <div class="container rounded border">
+          <div class="row rounded">
+            <div class="col-md col-md-custom border">
+              <h4>Quick Stats</h4>
+            </div>
+            <div class="col-md col-md-custom border">
+              <h4>Tags</h4>
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
     `
   );
