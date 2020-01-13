@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+<link rel="stylesheet" href="../static/styles/app.css">
+{% endblock %}
+
+{% block content %}
+<div id='app' class='container-fluid m-0 p-0'></div>
+{% endblock %}
+
+{% block footer %}
+<footer class="mt-auto p-3">
+  <div class="container d-flex justify-content-end p-0 m-0">
+    <span class="text-muted">&copy; Copyright 2019 JaJeJu</span>
+  </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script defer type='module' src='{{ url_for("static", filename="assets/app.mjs") }}'></script>
+{% endblock %}

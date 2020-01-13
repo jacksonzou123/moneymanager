@@ -1,0 +1,18 @@
+zouJ -- 2020-01-10 23:57
+  Added flush/straight checker
+
+zouJ -- 2020-01-09 14:44
+  Added more database mutator and accessor methods
+  Adjusted database table columns
+
+leiJ -- 2020-01-08 21:59
+  Added javascript to templates to allow for functionalities without reload
+
+zouJ -- 2020-01-08 14:50
+	Implemented database creator and added adding to transactions method
+
+leiJ -- 2020-01-04 18:58
+	Added reusable code from previous project.
+
+leiJ -- 2020-01-02 08:33
+	Updated project structure.

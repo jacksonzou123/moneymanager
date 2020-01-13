@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+<link rel="stylesheet" href="../static/styles/auth.css">
+{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class='text-danger small'>{{message}}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<div id='auth-form'></div id='auth-form'>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script defer type='text/javascript' src='{{ url_for("static", filename="assets/auth.js") }}'></script>
+{% endblock %}
