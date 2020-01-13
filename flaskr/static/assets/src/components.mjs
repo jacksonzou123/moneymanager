@@ -21,24 +21,25 @@ export const transactionForm = props => {
 export const home = props => {
   return (
     `
-      <div class='d-flex justify-content-between flex-column pb-4'>
-        <div class='container d-flex flex-row mb-3'>
-          <h3>Hello, ${props.user.username}!</h3>
-          <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
-            Add Transaction
-          </button >
-        </div>
-        <div class='container rounded border'>
-          <div class='row rounded'>
-            <div class='col-md border-right'>
-              <h4>Quick Stats</h4>
-            </div>
-            <div class='col-md'>
-              <h4>Tags</h4>
-            </div>
-          </div>
+    <div class="container-fluid">
+      <div class="row mb-3">
+        <h2 class="hello-title">Hello, ${props.user.username}!</h2>
+      </div>
+      <div class="row mb-3">
+        <div class="col overflow-auto text-center">
+          <h4>Add Transaction</h4>
+          <a class='addButton' id='addTransaction' style='color: white'>+</a>
         </div>
       </div>
+      <div class="row rounded">
+        <div class="col-md col-md-custom border">
+          <h4>Quick Stats</h4>
+        </div>
+        <div class="col-md col-md-custom border">
+          <h4>Tags</h4>
+        </div>
+      </div>
+    </div>
     `
   );
 };
@@ -113,6 +114,9 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
+              <input class="form-control" type="text" placeholder="Search">
+            </li>
+            <li class='nav-item'>
               <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
@@ -125,13 +129,13 @@ export const app = props => {
               <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='/logout'>Log Out</a>
+              <a type='button' class='navbar-link btn btn-link text-muted' href='/logout'>Log Out</a>
             </li>
           </ul>
         </div>
       </nav >
       <div class='p-3'>
-        <div class='container-fluid'>
+        <div class='d-flex justify-content-center flex-column container-fluid mx-3'>
           ${view()}
         </div>
       </div>
