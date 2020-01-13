@@ -1,9 +1,9 @@
-/* @font-face {
+@font-face {
   font-family: "San Francisco";
   font-weight: 400;
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
- */
+
 html, body {
   height: 100%;
 }
@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: San Francisco;
 }
 
 .body-container {
@@ -39,12 +39,31 @@ body {
 }
 
 .addButton {
-	background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
 	background-color:#44c767;
-	border: 1px solid #18ab29;
+	border-radius:10px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+  font-family:Arial;
+  font-size:40px;
+  font-weight:bold;
+  padding:0px 20px;
+  text-shadow:0px 1px 0px #2f6627;
 }
 
 .addButton:hover {
 	background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
 	background-color:#5cbf2a;
+}
+
+.addButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.col-md-custom {
+  padding: 10px;
+  overflow-y: auto;
+  height: 200px;
 }
