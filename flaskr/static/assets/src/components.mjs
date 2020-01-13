@@ -26,9 +26,9 @@ export const home = props => {
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
       <div class="row mb-3">
-        <div class="col overflow-auto text-center">
+        <div class="col overflow-auto text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
-          <a class='addButton' id='addTransaction' style='color: white'>+</a>
+          <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton px-3 text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
       <div class="row rounded">
