@@ -18,5 +18,5 @@
 
 {% block scripts %}
 {{ super() }}
-<script defer type='text/javascript' src='../static/assets/auth.js'></script>
+<script defer type='text/javascript' src='{{ url_for("static", filename="assets/auth.js") }}'></script>
 {% endblock %}

@@ -2,11 +2,11 @@
   float: right;
   width: 20em;
 }
-.container-fluid {
-  max-width: 60%;
+.body-container {
+  width: 80%;
 }
-@media only screen and (max-width: 576px){
-  .col-sm {
+@media only screen and (max-width: 720px){
+  .hello-title {
     text-align: center;
   }
   .searchbar {
@@ -14,8 +14,8 @@
     width: 80%;
     margin: auto;
   }
-  .container-fluid {
-    max-width: 100%;
+  .body-container {
+    width: 100%;
   }
 }
 @font-face {

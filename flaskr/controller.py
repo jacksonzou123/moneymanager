@@ -3,7 +3,7 @@
 from sqlite3 import Error
 from functools import wraps
 
-from flask import session, redirect, request, flash, jsonify
+from flask import session, redirect, request, flash, jsonify, g
 
 
 def require_login(f):
@@ -42,17 +42,6 @@ def jsonify_response(f):
     return decorated_function
 
 
-def newTransaction(name, amount, note, tag, date='date("now")'):
-    try:
-        g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{name}", {amount}, "{note}", {date}, "{tag}")'
-        )
-        g.db.commit()
-        return True
-    except Error:
-        return False
-
-
 def getTransactions():
     try:
         return g.db.execute(
@@ -80,6 +69,7 @@ def deleteTransaction(id):
         return False
 
 
+#WORKS
 def newTag(name, note):
     try:
         g.db.execute(
@@ -88,6 +78,8 @@ def newTag(name, note):
         g.db.commit()
         return True
     except Error:
+        print(session["user"]["id"])
+        raise (Error)
         return False
 
 
@@ -108,13 +100,15 @@ def deleteTag(id):
         return False
 
 
-def newTodo(title, body, deadline):
+def newTodo(title, body, deadline='date("now")'):
     try:
         g.db.execute(
-            f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{title}", "{body}", "{deadline}", 0)'
+            f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{title}", "{body}", {deadline}, 0)'
         )
+        g.db.commit()
         return True
     except Error:
+        raise (Error)
         return False
 
 

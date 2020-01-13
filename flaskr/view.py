@@ -1,7 +1,8 @@
 from flask import (Blueprint, request, g, flash, redirect, render_template,
-                   session)
+                   session, make_response)
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from flask import Blueprint, render_template
 from .controller import require_login, assert_fields
 
 BP = Blueprint('view', __name__, url_prefix='')
