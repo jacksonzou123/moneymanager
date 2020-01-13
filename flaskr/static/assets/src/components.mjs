@@ -70,9 +70,12 @@ export const requests = props => {
 export const todos = props => {
   return (
     `
-      <div>
-      todos
-      </div>
+    <div>
+    <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
+      Add Todo
+    </button >
+    ${props.todos.map(t => JSON.stringify(t))}
+    </div>
     `
   );
 };

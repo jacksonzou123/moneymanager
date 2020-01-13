@@ -30,6 +30,16 @@ export const fetchTransactions = async _ => {
   setState({ 'transaction': responseObject });
 };
 
+export const fetchTodos = async _ => {
+  const response = await fetch(
+    `${window.location.origin}/octa/fetch/todo`,
+    { method: 'FETCH' }
+  );
+  const responseObject = await response.json();
+  console.log(state)
+  setState({ 'todos': responseObject });
+};
+
 export const renderApp = (name, component) => {
   document.title = name;
   g('app').innerHTML = component;
