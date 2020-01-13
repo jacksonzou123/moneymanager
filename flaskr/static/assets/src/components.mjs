@@ -21,25 +21,28 @@ export const transactionForm = props => {
 export const home = props => {
   return (
     `
-    <div class="container-fluid">
-      <div class="row mb-3">
+    <div class="container-fluid p-0 m-0">
+      <div class="row mb-3 mx-5">
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
-      <div class="row mb-3">
-        <div class="col overflow-auto text-center">
+      <div class="row mb-3 d-flex justify-content-center mx-3">
+        <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
-          <a class='addButton' id='addTransaction' style='color: white'>+</a>
+          <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
-      <div class="row rounded">
-        <div class="col-md col-md-custom border">
-          <h4>Quick Stats</h4>
+      <div class="card-group mx-5">
+        <div class="card">
+          <div class='card-body'>
+            <h4>Quick Stats</h4>
+          </div>
         </div>
-        <div class="col-md col-md-custom border">
-          <h4>Tags</h4>
+        <div class="card">
+          <div class='card-body'>
+            <h4>Tags</h4>
+          </div>
         </div>
       </div>
-    </div>
     `
   );
 };
@@ -117,9 +120,6 @@ export const app = props => {
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
           <ul class='navbar-nav'>
             <li class='nav-item'>
-              <input class="form-control" type="text" placeholder="Search">
-            </li>
-            <li class='nav-item'>
               <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
             <li class='nav-item'>
@@ -137,8 +137,8 @@ export const app = props => {
           </ul>
         </div>
       </nav >
-      <div class='p-3'>
-        <div class='d-flex justify-content-center flex-column container-fluid mx-3'>
+      <div class='p-5'>
+        <div class='d-flex justify-content-center flex-column container-fluid px-3'>
           ${view()}
         </div>
       </div>
