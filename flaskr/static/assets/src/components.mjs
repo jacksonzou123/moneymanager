@@ -39,7 +39,6 @@ export const home = props => {
           <h4>Tags</h4>
         </div>
       </div>
-    </div>
     `
   );
 };
@@ -112,10 +111,7 @@ export const app = props => {
           <span class='navbar-toggler-icon'></span>
         </button>
         <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
-          <ul class='navbar-nav'>
-            <li class='nav-item'>
-              <input class="form-control" type="text" placeholder="Search">
-            </li>
+          <ul class='navbar-nav'> 
             <li class='nav-item'>
               <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
             </li>
