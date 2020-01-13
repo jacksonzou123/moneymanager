@@ -37,7 +37,7 @@ export const home = props => {
             <h4>Quick Stats</h4>
           </div>
         </div>
-        <div class="col-md border">
+        <div class="card">
           <div class='card-body'>
             <h4>Tags</h4>
           </div>
