@@ -15,9 +15,19 @@ export const transactionForm = props => {
           </form>
         </div>
         <div class='col-sm'>
-          <h4>Tags</h4>
+        <div class="d-flex flex-row">
+          <div class="p-2">
+            <h4>Tags</h4>
+          </div>
+          <div class="p-2 ml-auto">
+            <button type='button' class='btn btn-sm btn-primary rounded'>
+              New Tag
+            </button>
+          </div>
         </div>
       </div>
+
+
     `
   );
 };
@@ -151,39 +161,39 @@ export const app = props => {
   }
   return (
     `
-      <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-        <button type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</button>
-        <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
-          <span class='navbar-toggler-icon'></span>
-        </button>
-        <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
-          <ul class='navbar-nav'>
-            <li class='nav-item'>
-              <input class="form-control" type="text" placeholder="Search">
-            </li>
-            <li class='nav-item'>
-              <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
-            </li>
-            <li class='nav-item'>
-              <a type='button' id='toRequests' class='navbar-link btn btn-link text-muted'>Requests</a>
-            </li>
-            <li class='nav-item'>
-              <a type='button' id='toTodos' class='navbar-link btn btn-link text-muted'>Todos</a>
-            </li>
-            <li class='nav-item'>
-              <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
-            </li>
-            <li class='nav-item'>
-              <a type='button' class='navbar-link btn btn-link text-muted' href='/logout'>Log Out</a>
-            </li>
-          </ul>
-        </div>
-      </nav >
-      <div class='p-5'>
-        <div class='d-flex justify-content-center flex-column container-fluid px-3'>
-          ${view()}
-        </div>
+    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+      <button type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</button>
+      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
+        <span class='navbar-toggler-icon'></span>
+      </button>
+      <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
+        <ul class='navbar-nav'>
+          <li class='nav-item'>
+            <input class="form-control" type="text" placeholder="Search">
+          </li>
+          <li class='nav-item'>
+            <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>
+          </li>
+          <li class='nav-item'>
+            <a type='button' id='toRequests' class='navbar-link btn btn-link text-muted'>Requests</a>
+          </li>
+          <li class='nav-item'>
+            <a type='button' id='toTodos' class='navbar-link btn btn-link text-muted'>Todos</a>
+          </li>
+          <li class='nav-item'>
+            <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
+          </li>
+          <li class='nav-item'>
+            <a type='button' class='navbar-link btn btn-link text-muted' href='/logout'>Log Out</a>
+          </li>
+        </ul>
       </div>
+    </nav >
+    <div class='p-5'>
+      <div class='d-flex justify-content-center flex-column container-fluid px-3'>
+        ${view()}
+      </div>
+    </div>
     `
   );
 };
