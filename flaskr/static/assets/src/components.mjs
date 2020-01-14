@@ -15,7 +15,7 @@ export const transactionForm = props => {
           </form>
         </div>
         <div class='col-sm'>
-          <h4>Tags</h4>
+          <h4>Tags ${props.tags.map(t => `<p>${t.tag_type}</p>`)}</h4>
         </div>
       </div>
     `
@@ -81,7 +81,7 @@ export const transaction = props => {
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
-        ${props.transaction.map(t => JSON.stringify(t))}
+        ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
       </div>
     </div>
 

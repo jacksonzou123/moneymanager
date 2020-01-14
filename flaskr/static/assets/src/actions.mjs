@@ -40,6 +40,16 @@ export const fetchTodos = async _ => {
   setState({ 'todos': responseObject });
 };
 
+export const fetchTags = async _ => {
+  const response = await fetch(
+    `${window.location.origin}/octa/fetch/tag`,
+    { method: 'FETCH' }
+  );
+  const responseObject = await response.json();
+  console.log(state)
+  setState({ 'tags': responseObject });
+};
+
 export const renderApp = (name, component) => {
   document.title = name;
   g('app').innerHTML = component;

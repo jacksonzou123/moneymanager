@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo
+from .controller import require_login, jsonify_response, newTodo, quickStats
 
 BP = Blueprint('octa', __name__, url_prefix='/octa')
 
@@ -33,6 +33,7 @@ def new_transaction():
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response
 def get_transaction():
+    quickStats()
     try:
         return g.db.execute(
             f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
@@ -60,6 +61,17 @@ def get_todo():
     try:
         return g.db.execute(
             f'SELECT * FROM todos WHERE author_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise(Error)
+        return {'success': False}
+
+@BP.route('/fetch/tag', methods=['FETCH'])
+@jsonify_response
+def get_tag():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
         raise(Error)
