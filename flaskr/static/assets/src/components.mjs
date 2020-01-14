@@ -25,7 +25,7 @@ export const home = props => {
       <div class="row mb-3 mx-5">
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
-      <div class="row mb-3 d-flex justify-content-center mx-3">
+      <div class="row mb-3 d-flex justify-content-center mx-3" style="padding-bottom: 30px;">
         <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
           <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
@@ -37,12 +37,13 @@ export const home = props => {
             <h4>Quick Stats</h4>
           </div>
         </div>
-        <div class="col-md border">
+        <div class="card">
           <div class='card-body'>
             <h4>Tags</h4>
           </div>
         </div>
       </div>
+    </div>
     `
   );
 };
@@ -50,12 +51,25 @@ export const home = props => {
 export const transaction = props => {
   return (
     `
-      <div>
-      <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
-        Add Transaction
-      </button >
-      ${props.transaction.map(t => JSON.stringify(t))}
+    <div>
+    <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
+      Add Transaction
+    </button>
+    ${props.transaction.map(t => JSON.stringify(t))}
+    </div>
+
+
+    <h4>Transactions</h4>
+
+    <div class="container-fluid p-0 m-0">
+      <div class="card-group mx-5">
+        <div class="card">
+          <div class='card-body'>
+          </div>
+        </div>
       </div>
+    </div>
+
     `
   );
 };
