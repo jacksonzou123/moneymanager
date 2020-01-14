@@ -4,15 +4,19 @@ export const transactionForm = props => {
       <div class='row my-3'>
         <h4 class='mx-auto'>Add New Transaction</h4>
       </div>
-      <div class='row mx-auto mb-3'>
-        <form class='d-flex justify-content-center flex-column form-group text-center m-auto' style='max-width: 330px;'>
-          <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
-          <input type='date' class='form-control mb-3' name='date'>
-          <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
-          <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
-          <input type='text' class='form-control mb-3' name='tag' placeholder='Tag'>
-          <button type='button' id='submitTransaction' class='btn btn-md btn-primary'>Submit New Transaction</button>
-        </form>
+      <div class='row mb-3'>
+        <div class='col-sm'>
+          <form class='d-flex flex-column form-group ml-auto' style='max-widtd: 330px;'>
+            <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
+            <input type='date' class='form-control mb-3' name='date'>
+            <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
+            <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+            <button id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
+          </form>
+        </div>
+        <div class='col-sm'>
+          <h4>Tags</h4>
+        </div>
       </div>
     `
   );
@@ -25,7 +29,7 @@ export const home = props => {
       <div class="row mb-3 mx-5">
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
-      <div class="row mb-3 d-flex justify-content-center mx-3">
+      <div class="row mb-3 d-flex justify-content-center mx-3" style="padding-bottom: 30px;">
         <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
           <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
@@ -35,6 +39,24 @@ export const home = props => {
         <div class="card">
           <div class='card-body'>
             <h4>Quick Stats</h4>
+            <table>
+              <tr>
+                <td>Today:</td>
+                <td class='amount'>$72.05</td>
+              </tr>
+              <tr>
+                <td>Last 7 Days:</td>
+                <td class='amount'>something</td>
+              </tr>
+              <tr>
+                <td>This Month:</td>
+                <td class='amount'>something</td>
+              </tr>
+              <tr>
+                <td>This Year:</td>
+                <td class='amount'>something</td>
+              </tr>
+            </table>
           </div>
         </div>
         <div class="card">
@@ -51,15 +73,18 @@ export const home = props => {
 export const transaction = props => {
   return (
     `
-    <div>
-    <button type='button' id='addTransaction' class='btn btn-sm btn-primary rounded ml-auto'>
-      Add Transaction
-    </button>
-    ${props.transaction.map(t => JSON.stringify(t))}
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <h4>Transactions</h4>
+      </div>
+      <div class="p-2 ml-auto">
+        <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
+          Add Transaction
+        </button>
+        ${props.transaction.map(t => JSON.stringify(t))}
+      </div>
     </div>
 
-
-    <h4>Transactions</h4>
 
     <div class="container-fluid p-0 m-0">
       <div class="card-group mx-5">

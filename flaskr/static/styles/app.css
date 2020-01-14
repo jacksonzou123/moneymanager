@@ -1,9 +1,3 @@
-/* @font-face {
-  font-family: "San Francisco";
-  font-weight: 400;
-  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
-} */
-
 html, body {
   height: 100%;
 }
@@ -36,7 +30,7 @@ body {
 
 .addButton:hover {
 	background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
-	background-color:#5cbf2a;
+	background-color:#44c767;
 }
 
 .addButton:active {
@@ -44,8 +38,32 @@ body {
 	top: 1px;
 }
 
+.amount {
+  text-align: right;
+  color: #328c0a;
+}
+
 .col-md-custom {
   padding-bottom: 30px;
   overflow-y: auto;
   height: 200px;
+}
+
+p {
+  font-size:16px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+tr:nth-child(odd) {
+  background-color: #dddddd;
 }
