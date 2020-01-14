@@ -11,23 +11,21 @@ export const transactionForm = props => {
             <input type='date' class='form-control mb-3' name='date'>
             <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+            <div class="d-flex flex-row mb-3">
+              <div class="flex-fill">
+                <select class="form-control">
+                  <option></option>
+                  ${props.tags.map(t => `<option>${t.tag_type}</option>`)}
+                </select>
+              </div>
+              <div class="justify-content-center">
+                <button type='button' class='btn btn-primary rounded ml-2'>New Tag</button>
+              </div>
+            </div>
             <button id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
           </form>
         </div>
-        <div class='col-sm'>
-        <div class="d-flex flex-row">
-          <div class="p-2">
-            <h4>Tags</h4>
-          </div>
-          <div class="p-2 ml-auto">
-            <button type='button' class='btn btn-sm btn-primary rounded'>
-              New Tag
-            </button>
-          </div>
-        </div>
       </div>
-
-
     `
   );
 };
@@ -42,7 +40,7 @@ export const home = props => {
       <div class="row mb-3 d-flex justify-content-center mx-3" style="padding-bottom: 30px;">
         <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
-          <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
+          <button type="button" class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
       <div class="card-group mx-5">
@@ -72,6 +70,14 @@ export const home = props => {
         <div class="card">
           <div class='card-body'>
             <h4>Tags</h4>
+            <table>
+                ${props.tags.map(t => `
+                  <tr>
+                  <td>${t.tag_type}</td>
+                  <td class='amount'>something</td>
+                  </tr>
+                `).join('')}
+            </table>
           </div>
         </div>
       </div>
@@ -91,7 +97,7 @@ export const transaction = props => {
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
-        ${props.transaction.map(t => JSON.stringify(t))}
+        ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
       </div>
     </div>
 

@@ -4,6 +4,7 @@ from sqlite3 import Error
 from functools import wraps
 
 from flask import session, redirect, request, flash, jsonify, g
+from datetime import datetime
 
 
 def require_login(f):
@@ -120,6 +121,25 @@ def deleteTodo(id):
     try:
         g.db.execute(f'DELETE FROM todos WHERE todo_id = {id}')
         g.db.commit()
+        return True
+    except Error:
+        return False
+
+def quickStats():
+    try:
+        info = g.db.execute(
+            f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
+        ).fetchall()
+
+        currentYear = datetime.now().year
+        currentMonth = datetime.now().month
+        currentDay = datetime.now().day
+
+        for item in info:
+            date = item['transaction_date'].split("-")
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
         return True
     except Error:
         return False
