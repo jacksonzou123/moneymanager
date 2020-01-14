@@ -1,3 +1,5 @@
+import { calendar } from './calendar.mjs';
+
 export const transactionForm = props => {
   return (
     `
@@ -181,6 +183,7 @@ export const app = props => {
       </nav >
       <div class='p-5'>
         <div class='d-flex justify-content-center flex-column container-fluid px-3'>
+          ${calendar(props)}
           ${view()}
         </div>
       </div>
