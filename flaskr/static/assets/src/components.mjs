@@ -14,7 +14,7 @@ export const transactionForm = props => {
             <div class="d-flex flex-row mb-3">
               <div class="flex-fill">
                 <select class="form-control">
-                  <option></option>
+                  <option value="NULL">None</option>
                   ${props.tags.map(t => `<option>${t.tag_type}</option>`)}
                 </select>
               </div>
@@ -131,7 +131,7 @@ export const todos = props => {
     <div>
     <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
       Add Todo
-    </button >
+    </button>
     ${props.todos.map(t => JSON.stringify(t))}
     </div>
     `
