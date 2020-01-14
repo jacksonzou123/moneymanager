@@ -8,13 +8,15 @@ import {
   handleSettings,
   fetchUserInfo,
   fetchTransactions,
-  fetchTodos
+  fetchTodos,
+  fetchTags
 } from './src/actions.mjs';
 
 window.onload = async _ => {
   await fetchUserInfo();
   await fetchTransactions();
   await fetchTodos();
+  await fetchTags();
 
   switch (window.location.pathname) {
     case '/new/transaction':
