@@ -4,12 +4,7 @@ import { state, setState } from './store.mjs';
 export const g = id => document.getElementById(id);
 
 const serializeForm = query => {
-  const obj = Object.values(document.querySelector(query)).reduce(
-    (obj, field) => {
-      obj[field.name] = field.value;
-      return obj
-    }, {});
-  return JSON.stringify(obj)
+  return JSON.stringify(Object.fromEntries(new FormData(document.querySelector(query))))
 }
 
 export const fetchUserInfo = async _ => {
@@ -82,6 +77,7 @@ export const handleAddTransaction = app => {
   g('submitTransaction').addEventListener(
     'click',
     async _ => {
+      console.log(serializeForm('form'))
       const response = await fetch(
         `${window.location.origin}/octa/new/transaction`,
         { method: 'POST', body: serializeForm('form') }

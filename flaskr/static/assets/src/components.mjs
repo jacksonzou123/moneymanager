@@ -15,7 +15,7 @@ export const transactionForm = props => {
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
             <div class="d-flex flex-row mb-3">
               <div class="flex-fill">
-                <select class="form-control">
+                <select class="form-control" name="tag">
                   <option value="NULL">None</option>
                   ${props.tags.map(t => `<option>${t.tag_type}</option>`)}
                 </select>
@@ -24,7 +24,7 @@ export const transactionForm = props => {
                 <button type='button' class='btn btn-primary rounded ml-2'>New Tag</button>
               </div>
             </div>
-            <button id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
+            <button type='button' name="button" id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
           </form>
         </div>
       </div>
@@ -102,6 +102,7 @@ export const transaction = props => {
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
+        ${JSON.stringify(props)}
         ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
       </div>
     </div>
