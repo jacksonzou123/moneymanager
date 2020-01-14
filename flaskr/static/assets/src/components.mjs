@@ -25,7 +25,7 @@ export const home = props => {
       <div class="row mb-3 mx-5">
         <h2 class="hello-title">Hello, ${props.user.username}!</h2>
       </div>
-      <div class="row mb-3 d-flex justify-content-center mx-3" style="padding-bottom: 30px;">
+      <div class="row mb-3 d-flex justify-content-center mx-3">
         <div class="text-center d-flex justify-content-center flex-column">
           <h4>Add Transaction</h4>
           <button type="button" class='font-weight-bold d-flex justify-content-center btn btn-lg addButton text-white rounded mx-auto' id='addTransaction'>+</a>
@@ -87,9 +87,12 @@ export const requests = props => {
 export const todos = props => {
   return (
     `
-      <div>
-      todos
-      </div>
+    <div>
+    <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
+      Add Todo
+    </button >
+    ${props.todos.map(t => JSON.stringify(t))}
+    </div>
     `
   );
 };

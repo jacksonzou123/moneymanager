@@ -1,8 +1,7 @@
 from flask import (Blueprint, request, g, flash, redirect, render_template,
-                   session, make_response)
+                   session)
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flask import Blueprint, render_template
 from .controller import require_login, assert_fields
 from .controller import newTag, getTags, deleteTag, getTransactions, editTransaction, deleteTransaction, newTodo, deleteTodo
 
@@ -63,8 +62,3 @@ def logout():
     """Clear session and logout the user"""
     session.clear()
     return redirect('/')
-
-@BP.route('/testing')
-def testing():
-    deleteTag(2)
-    return "dab"

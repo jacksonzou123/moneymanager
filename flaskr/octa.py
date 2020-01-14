@@ -53,3 +53,27 @@ def new_todo():
         return {'success': True}
     except Error:
         return {'success': False}
+
+@BP.route('/fetch/todo', methods=['FETCH'])
+@jsonify_response
+def get_todo():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM todos WHERE author_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise(Error)
+        return {'success': False}
+
+@BP.route('/new/tag', methods=['POST'])
+@jsonify_response
+def new_tag():
+    try:
+        req = loads(request.data)
+        g.db.execute(
+            f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{name}", "{note}")'
+        )
+        g.db.commit()
+        return {'success': True}
+    except Error:
+        return {'success': False}
