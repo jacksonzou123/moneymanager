@@ -6,7 +6,6 @@ export let state = {
   'transaction': {},
   'inrequest': {},
   'outrequest': {},
-  'users:': {},
   'searchedTag': '',
 };
 

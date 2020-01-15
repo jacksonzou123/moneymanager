@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo
+from .controller import require_login, jsonify_response, newTodo, assert_fields
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -16,6 +16,7 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @jsonify_response
 def user_info():
     return session['user']
+
 
 @BP.route('/new/transaction', methods=['POST'])
 @jsonify_response
@@ -121,6 +122,7 @@ def get_outrequest():
         raise (Error)
         return {'success': False}
 
+
 @BP.route('/getusers', methods=['FETCH'])
 @jsonify_response
 def get_users():
@@ -130,15 +132,21 @@ def get_users():
         raise (Error)
         return {'success': False}
 
+
 @BP.route("/updatepassword", methods=['POST'])
+@require_login
+@assert_fields
 @jsonify_response
 def updatepassword():
     try:
         req = loads(request.data)
         print(req)
         print(session["user"])
-        print(check_password_hash(session["user"]["password"], req["oldpassword"]))
-        if check_password_hash(session["user"]["password"], req["oldpassword"]):
+        print(
+            check_password_hash(session["user"]["password"],
+                                req["oldpassword"]))
+        if check_password_hash(session["user"]["password"],
+                               req["oldpassword"]):
             newpass = generate_password_hash(req["newpassword"])
             g.db.execute(
                 f'UPDATE users SET password = "{newpass}" WHERE id = {session["user"]["id"]}'

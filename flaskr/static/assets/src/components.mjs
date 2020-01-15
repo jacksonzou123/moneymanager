@@ -230,7 +230,21 @@ const todos = props => {
   );
 };
 
+
 const settings = props => {
+  const allowButton = _ => {
+    const but = document.querySelector('button');
+    const password = document.querySelector('input[name=password]').value;
+    const confirmPassword = document.querySelector('input[name=confirmPassword').value;
+    if ((password !== confirmPassword) || (password === '' && confirmPassword === '')) {
+      but.className = but.className.match(/disabled/) ? but.className + ' disabled' : but.className;
+      but.attributes = but.setAttribute('disabled', '');
+    }
+    else {
+      but.className = but.className.replace(/disabled/, '');
+      but.attributes = but.removeAttribute('disabled');
+    }
+  };
   return (
     `
       <div class='row mb-3'>
@@ -238,14 +252,14 @@ const settings = props => {
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
         <form class='text-center mb-3'>
-          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password'>
-          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password'>
+          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password' oninput='${_ => allowButton()}' required>
+          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password' oninput='${_ => allowButton()}' required>
           <button type='button' name='button' id='updatepassword' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
-          <button type='button' name='button' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
-        </form>
-      </div>
-    `
+        <button type='button' name='button' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
+        </form >
+      </div >
+  `
   );
 };
 
@@ -254,7 +268,8 @@ const search = props => {
   return (
     `
     <div class='card p-3'>
-          ${filtered().map(t => `
+    ${
+    filtered().map(t => `
             <div class='card-text border-bottom'>
               <div class='row'>
                 <div class='col-3 d-flex flex-column'>
@@ -279,9 +294,10 @@ const search = props => {
                 </div>
               </div>
             </div>
-          `).join('')}
-      </div>
-    `
+          `).join('')
+    }
+      </div >
+  `
   )
 };
 
@@ -312,15 +328,15 @@ export const app = props => {
   }
   return (
     `
-    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-      <button type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</button>
-      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
-        <span class='navbar-toggler-icon'></span>
-      </button>
-      <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
-        <ul class='navbar-nav'>
-          <li class='nav-item'>
-            <input class='form-control' id='searchByTag' type='text' placeholder='Search by Tag...'>
+   <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+    <button type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</button>
+    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
+      <span class='navbar-toggler-icon'></span>
+    </button>
+    <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
+      <ul class='navbar-nav'>
+        <li class='nav-item'>
+          <input class='form-control' id='searchByTag' type='text' placeholder='Search by Tag...'>
           </li>
           <li class='nav-item'>
             <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>

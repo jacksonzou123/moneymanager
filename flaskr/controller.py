@@ -11,6 +11,7 @@ def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
+            print('ds')
             return redirect('/signin')
         return f(*args, **kwargs)
 
@@ -20,9 +21,13 @@ def require_login(f):
 def assert_fields(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        print('ds')
         if request.method == 'POST':
             error = None
+            print('Heloo')
             for name in request.form:
+                # print(name)
+                # print(request.form[name])
                 if not request.form[name]:
                     flash(f'Field {name} is empty.')
                     return redirect(request.environ['REMOTE_ADDR'])
@@ -33,8 +38,6 @@ def assert_fields(f):
 
 def jsonify_response(f):
     @wraps(f)
-    @require_login
-    @assert_fields
     def decorated_function(*args, **kwargs):
         response = jsonify(f(*args, **kwargs))
         response.headers['Access-Control-Allow-Origin'] = '*'
@@ -62,6 +65,7 @@ def editTransaction(id, name, amount, note, date, tag):
     except Error:
         return False
 
+
 #WORKS
 def deleteTransaction(id):
     try:
@@ -85,6 +89,7 @@ def newTag(name, note):
         raise (Error)
         return False
 
+
 #WORKS
 def getTags():
     try:
@@ -94,6 +99,7 @@ def getTags():
     except Error:
         return False
 
+
 #WORKS
 def deleteTag(id):
     try:
@@ -101,8 +107,9 @@ def deleteTag(id):
         g.db.commit()
         return True
     except Error:
-        raise(Error)
+        raise (Error)
         return False
+
 
 #WORKS
 def newTodo(title, body, deadline='date("now")'):
@@ -116,6 +123,7 @@ def newTodo(title, body, deadline='date("now")'):
         raise (Error)
         return False
 
+
 #WORKS
 def deleteTodo(id):
     try:
@@ -124,6 +132,7 @@ def deleteTodo(id):
         return True
     except Error:
         return False
+
 
 # def quickStats():
 #     try:

@@ -115,6 +115,7 @@ export const renderApp = (name, component) => {
           fetchFrom.bind(this, '/octa/fetch/userinfo', 'user')
         )
       )
+      return;
     default:
       return;
   }
