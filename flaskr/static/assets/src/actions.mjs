@@ -1,125 +1,64 @@
 import { app } from './components.mjs';
 import { state, setState } from './store.mjs';
 
-export const g = id => document.getElementById(id);
+const g = id => document.getElementById(id);
+
+const bbind = (id, func, action = 'click') => {
+  g(id).addEventListener(
+    action,
+    _ => func()
+  );
+};
 
 const serializeForm = query => {
-  const obj = Object.values(document.querySelector(query)).reduce(
-    (obj, field) => {
-      obj[field.name] = field.value;
-      return obj
-    }, {});
-  return JSON.stringify(obj)
-}
-
-export const fetchUserInfo = async _ => {
-  const response = await fetch(
-    `${window.location.origin}/octa/fetch/userinfo`,
-    { method: 'FETCH' }
+  return JSON.stringify(
+    Object.fromEntries(
+      new FormData(document.querySelector(query))
+    )
   );
-  const responseObject = await response.json();
-  setState({ 'user': { 'username': responseObject.username, 'id': responseObject.id } });
 };
 
-export const fetchTransactions = async _ => {
-  const response = await fetch(
-    `${window.location.origin}/octa/fetch/transaction`,
+export const fetchFrom = async (endpoint, stateAttribute) => {
+  const promise = await fetch(
+    `${window.location.origin}${endpoint}`,
     { method: 'FETCH' }
-  );
-  const responseObject = await response.json();
-  setState({ 'transaction': responseObject });
+  )
+  const resolve = await promise.json();
+  setState({ [stateAttribute]: resolve });
 };
 
-export const fetchTodos = async _ => {
+export const postTo = async (endpoint, form, resolve) => {
   const response = await fetch(
-    `${window.location.origin}/octa/fetch/todo`,
-    { method: 'FETCH' }
+    `${window.location.origin}${endpoint}`,
+    { method: 'POST', body: serializeForm(form) }
   );
   const responseObject = await response.json();
-  console.log(state)
-  setState({ 'todos': responseObject });
+  if (responseObject.success) {
+    await resolve();
+    location.reload();
+  };
+};
+
+export const handleViewUpdate = (app, view) => {
+  setState({ 'view': view });
+  history.pushState(null, '', `/${(view.split(' ').map(t => t.toLowerCase())).join('/')}`);
+  renderApp(view, app(state));
 };
 
 export const renderApp = (name, component) => {
   document.title = name;
   g('app').innerHTML = component;
-  g('returnHome').addEventListener(
-    'click',
-    _ => handleHome(app)
-  );
-  g('toTransactions').addEventListener(
-    'click',
-    _ => handleTransactions(app)
-  );
-  g('toRequests').addEventListener(
-    'click',
-    _ => handleRequests(app)
-  )
-  g('toTodos').addEventListener(
-    'click',
-    _ => handleTodos(app)
-  )
-  g('toSettings').addEventListener(
-    'click',
-    _ => handleSettings(app)
-  )
-};
-
-export const handleAddTransaction = app => {
-  setState({ 'view': 'addTransaction' });
-  history.pushState(null, '', '/new/transaction');
-  renderApp('Add Transaction', app(state));
-  g('submitTransaction').addEventListener(
-    'click',
-    async _ => {
-      const response = await fetch(
-        `${window.location.origin}/octa/new/transaction`,
-        { method: 'POST', body: serializeForm('form') }
-      );
-      const responseObject = await response.json();
-      if (responseObject.success) {
-        await fetchTransactions();
-        handleAddTransaction(app);
-      }
-    }
-  );
-}
-
-export const handleTransactions = app => {
-  setState({ 'view': 'transaction' })
-  history.pushState(null, '', '/transactions');
-  renderApp('Transactions', app(state));
-  g('addTransaction').addEventListener(
-    'click',
-    _ => handleAddTransaction(app)
-  );
-};
-
-export const handleRequests = app => {
-  setState({ 'view': 'requests' });
-  history.pushState(null, '', '/requests');
-  renderApp('Requests', app(state));
-}
-
-export const handleTodos = app => {
-  setState({ 'view': 'todos' });
-  history.pushState(null, '', '/todos');
-  renderApp('Todos', app(state));
-};
-
-export const handleSettings = app => {
-  setState({ 'view': 'settings' });
-  history.pushState(null, '', '/settings');
-  renderApp('Settings', app(state));
-};
-
-
-export const handleHome = app => {
-  setState({ 'view': 'home' });
-  history.pushState(null, '', '/');
-  renderApp('Home', app(state));
-  g('addTransaction').addEventListener(
-    'click',
-    _ => handleAddTransaction(app)
-  );
+  bbind('returnHome', handleViewUpdate.bind(this, app, 'Home'));
+  bbind('toTransactions', handleViewUpdate.bind(this, app, 'Transactions'));
+  bbind('toRequests', handleViewUpdate.bind(this, app, 'Requests'));
+  bbind('toTodos', handleViewUpdate.bind(this, app, 'Todos'));
+  bbind('toSettings', handleViewUpdate.bind(this, app, 'Settings'));
+  if (window.location.pathname === '/home' || window.location.pathname === '/transactions') {
+    bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
+  }
+  if (window.location.pathname === '/new/transaction') {
+    bbind('submitTransaction',
+      postTo.bind(this, '/octa/new/transaction', 'form', fetchFrom.bind(this, '/octa/fetch/transaction', 'transaction'))
+    );
+  }
 };

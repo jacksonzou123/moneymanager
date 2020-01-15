@@ -55,6 +55,7 @@ def login():
         flash(error)
     return render_template('auth.html')
 
+
 @BP.route('/logout', methods=['GET'])
 @require_login
 def logout():
