@@ -22,7 +22,7 @@ def new_transaction():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["tag"] or ""}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or ""}")'
         )
         g.db.commit()
         return {'success': True}
@@ -54,6 +54,7 @@ def new_todo():
     except Error:
         return {'success': False}
 
+
 @BP.route('/fetch/todo', methods=['FETCH'])
 @jsonify_response
 def get_todo():
@@ -62,8 +63,9 @@ def get_todo():
             f'SELECT * FROM todos WHERE author_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/fetch/tag', methods=['FETCH'])
 @jsonify_response
@@ -73,8 +75,9 @@ def get_tag():
             f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/new/tag', methods=['POST'])
 @jsonify_response
@@ -89,6 +92,7 @@ def new_tag():
     except Error:
         return {'success': False}
 
+
 @BP.route('/fetch/inrequest', methods=['FETCH'])
 @jsonify_response
 def get_inrequest():
@@ -97,8 +101,9 @@ def get_inrequest():
             f'SELECT * FROM request WHERE recipient_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/fetch/outrequest', methods=['FETCH'])
 @jsonify_response
@@ -108,16 +113,15 @@ def get_outrequest():
             f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/getusers', methods=['FETCH'])
 @jsonify_response
 def get_users():
     try:
-        return g.db.execute(
-            f'SELECT id, username FROM users'
-        ).fetchall()
+        return g.db.execute(f'SELECT id, username FROM users').fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}

@@ -3,25 +3,26 @@ import { calendar } from './calendar.mjs';
 export const transactionForm = props => {
   return (
     `
-      <div class='row my-3'>
+      <div class='row mb-3'>
         <h4 class='mx-auto'>Add New Transaction</h4>
       </div>
       <div class='row mb-3'>
         <div class='col-sm'>
-          <form class='d-flex flex-column form-group ml-auto' style='max-widtd: 330px;'>
+          <form class='d-flex flex-column form-group mx-auto w-50'>
             <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
             <input type='date' class='form-control mb-3' name='date'>
             <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+            <input type='text' class='form-control mb-3' name='location' placeholder='Location'>
             <div class='d-flex flex-row mb-3'>
-              <div class='flex-fill'>
+              <div class='w-75'>
                 <select class='form-control' name='tag'>
                   <option value='NULL'>None</option>
                   ${props.tag.map(t => `<option>${t.tag_type}</option>`)}
                 </select>
               </div>
-              <div class='justify-content-center'>
-                <button type='button' class='btn btn-primary rounded ml-2'>New Tag</button>
+              <div class='ml-2 flex-fill'>
+                <button type='button' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
             <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
@@ -42,8 +43,7 @@ export const home = props => {
       </div>
       <div class='row mb-3 d-flex justify-content-center mx-3 p-3'>
         <div class='text-center d-flex justify-content-center flex-column'>
-          <h5>Add Transaction</h5>
-          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
+          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto font-weight-bolder p-3' id='addTransaction'>Add Transaction</a>
         </div>
       </div>
       <div class='card-group mx-5 mb-3'>
@@ -81,20 +81,16 @@ export const home = props => {
 export const transaction = props => {
   return (
     `
-    <div class='d-flex flex-row justify-content-between'>
-      <div class='p-2'>
+    <div class='container-fluid p-0 m-0'>
+      <div class='d-flex flex-row justify-content-between p-0 m-0 mb-3'>
         <h4>Transactions</h4>
-      </div>
-      <div class='p-2'>
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
       </div>
-    </div>
-    <div class='container-fluid p-0 m-0'>
-      <div class='card'>
+      <div class='card p-3'>
           ${props.transaction.map(t => `
-            <div class='card-text border-bottom p-1'>
+            <div class='card-text border-bottom'>
               <div class='row'>
                 <div class='col-3 d-flex flex-column'>
                   <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
@@ -106,6 +102,7 @@ export const transaction = props => {
                 <div class='col d-flex flex-column'>
                   <h6 class='font-weight-bold'>Note:</h6>
                   <p>${t.transaction_note}</p>
+                  <p>${t.transaction_location}</p>
                 </div>
                 <div class='col'>
                   <a class='float-right' href='#'>
@@ -132,25 +129,25 @@ export const requests = props => {
       <div>
       Outgoing requests
       ${props.outrequest.map(
-        t => `
+      t => `
           <br>
-          Request to ${props.users[t.recipient_id-1]["username"]} for $${t.req_amount}
+          Request to ${props.users[t.recipient_id - 1]["username"]} for $${t.req_amount}
           <br>
           Note: ${t.req_note}
         `
-      )}
+    )}
       </div>
       <br>
       <div>
       Incoming requests
       ${props.inrequest.map(
-        t => `
+      t => `
           <br>
-          Request from ${props.users[t.sender_id-1]["username"]} for $${t.req_amount}
+          Request from ${props.users[t.sender_id - 1]["username"]} for $${t.req_amount}
           <br>
           Note: ${t.req_note}
         `
-      )}
+    )}
       </div>
     `
   );
@@ -226,7 +223,7 @@ export const app = props => {
         </ul>
       </div>
     </nav >
-    <div class='p-5'>
+    <div class='p-3'>
       <div class='d-flex justify-content-center flex-column container-fluid px-3'>
         ${view()}
       </div>
