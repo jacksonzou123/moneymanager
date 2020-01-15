@@ -28,6 +28,7 @@ export const calendar = props => {
           </div>
         `).join('')}
       </div>
+      </div>
     `
   );
 };
