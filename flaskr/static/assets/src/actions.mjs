@@ -6,7 +6,10 @@ const g = id => document.getElementById(id);
 const bbind = (id, func, action = 'click') => {
   g(id).addEventListener(
     action,
-    _ => func()
+    e => {
+      e.preventDefault();
+      func();
+    }
   );
 };
 
@@ -35,7 +38,7 @@ export const postTo = async (endpoint, form, resolve) => {
   const responseObject = await response.json();
   if (responseObject.success) {
     await resolve();
-    location.reload();
+    document.querySelector(form).reset();
   };
 };
 
@@ -53,12 +56,28 @@ export const renderApp = (name, component) => {
   bbind('toRequests', handleViewUpdate.bind(this, app, 'Requests'));
   bbind('toTodos', handleViewUpdate.bind(this, app, 'Todos'));
   bbind('toSettings', handleViewUpdate.bind(this, app, 'Settings'));
-  if (window.location.pathname === '/home' || window.location.pathname === '/transactions') {
-    bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
-  }
-  if (window.location.pathname === '/new/transaction') {
-    bbind('submitTransaction',
-      postTo.bind(this, '/octa/new/transaction', 'form', fetchFrom.bind(this, '/octa/fetch/transaction', 'transaction'))
-    );
+  switch (window.location.pathname) {
+    case '/home':
+    case '/transactions':
+      bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
+      return;
+    case '/new/transaction':
+      bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
+      bbind('submitTransaction',
+        postTo.bind(
+          this, '/octa/new/transaction', 'form',
+          fetchFrom.bind(this, '/octa/fetch/transaction', 'transaction')
+        )
+      );
+      return;
+    case '/new/tag':
+      bbind('submitTag',
+        postTo.bind(
+          this, '/octa/new/tag', 'form',
+          fetchFrom.bind(this, '/octa/fetch/tag', 'tag')
+        )
+      );
+    default:
+      return;
   }
 };

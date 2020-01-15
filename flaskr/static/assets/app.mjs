@@ -13,6 +13,8 @@ window.onload = async _ => {
   switch (window.location.pathname) {
     case '/new/transaction':
       return handleViewUpdate(app, 'New Transaction');
+    case '/new/tag':
+      return handleViewUpdate(app, 'New Tag');
     case '/transactions':
       return handleViewUpdate(app, 'Transactions');
     case '/requests':

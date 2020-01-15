@@ -85,7 +85,7 @@ def new_tag():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{name}", "{note}")'
+            f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{req["name"]}", "{req["summary"]}")'
         )
         g.db.commit()
         return {'success': True}

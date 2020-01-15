@@ -22,13 +22,30 @@ export const transactionForm = props => {
                 </select>
               </div>
               <div class='ml-2 flex-fill'>
-                <button type='button' class='btn btn-primary btn-block rounded'>New Tag</button>
+                <button type='button' id='newTag' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
             <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
           </form>
         </div>
       </div>
+    `
+  );
+};
+
+export const tagForm = props => {
+  return (
+    `
+    <div class='row mb-3'>
+      <h4 class='mx-auto'>Add New Tag</h4>
+    </div>
+    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
+      <form class='text-center'>
+        <input type='text' class='form-control mb-3' name='name' placeholder='Tag Name'>
+        <input type='text' class='form-control mb-3' name='summary' placeholder='Tag Detail'>
+        <button type='button' name='button' id='submitTag' class='btn btn-block btn-success'>Submit New Tag</button>
+      </form>
+    </div>
     `
   );
 };
@@ -182,7 +199,7 @@ export const settings = props => {
   return (
     `
       <div class='row mb-3'>
-        <h4 class='mx-auto'>Add New Transaction</h4>
+        <h4 class='mx-auto'>Settings</h4>
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
         <form class='text-center mb-3'>
@@ -190,7 +207,7 @@ export const settings = props => {
           <input type='password' class='form-control mb-3' name='confirmPassword' placeholder='Confirm Password'>
           <button type='button' name='button' id='' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
-          <button type='button' name='button' id='' class='btn btn-block btn-md btn-primary'>Export to Google Sheets</button>
+          <button type='button' name='button' id='' class='btn btn-block btn-primary'>Export to Google Sheets</button>
         </form>
       </div>
     `
@@ -202,6 +219,8 @@ export const app = props => {
     switch (props.view) {
       case 'New Transaction':
         return transactionForm(props);
+      case 'New Tag':
+        return tagForm(props);
       case 'Transactions':
         return transaction(props);
       case 'Requests':
