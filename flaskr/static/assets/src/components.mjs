@@ -54,6 +54,7 @@ const home = props => {
   return (
     `
     <div class='container-fluid p-0 m-0'>
+    <div class='container'>
       <div class='row mb-3 mx-5 d-flex justify-content-between'>
         <h3 class='hello-title'>Hello, ${props.user.username}!</h3>
         <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
@@ -63,7 +64,7 @@ const home = props => {
           <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto font-weight-bolder p-3' id='addTransaction'>Add Transaction</a>
         </div>
       </div>
-      <div class='card-group mx-5 mb-3'>
+      <div class='card-group mx-5 mb-3 mb-5'>
         <div class='card'>
           <div class='card-body m-0 p-0'>
             <div class="card-header">
@@ -78,7 +79,12 @@ const home = props => {
         </div>
         <div class='card'>
           <div class='card-body m-0 p-0'>
-            <div class='card-header'>Tags</div>
+            <div class='card-header'>
+              <div class='d-flex justify-content-between'>
+                Tags
+                <button type='button' id='newTag' class='btn btn-sm btn-primary rounded' style='margin:-5px;'>New Tag</button>
+              </div>
+            </div>
             <ul class='list-group list-group-flush'>
                 ${props.tag.map(t => `
                   <li class='list-group-item d-flex flex-column'>
