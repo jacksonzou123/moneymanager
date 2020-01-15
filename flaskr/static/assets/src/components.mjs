@@ -88,8 +88,32 @@ export const transaction = props => {
     <div class="container-fluid p-0 m-0">
       <div class="card-group mx-5">
         <div class="card">
-        ${JSON.stringify(props)}
-        ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
+            ${props.transaction.map(t => `
+              <div class="card-text" style="padding: 8px;">
+                <div class="row">
+                  <div class="col-3">
+                    <h5>${t.transaction_name}</h5>
+                    <p>
+                      ${t.transaction_date}<br>
+                      <span style="color: #328c0a;">$${t.transaction_amount}</span><br>
+                    </p>
+                  </div>
+                  <div class="col">
+                    <b>Note:</b><br>
+                    ${t.transaction_note}
+                  </div>
+                  <div class="col-1">
+                    <a href="#" style="float: right;">
+                      <svg class="bi bi-pencil" width="1.5em" height="1.5em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <hr style="margin-top: 0; margin-bottom: 0;">
+            `).join('')}
         </div>
       </div>
     </div>
