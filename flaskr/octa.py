@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo, quickStats
+from .controller import require_login, jsonify_response, newTodo
 
 BP = Blueprint('octa', __name__, url_prefix='/octa')
 
@@ -33,7 +33,6 @@ def new_transaction():
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response
 def get_transaction():
-    quickStats()
     try:
         return g.db.execute(
             f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
