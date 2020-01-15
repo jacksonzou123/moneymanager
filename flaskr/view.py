@@ -3,7 +3,6 @@ from flask import (Blueprint, request, g, flash, redirect, render_template,
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .controller import require_login, assert_fields
-from .controller import newTag, getTags, deleteTag, getTransactions, editTransaction, deleteTransaction, newTodo, deleteTodo
 
 BP = Blueprint('view', __name__, url_prefix='')
 

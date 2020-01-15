@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo, assert_fields
+from .controller import require_login, jsonify_response, assert_fields
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -23,10 +23,6 @@ def user_info():
 def new_transaction():
     try:
         req = loads(request.data)
-        print(request.data)
-        print(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or "NULL"}")'
-        )
         g.db.execute(
             f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or "NULL"}")'
         )
@@ -69,7 +65,6 @@ def get_todo():
             f'SELECT * FROM todos WHERE author_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise (Error)
         return {'success': False}
 
 
@@ -81,7 +76,6 @@ def get_tag():
             f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise (Error)
         return {'success': False}
 
 
@@ -98,16 +92,16 @@ def new_tag():
     except Error:
         return {'success': False}
 
+
 @BP.route('/new/request', methods=['POST'])
 @jsonify_response
 def new_request():
     try:
         req = loads(request.data)
-        print(req)
         id = g.db.execute(
-            f'SELECT id FROM users WHERE username = "{req["user"]}"'
-        ).fetchone()
-        if len(id) > 0 and session["user"]["id"] != id["id"]:
+            f'SELECT id FROM users WHERE username = "{req["user"]}"').fetchone(
+            )
+        if id and session["user"]["id"] != id["id"]:
             g.db.execute(
                 f'INSERT INTO request VALUES (NULL, {session["user"]["id"]}, {id["id"]}, {req["amount"]}, "{req["note"]}")'
             )
@@ -115,7 +109,6 @@ def new_request():
             return {'success': True}
         return {'success': False}
     except Error:
-        raise(Error)
         return {'success': False}
 
 
@@ -135,7 +128,6 @@ def get_inrequest():
 @jsonify_response
 def get_outrequest():
     try:
-        print('da')
         return g.db.execute(
             f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
         ).fetchall()
@@ -155,22 +147,18 @@ def get_users():
 
 
 @BP.route("/updatepassword", methods=['POST'])
-@require_login
-@assert_fields
 @jsonify_response
 def updatepassword():
     try:
         req = loads(request.data)
-        # print(req)
-        # print(session["user"])
-        # print(check_password_hash(session["user"]["password"], req["oldpassword"]))
-        if check_password_hash(session["user"]["password"], req["oldpassword"]):
-            newpass = generate_password_hash(req["newpassword"])
+        if check_password_hash(session["user"]["password"],
+                               req["oldpassword"]):
+            session["user"]["password"] = generate_password_hash(
+                req["newpassword"])
             g.db.execute(
-                f'UPDATE users SET password = "{newpass}" WHERE id = {session["user"]["id"]}'
+                f'UPDATE users SET password = "{session["user"]["password"]}" WHERE id = {session["user"]["id"]}'
             )
             g.db.commit()
-            session["user"]["password"] = newpass
             return {'success': True}
         return {'success': False}
     except Error:
