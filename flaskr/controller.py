@@ -46,15 +46,6 @@ def jsonify_response(f):
     return decorated_function
 
 
-def getTransactions():
-    try:
-        return g.db.execute(
-            f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
-        ).fetchall()
-    except Error:
-        return False
-
-
 def editTransaction(id, name, amount, note, date, tag):
     try:
         g.db.execute(
@@ -77,46 +68,9 @@ def deleteTransaction(id):
 
 
 #WORKS
-def newTag(name, note):
-    try:
-        g.db.execute(
-            f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{name}", "{note}")'
-        )
-        g.db.commit()
-        return True
-    except Error:
-        print(session["user"]["id"])
-        raise (Error)
-        return False
-
-
-#WORKS
-def getTags():
-    try:
-        return g.db.execute(
-            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
-        ).fetchall()
-    except Error:
-        return False
-
-
-#WORKS
 def deleteTag(id):
     try:
         g.db.execute(f'DELETE FROM tags WHERE tag_id = {id}')
-        g.db.commit()
-        return True
-    except Error:
-        raise (Error)
-        return False
-
-
-#WORKS
-def newTodo(title, body, deadline='date("now")'):
-    try:
-        g.db.execute(
-            f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{title}", "{body}", {deadline}, 0)'
-        )
         g.db.commit()
         return True
     except Error:
