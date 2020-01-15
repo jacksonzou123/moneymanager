@@ -88,3 +88,36 @@ def new_tag():
         return {'success': True}
     except Error:
         return {'success': False}
+
+@BP.route('/fetch/inrequest', methods=['FETCH'])
+@jsonify_response
+def get_inrequest():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM request WHERE recipient_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise(Error)
+        return {'success': False}
+
+@BP.route('/fetch/outrequest', methods=['FETCH'])
+@jsonify_response
+def get_outrequest():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise(Error)
+        return {'success': False}
+
+@BP.route('/getusers', methods=['FETCH'])
+@jsonify_response
+def get_users():
+    try:
+        return g.db.execute(
+            f'SELECT id, username FROM users'
+        ).fetchall()
+    except Error:
+        raise(Error)
+        return {'success': False}

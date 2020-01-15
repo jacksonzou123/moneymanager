@@ -119,10 +119,32 @@ export const transaction = props => {
 };
 
 export const requests = props => {
+  console.log(props.outrequest)
+  console.log(props.users)
   return (
     `
       <div>
-      requests
+      Outgoing requests
+      ${props.outrequest.map(
+        t => `
+          <br>
+          Request to ${props.users[t.recipient_id-1]["username"]} for $${t.req_amount}
+          <br>
+          Note: ${t.req_note}
+        `
+      )}
+      </div>
+      <br>
+      <div>
+      Incoming requests
+      ${props.inrequest.map(
+        t => `
+          <br>
+          Request from ${props.users[t.sender_id-1]["username"]} for $${t.req_amount}
+          <br>
+          Note: ${t.req_note}
+        `
+      )}
       </div>
     `
   );

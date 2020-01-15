@@ -3,7 +3,10 @@ export let state = {
   'view': 'home',
   'todo': {},
   'tag': {},
-  'transaction': {}
+  'transaction': {},
+  'inrequest': {},
+  'outrequest': {},
+  'users:': {}
 };
 
 export const setState = update => {
