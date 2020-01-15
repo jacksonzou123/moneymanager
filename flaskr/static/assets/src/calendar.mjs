@@ -11,7 +11,7 @@ export const calendar = props => {
   return (
     `
       <div>
-        ${totalRows.}
+        ${totalRows}
         <div class='row'></div>
         <div class='row'></div>
         <div class='row'></div>
