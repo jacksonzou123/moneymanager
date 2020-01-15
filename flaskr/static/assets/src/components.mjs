@@ -160,7 +160,19 @@ export const todos = props => {
     <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
       Add Todo
     </button>
-    ${props.todo.map(t => JSON.stringify(t))}
+    ${props.todo.map(t =>
+      `
+        <br>
+        Title:
+        ${t.todo_title}
+        <br>
+        Body:
+        ${t.todo_body}
+        <br>
+        Deadline:
+        ${t.todo_deadline}
+      `
+    )}
     </div>
     `
   );
