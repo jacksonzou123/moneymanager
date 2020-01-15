@@ -50,6 +50,24 @@ const tagForm = props => {
   );
 };
 
+const reqForm = props => {
+  return (
+    `
+    <div class='row mb-3'>
+      <h4 class='mx-auto'>Add New Request</h4>
+    </div>
+    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
+      <form class='text-center'>
+        <input type='text' class='form-control mb-3' name='user' placeholder='Recipient Username'>
+        <input type='number' class='form-control mb-3' name='amount' placeholder='Request Amount'>
+        <input type='text' class='form-control mb-3' name='note' placeholder='Request Note'>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit New Request</button>
+      </form>
+    </div>
+    `
+  );
+};
+
 const home = props => {
   return (
     `
@@ -139,10 +157,14 @@ const transaction = props => {
 };
 
 const requests = props => {
-  console.log(props.outrequest)
-  console.log(props.users)
   return (
     `
+      <div class='d-flex flex-row justify-content-between p-0 m-0 mb-3'>
+        <h4>Transactions</h4>
+        <button type='button' id='addRequest' class='btn btn-sm btn-success rounded'>
+          Add Request
+        </button>
+      </div>
       <div>
       Outgoing requests
       ${props.outrequest.map(
@@ -217,8 +239,8 @@ const settings = props => {
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
         <form class='text-center mb-3'>
-          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password'>
-          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password'>
+          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password' required>
+          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password' required >
           <button type='button' name='button' id='updatepassword' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
           <button type='button' name='button' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
@@ -237,6 +259,8 @@ export const app = props => {
         return tagForm(props);
       case 'New Todo':
         return todoForm(props);
+      case 'New Request':
+        return reqForm(props);
       case 'Transactions':
         return transaction(props);
       case 'Requests':

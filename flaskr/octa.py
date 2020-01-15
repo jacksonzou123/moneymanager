@@ -93,6 +93,27 @@ def new_tag():
     except Error:
         return {'success': False}
 
+@BP.route('/new/request', methods=['POST'])
+@jsonify_response
+def new_request():
+    try:
+        req = loads(request.data)
+        print(req)
+        id = g.db.execute(
+            f'SELECT id FROM users WHERE username = "{req["user"]}"'
+        ).fetchone()
+        print(id)
+        if len(id) > 0:
+            g.db.execute(
+                f'INSERT INTO request VALUES (NULL, {session["user"]["id"]}, {id["id"]}, {req["amount"]}, "{req["note"]}")'
+            )
+            g.db.commit()
+            return {'success': True}
+        return {'success': False}
+    except Error:
+        raise(Error)
+        return {'success': False}
+
 
 @BP.route('/fetch/inrequest', methods=['FETCH'])
 @jsonify_response
@@ -110,6 +131,7 @@ def get_inrequest():
 @jsonify_response
 def get_outrequest():
     try:
+        print('da')
         return g.db.execute(
             f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
         ).fetchall()
@@ -131,9 +153,9 @@ def get_users():
 def updatepassword():
     try:
         req = loads(request.data)
-        print(req)
-        print(session["user"])
-        print(check_password_hash(session["user"]["password"], req["oldpassword"]))
+        # print(req)
+        # print(session["user"])
+        # print(check_password_hash(session["user"]["password"], req["oldpassword"]))
         if check_password_hash(session["user"]["password"], req["oldpassword"]):
             newpass = generate_password_hash(req["newpassword"])
             g.db.execute(

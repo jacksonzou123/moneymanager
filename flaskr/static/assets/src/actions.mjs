@@ -31,6 +31,7 @@ export const fetchFrom = async (endpoint, stateAttribute) => {
 };
 
 export const postTo = async (endpoint, form, resolve) => {
+  console.log(serializeForm(form))
   const response = await fetch(
     `${window.location.origin}${endpoint}`,
     { method: 'POST', body: serializeForm(form) }
@@ -95,6 +96,18 @@ export const renderApp = (name, component) => {
           fetchFrom.bind(this, '/octa/fetch/userinfo', 'user')
         )
       )
+      return;
+    case '/requests':
+      bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'))
+      return;
+    case '/new/request':
+      bbind('submitRequest',
+        postTo.bind(
+          this, '/octa/new/request', 'form',
+          fetchFrom.bind(this, '/octa/fetch/outrequest', 'outrequest')
+        )
+      )
+      return;
     default:
       return;
   }
