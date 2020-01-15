@@ -108,6 +108,13 @@ export const renderApp = (name, component) => {
           fetchFrom.bind(this, '/octa/fetch/todo', 'todo')
         ))
       return;
+    case '/settings':
+      bbind('updatepassword',
+        postTo.bind(
+          this, '/octa/updatepassword', 'form',
+          fetchFrom.bind(this, '/octa/fetch/userinfo', 'user')
+        )
+      )
     default:
       return;
   }

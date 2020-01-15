@@ -238,11 +238,11 @@ const settings = props => {
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
         <form class='text-center mb-3'>
-          <input type='password' class='form-control mb-3' name='password' placeholder='Password'>
-          <input type='password' class='form-control mb-3' name='confirmPassword' placeholder='Confirm Password'>
-          <button type='button' name='button' id='' class='btn btn-block btn-md btn-danger'>Update Password</button>
+          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password'>
+          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password'>
+          <button type='button' name='button' id='updatepassword' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
-          <button type='button' name='button' id='' class='btn btn-block btn-primary'>Export to Google Sheets</button>
+          <button type='button' name='button' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
         </form>
       </div>
     `

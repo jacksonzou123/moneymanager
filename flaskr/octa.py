@@ -7,6 +7,8 @@ from flask import Blueprint, request, jsonify, session, g
 
 from .controller import require_login, jsonify_response, newTodo
 
+from werkzeug.security import check_password_hash, generate_password_hash
+
 BP = Blueprint('octa', __name__, url_prefix='/octa')
 
 
@@ -14,7 +16,6 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @jsonify_response
 def user_info():
     return session['user']
-
 
 @BP.route('/new/transaction', methods=['POST'])
 @jsonify_response
@@ -120,12 +121,32 @@ def get_outrequest():
         raise (Error)
         return {'success': False}
 
-
 @BP.route('/getusers', methods=['FETCH'])
 @jsonify_response
 def get_users():
     try:
         return g.db.execute(f'SELECT id, username FROM users').fetchall()
+    except Error:
+        raise (Error)
+        return {'success': False}
+
+@BP.route("/updatepassword", methods=['POST'])
+@jsonify_response
+def updatepassword():
+    try:
+        req = loads(request.data)
+        print(req)
+        print(session["user"])
+        print(check_password_hash(session["user"]["password"], req["oldpassword"]))
+        if check_password_hash(session["user"]["password"], req["oldpassword"]):
+            newpass = generate_password_hash(req["newpassword"])
+            g.db.execute(
+                f'UPDATE users SET password = "{newpass}" WHERE id = {session["user"]["id"]}'
+            )
+            g.db.commit()
+            session["user"]["password"] = newpass
+            return {'success': True}
+        return {'success': False}
     except Error:
         raise (Error)
         return {'success': False}
