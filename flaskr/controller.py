@@ -135,11 +135,25 @@ def quickStats():
         currentMonth = datetime.now().month
         currentDay = datetime.now().day
 
+        money = dict()
+        money["day"] = 0
+        money["month"] = 0
+        money["year"] = 0
+
         for item in info:
             date = item['transaction_date'].split("-")
             year = int(date[0])
             month = int(date[1])
             day = int(date[2])
+
+            if year = currentYear:
+                money["year"] += item['transaction_amount']
+                if month == currentMonth:
+                    money["month"] += item['transaction_amount']
+                    if month == currentDay:
+                        money["day"] += item['transaction_amount']
+
+
         return True
     except Error:
         return False
