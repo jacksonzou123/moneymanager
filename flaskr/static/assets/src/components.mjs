@@ -184,13 +184,8 @@ const requests = props => {
   return (
     `
       <div class='d-flex flex-row justify-content-between p-0 m-0 mb-3'>
-        <h4>Transactions</h4>
+        <h4>Requests</h4>
         <button type='button' id='addRequest' class='btn btn-sm btn-success rounded'>
-          Add Request
-        </button>
-      </div>
-      <div>
-        <button type='button' id='addRequest' class='btn btn-sm btn-primary rounded ml-auto'>
           Add Request
         </button>
       </div>

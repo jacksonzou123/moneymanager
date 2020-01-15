@@ -107,8 +107,7 @@ def new_request():
         id = g.db.execute(
             f'SELECT id FROM users WHERE username = "{req["user"]}"'
         ).fetchone()
-        print(id)
-        if len(id) > 0:
+        if len(id) > 0 and session["user"]["id"] != id["id"]:
             g.db.execute(
                 f'INSERT INTO request VALUES (NULL, {session["user"]["id"]}, {id["id"]}, {req["amount"]}, "{req["note"]}")'
             )
