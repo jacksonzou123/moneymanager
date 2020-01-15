@@ -17,12 +17,12 @@
   * Front-end
     * Javascript Functionalities
   * Back-end
-    * Setup Database and File System Transfer
+    * Setup Database
     * Setup Authentication
 
 ## What is Spendie
 
-Spendie is a budget/money management web application designed to track your spending and visualize it in a intuitive way.
+Spendie is a budget/money management web application designed to track your spending and to help visualize it in a intuitive way.
 
 ## API's
 
@@ -57,7 +57,7 @@ Spendie is a budget/money management web application designed to track your spen
    pip3 install -r doc/requirements.txt
    ```
 
-6. Export any required enviroment variables(skip for now).
+6. Export any required environment variables
 
    ```bash
    to be determined...
