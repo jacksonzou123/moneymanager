@@ -207,7 +207,7 @@ const requests = props => {
                 <br>
                 Note: ${t.req_note}
                 </div>
-              `)}
+              `).join('')}
             </div>
           </div>
           <div class='card'>
@@ -221,7 +221,7 @@ const requests = props => {
                 <br>
                 Note: ${t.req_note}
                 </div>
-              `)}
+              `).join('')}
             </div>
           </div>
         </div>
