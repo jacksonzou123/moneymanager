@@ -36,38 +36,44 @@ export const home = props => {
   return (
     `
     <div class='container-fluid p-0 m-0'>
-      <div class='row mb-3 mx-5'>
-        <h2 class='hello-title'>Hello, ${props.user.username}!</h2>
+      <div class='row mb-3 mx-5 d-flex justify-content-between'>
+        <h3 class='hello-title'>Hello, ${props.user.username}!</h3>
+        <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
       </div>
-      <div class='row mb-3 d-flex justify-content-center mx-3' style='padding-bottom: 30px;'>
+      <div class='row mb-3 d-flex justify-content-center mx-3 p-3'>
         <div class='text-center d-flex justify-content-center flex-column'>
-          <h4>Add Transaction</h4>
+          <h5>Add Transaction</h5>
           <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
-      <div class='card-group mx-5'>
+      <div class='card-group mx-5 mb-3'>
         <div class='card'>
-          <div class='card-body'>
-            <h4>Quick Stats</h4>
+          <div class='card-body m-0 p-0'>
+            <div class="card-header">
+              Quick Stats
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Today: </li>
+              <li class="list-group-item">This Week: </li>
+              <li class="list-group-item">This Month: </li>
+            </ul>
           </div>
         </div>
         <div class='card'>
-          <div class='card-body'>
-            <h4>Tags</h4>
-            <table>
+          <div class='card-body m-0 p-0'>
+            <div class='card-header'>Tags</div>
+            <ul class='list-group list-group-flush'>
                 ${props.tag.map(t => `
-                  <tr>
-                  <td>${t.tag_type}</td>
-                  <td class='amount'>something</td>
-                  </tr>
+                  <li class='list-group-item d-flex flex-column'>
+                    <h5>${t.tag_type}</h5>
+                    <p class='amount'>something</p>
+                  </li>
                 `).join('')}
-            </table>
+            </ul>
           </div>
         </div>
       </div>
-      <div class='row'>
-        ${calendar(props)}
-      </div>
+      ${calendar(props)}
     `
   );
 };

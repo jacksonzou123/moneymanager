@@ -146,7 +146,7 @@ def deleteTodo(id):
 #             month = int(date[1])
 #             day = int(date[2])
 #
-#             if year = currentYear:
+#             if year == currentYear:
 #                 money["year"] += item['transaction_amount']
 #                 if month == currentMonth:
 #                     money["month"] += item['transaction_amount']
