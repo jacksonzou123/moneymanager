@@ -3,25 +3,26 @@ import { calendar } from './calendar.mjs';
 export const transactionForm = props => {
   return (
     `
-      <div class='row my-3'>
+      <div class='row mb-3'>
         <h4 class='mx-auto'>Add New Transaction</h4>
       </div>
       <div class='row mb-3'>
         <div class='col-sm'>
-          <form class='d-flex flex-column form-group ml-auto' style='max-widtd: 330px;'>
+          <form class='d-flex flex-column form-group mx-auto w-50'>
             <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
             <input type='date' class='form-control mb-3' name='date'>
             <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+            <input type='text' class='form-control mb-3' name='location' placeholder='Location'>
             <div class='d-flex flex-row mb-3'>
-              <div class='flex-fill'>
+              <div class='w-75'>
                 <select class='form-control' name='tag'>
                   <option value='NULL'>None</option>
                   ${props.tag.map(t => `<option>${t.tag_type}</option>`)}
                 </select>
               </div>
-              <div class='justify-content-center'>
-                <button type='button' class='btn btn-primary rounded ml-2'>New Tag</button>
+              <div class='ml-2 flex-fill'>
+                <button type='button' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
             <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
@@ -36,38 +37,43 @@ export const home = props => {
   return (
     `
     <div class='container-fluid p-0 m-0'>
-      <div class='row mb-3 mx-5'>
-        <h2 class='hello-title'>Hello, ${props.user.username}!</h2>
+      <div class='row mb-3 mx-5 d-flex justify-content-between'>
+        <h3 class='hello-title'>Hello, ${props.user.username}!</h3>
+        <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
       </div>
-      <div class='row mb-3 d-flex justify-content-center mx-3' style='padding-bottom: 30px;'>
+      <div class='row mb-3 d-flex justify-content-center mx-3 p-3'>
         <div class='text-center d-flex justify-content-center flex-column'>
-          <h4>Add Transaction</h4>
-          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
+          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto font-weight-bolder p-3' id='addTransaction'>Add Transaction</a>
         </div>
       </div>
-      <div class='card-group mx-5'>
+      <div class='card-group mx-5 mb-3'>
         <div class='card'>
-          <div class='card-body'>
-            <h4>Quick Stats</h4>
+          <div class='card-body m-0 p-0'>
+            <div class="card-header">
+              Quick Stats
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Today: </li>
+              <li class="list-group-item">This Week: </li>
+              <li class="list-group-item">This Month: </li>
+            </ul>
           </div>
         </div>
         <div class='card'>
-          <div class='card-body'>
-            <h4>Tags</h4>
-            <table>
+          <div class='card-body m-0 p-0'>
+            <div class='card-header'>Tags</div>
+            <ul class='list-group list-group-flush'>
                 ${props.tag.map(t => `
-                  <tr>
-                  <td>${t.tag_type}</td>
-                  <td class='amount'>something</td>
-                  </tr>
+                  <li class='list-group-item d-flex flex-column'>
+                    <h5>${t.tag_type}</h5>
+                    <p class='amount'>something</p>
+                  </li>
                 `).join('')}
-            </table>
+            </ul>
           </div>
         </div>
-        <div class='row'>
-          ${calendar(props)}
-        </div>
       </div>
+      ${calendar(props)}
     `
   );
 };
@@ -75,46 +81,40 @@ export const home = props => {
 export const transaction = props => {
   return (
     `
-    <div class='d-flex flex-row'>
-      <div class='p-2'>
+    <div class='container-fluid p-0 m-0'>
+      <div class='d-flex flex-row justify-content-between p-0 m-0 mb-3'>
         <h4>Transactions</h4>
-      </div>
-      <div class='p-2 ml-auto'>
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
       </div>
-    </div>
-    <div class="container-fluid p-0 m-0">
-      <div class="card-group mx-5">
-        <div class="card">
-            ${props.transaction.map(t => `
-              <div class="card-text" style="padding: 8px;">
-                <div class="row">
-                  <div class="col-3">
-                    <h5>${t.transaction_name}</h5>
-                    <p>
-                      ${t.transaction_date}<br>
-                      <span style="color: #328c0a;">$${t.transaction_amount}</span><br>
-                    </p>
-                  </div>
-                  <div class="col">
-                    <b>Note:</b><br>
-                    ${t.transaction_note}
-                  </div>
-                  <div class="col-1">
-                    <a href="#" style="float: right;">
-                      <svg class="bi bi-pencil" width="1.5em" height="1.5em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"/>
-                      </svg>
-                    </a>
-                  </div>
+      <div class='card p-3'>
+          ${props.transaction.map(t => `
+            <div class='card-text border-bottom'>
+              <div class='row'>
+                <div class='col-3 d-flex flex-column'>
+                  <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
+                  <p>
+                    ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
+                    <span class='text-success'>$${t.transaction_amount}</span>
+                  </p>
+                </div>
+                <div class='col d-flex flex-column'>
+                  <h6 class='font-weight-bold'>Note:</h6>
+                  <p>${t.transaction_note}</p>
+                  <p>${t.transaction_location}</p>
+                </div>
+                <div class='col'>
+                  <a class='float-right' href='#'>
+                    <svg class='bi bi-pencil' width='1.5em' height='1.5em' viewBox='0 0 20 20' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                      <path fill-rule='evenodd' d='M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z' clip-rule='evenodd'/>
+                      <path fill-rule='evenodd' d='M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z' clip-rule='evenodd'/>
+                    </svg>
+                  </a>
                 </div>
               </div>
-              <hr style="margin-top: 0; margin-bottom: 0;">
-            `).join('')}
-        </div>
+            </div>
+          `).join('')}
       </div>
     </div>
     `
@@ -122,10 +122,32 @@ export const transaction = props => {
 };
 
 export const requests = props => {
+  console.log(props.outrequest)
+  console.log(props.users)
   return (
     `
       <div>
-      requests
+      Outgoing requests
+      ${props.outrequest.map(
+      t => `
+          <br>
+          Request to ${props.users[t.recipient_id - 1]["username"]} for $${t.req_amount}
+          <br>
+          Note: ${t.req_note}
+        `
+    )}
+      </div>
+      <br>
+      <div>
+      Incoming requests
+      ${props.inrequest.map(
+      t => `
+          <br>
+          Request from ${props.users[t.sender_id - 1]["username"]} for $${t.req_amount}
+          <br>
+          Note: ${t.req_note}
+        `
+    )}
       </div>
     `
   );
@@ -201,7 +223,7 @@ export const app = props => {
         </ul>
       </div>
     </nav >
-    <div class='p-5'>
+    <div class='p-3'>
       <div class='d-flex justify-content-center flex-column container-fluid px-3'>
         ${view()}
       </div>

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   transaction_amount REAL NOT NULL,
   transaction_note TEXT,
   transaction_date TEXT,
+  transaction_location TEXT, 
   tag_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (tag_id) REFERENCES tags (tag_id)

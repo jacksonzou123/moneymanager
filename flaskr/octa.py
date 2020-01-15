@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo, quickStats
+from .controller import require_login, jsonify_response, newTodo
 
 BP = Blueprint('octa', __name__, url_prefix='/octa')
 
@@ -22,7 +22,7 @@ def new_transaction():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["tag"] or ""}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or ""}")'
         )
         g.db.commit()
         return {'success': True}
@@ -33,7 +33,6 @@ def new_transaction():
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response
 def get_transaction():
-    quickStats()
     try:
         return g.db.execute(
             f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
@@ -55,6 +54,7 @@ def new_todo():
     except Error:
         return {'success': False}
 
+
 @BP.route('/fetch/todo', methods=['FETCH'])
 @jsonify_response
 def get_todo():
@@ -63,8 +63,9 @@ def get_todo():
             f'SELECT * FROM todos WHERE author_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/fetch/tag', methods=['FETCH'])
 @jsonify_response
@@ -74,8 +75,9 @@ def get_tag():
             f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]}'
         ).fetchall()
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
+
 
 @BP.route('/new/tag', methods=['POST'])
 @jsonify_response
@@ -88,4 +90,38 @@ def new_tag():
         g.db.commit()
         return {'success': True}
     except Error:
+        return {'success': False}
+
+
+@BP.route('/fetch/inrequest', methods=['FETCH'])
+@jsonify_response
+def get_inrequest():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM request WHERE recipient_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise (Error)
+        return {'success': False}
+
+
+@BP.route('/fetch/outrequest', methods=['FETCH'])
+@jsonify_response
+def get_outrequest():
+    try:
+        return g.db.execute(
+            f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
+        ).fetchall()
+    except Error:
+        raise (Error)
+        return {'success': False}
+
+
+@BP.route('/getusers', methods=['FETCH'])
+@jsonify_response
+def get_users():
+    try:
+        return g.db.execute(f'SELECT id, username FROM users').fetchall()
+    except Error:
+        raise (Error)
         return {'success': False}

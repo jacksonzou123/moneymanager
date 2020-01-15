@@ -30,6 +30,9 @@ def register():
                 f'INSERT INTO users VALUES (NULL, "{username}", "{generate_password_hash(password)}")'
             )
             g.db.commit()
+            flash(
+                '<div class="alert alert-success small">User is successfully registered.</div>'
+            )
             return redirect('/auth/signin')
         flash(error)
     return render_template('auth.html')
@@ -45,9 +48,9 @@ def login():
         user = g.db.execute(
             f'SELECT * FROM users WHERE username = "{username}"').fetchone()
         if user is None:
-            error = f'Username {username} is incorrect.'
+            error = f'<div class="alert alert-danger small">Username {username} is incorrect.</div>'
         elif not check_password_hash(user['password'], password):
-            error = f'Entered password is incorrect.'
+            error = f'<div class="alert alert-danger small">"Entered password is incorrect.</div>'
         if error is None:
             session.clear()
             session['user'] = user

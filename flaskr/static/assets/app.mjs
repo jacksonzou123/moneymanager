@@ -6,6 +6,9 @@ window.onload = async _ => {
   await fetchFrom('/octa/fetch/transaction', 'transaction');
   await fetchFrom('/octa/fetch/todo', 'todo');
   await fetchFrom('/octa/fetch/tag', 'tag');
+  await fetchFrom('/octa/fetch/inrequest', 'inrequest');
+  await fetchFrom('/octa/fetch/outrequest', 'outrequest');
+  await fetchFrom('/octa/getusers', 'users');
 
   switch (window.location.pathname) {
     case '/new/transaction':
