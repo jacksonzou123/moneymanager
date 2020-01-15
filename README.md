@@ -24,14 +24,14 @@
 
 Spendie is a budget/money management web application designed to track your spending and visualize it in a intuitive way.
 
-## API's
+## API
 
 * [Google Maps Embed API](./doc/api_googlemapsembed.pdf)
 * [Google Sheets API](./doc/api_googlesheets.pdf)
 
 ## Run Instruction
 
-1. Procure any necessary API keys and secrets.
+1. Procure any necessary API keys and secrets. Follow the directions from the API card links above.
 2. Clone the repository with Git.
 
    ```bash
@@ -60,7 +60,9 @@ Spendie is a budget/money management web application designed to track your spen
 6. Export any required enviroment variables(skip for now).
 
    ```bash
-   to be determined...
+   export GOOGLE_MAPS_EMBED_API_KEY='your_super_secret_api_key'
+   export GOOGLE_SHEETS_CLIENT_ID='your_super_secret_client_id'
+   export GOOGLE_SHEETS_API_KEY='your_super_secret_api_key'
    ```
 
 7. Run the Flask app.
