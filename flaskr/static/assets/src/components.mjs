@@ -45,7 +45,7 @@ export const home = props => {
           <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
         </div>
       </div>
-      <div class='card-group mx-5'>
+      <div class='card-group mx-5 mb-3'>
         <div class='card'>
           <div class='card-body'>
             <h4>Quick Stats</h4>
@@ -65,7 +65,10 @@ export const home = props => {
           </div>
         </div>
       </div>
-      <div class='row'>
+      <div class='d-flex justify-content-center flex-column'>
+        <div class='d-flex flex-row justify-content-center'>
+          <h4>Calendar</h4>
+        </div>
         ${calendar(props)}
       </div>
     `
