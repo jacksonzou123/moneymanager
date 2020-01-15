@@ -138,11 +138,32 @@ const transaction = props => {
   );
 };
 
-const requests = props => {
-  console.log(props.outrequest)
-  console.log(props.users)
+const requestForm = props => {
   return (
     `
+    <div class='row mb-3'>
+      <h4 class='mx-auto'>Add New Request</h4>
+    </div>
+    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
+      <form class='text-center'>
+        <input type='text' class='form-control mb-3' name='name' placeholder='Recipient Name'>
+        <input type='date' class='form-control mb-3' name='amount' placeholder='Amount'>
+        <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit Request</button>
+      </form>
+    </div>
+    `
+  );
+};
+
+const requests = props => {
+  return (
+    `
+      <div>
+        <button type='button' id='addRequest' class='btn btn-sm btn-primary rounded ml-auto'>
+          Add Request
+        </button>
+      </div>
       <div>
       Outgoing requests
       ${props.outrequest.map(
@@ -228,11 +249,49 @@ const settings = props => {
   );
 };
 
+const search = props => {
+  const filtered = _ => props.transaction.filter(t => t.tag_type === props.searchedTag);
+  return (
+    `
+    <div class='card p-3'>
+          ${filtered().map(t => `
+            <div class='card-text border-bottom'>
+              <div class='row'>
+                <div class='col-3 d-flex flex-column'>
+                  <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
+                  <p>
+                    ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
+                    <span class='text-success'>$${t.transaction_amount}</span>
+                  </p>
+                </div>
+                <div class='col d-flex flex-column'>
+                  <h6 class='font-weight-bold'>Note:</h6>
+                  <p>${t.transaction_note}</p>
+                  <p>${t.transaction_location}</p>
+                </div>
+                <div class='col'>
+                  <a class='float-right' href='#'>
+                    <svg class='bi bi-pencil' width='1.5em' height='1.5em' viewBox='0 0 20 20' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                      <path fill-rule='evenodd' d='M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z' clip-rule='evenodd'/>
+                      <path fill-rule='evenodd' d='M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z' clip-rule='evenodd'/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+      </div>
+    `
+  )
+};
+
 export const app = props => {
   const view = _ => {
     switch (props.view) {
       case 'New Transaction':
         return transactionForm(props);
+      case 'New Request':
+        return requestForm(props);
       case 'New Tag':
         return tagForm(props);
       case 'New Todo':
@@ -245,6 +304,8 @@ export const app = props => {
         return todos(props);
       case 'Settings':
         return settings(props);
+      case 'Search':
+        return search(props);
       default:
         return home(props)
     }
@@ -259,7 +320,7 @@ export const app = props => {
       <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
         <ul class='navbar-nav'>
           <li class='nav-item'>
-            <input class='form-control' type='text' placeholder='Search'>
+            <input class='form-control' id='searchByTag' type='text' placeholder='Search by Tag...'>
           </li>
           <li class='nav-item'>
             <a type='button' id='toTransactions' class='navbar-link btn btn-link text-muted'>Transactions</a>

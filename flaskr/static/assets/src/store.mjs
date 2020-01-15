@@ -6,7 +6,8 @@ export let state = {
   'transaction': {},
   'inrequest': {},
   'outrequest': {},
-  'users:': {}
+  'users:': {},
+  'searchedTag': '',
 };
 
 export const setState = update => {

@@ -15,6 +15,8 @@ window.onload = async _ => {
       return handleViewUpdate(app, 'New Transaction');
     case '/new/tag':
       return handleViewUpdate(app, 'New Tag');
+    case '/new/request':
+      return handleViewUpdate(app, 'New Request');
     case '/new/todo':
       return handleViewUpdate(app, 'New Todo');
     case '/transactions':
@@ -25,6 +27,8 @@ window.onload = async _ => {
       return handleViewUpdate(app, 'Todos');
     case '/settings':
       return handleViewUpdate(app, 'Settings');
+    case '/search':
+      return handleViewUpdate(app, 'Search');
     default:
       return handleViewUpdate(app, 'Home');
   };

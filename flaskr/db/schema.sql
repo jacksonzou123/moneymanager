@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS transactions (
   transaction_note TEXT,
   transaction_date TEXT,
   transaction_location TEXT, 
-  tag_id INTEGER NOT NULL,
+  tag_type TEXT,
   FOREIGN KEY (user_id) REFERENCES users (id),
-  FOREIGN KEY (tag_id) REFERENCES tags (tag_id)
+  FOREIGN KEY (tag_type) REFERENCES tags (tag_type)
 );
 
 CREATE TABLE IF NOT EXISTS tags (
