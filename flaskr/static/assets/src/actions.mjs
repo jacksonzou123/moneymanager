@@ -4,11 +4,12 @@ import { state, setState } from './store.mjs';
 const g = id => document.getElementById(id);
 
 const bbind = (id, func, action = 'click') => {
+  console.log(action)
   g(id).addEventListener(
     action,
     e => {
       e.preventDefault();
-      func();
+      func(e);
     }
   );
 };
@@ -57,10 +58,21 @@ export const renderApp = (name, component) => {
   bbind('toRequests', handleViewUpdate.bind(this, app, 'Requests'));
   bbind('toTodos', handleViewUpdate.bind(this, app, 'Todos'));
   bbind('toSettings', handleViewUpdate.bind(this, app, 'Settings'));
+  bbind('searchByTag',
+    e => {
+      if (e.keyCode === 13) {
+        setState({ 'searchedTag': g('searchByTag').value });
+        handleViewUpdate(app, 'Search');
+        console.log(state.transaction)
+      }
+    }, 'keyup')
   switch (window.location.pathname) {
     case '/home':
     case '/transactions':
       bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
+      return;
+    case '/requests':
+      bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));
       return;
     case '/todos':
       bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));

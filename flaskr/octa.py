@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 from flask import Blueprint, request, jsonify, session, g
 
-from .controller import require_login, jsonify_response, newTodo
+from .controller import require_login, jsonify_response, newTodo, assert_fields
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -17,13 +17,18 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 def user_info():
     return session['user']
 
+
 @BP.route('/new/transaction', methods=['POST'])
 @jsonify_response
 def new_transaction():
     try:
         req = loads(request.data)
+        print(request.data)
+        print(
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or "NULL"}")'
+        )
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or ""}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or "NULL"}")'
         )
         g.db.commit()
         return {'success': True}
@@ -139,6 +144,7 @@ def get_outrequest():
         raise (Error)
         return {'success': False}
 
+
 @BP.route('/getusers', methods=['FETCH'])
 @jsonify_response
 def get_users():
@@ -148,7 +154,10 @@ def get_users():
         raise (Error)
         return {'success': False}
 
+
 @BP.route("/updatepassword", methods=['POST'])
+@require_login
+@assert_fields
 @jsonify_response
 def updatepassword():
     try:
