@@ -80,20 +80,16 @@ export const home = props => {
 export const transaction = props => {
   return (
     `
-    <div class='d-flex flex-row justify-content-between'>
-      <div class='p-2'>
+    <div class='container-fluid p-0 m-0'>
+      <div class='d-flex flex-row justify-content-between p-0 m-0 mb-3'>
         <h4>Transactions</h4>
-      </div>
-      <div class='p-2'>
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
       </div>
-    </div>
-    <div class='container-fluid p-0 m-0'>
-      <div class='card'>
+      <div class='card p-3'>
           ${props.transaction.map(t => `
-            <div class='card-text border-bottom p-1'>
+            <div class='card-text border-bottom'>
               <div class='row'>
                 <div class='col-3 d-flex flex-column'>
                   <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
@@ -131,25 +127,25 @@ export const requests = props => {
       <div>
       Outgoing requests
       ${props.outrequest.map(
-        t => `
+      t => `
           <br>
-          Request to ${props.users[t.recipient_id-1]["username"]} for $${t.req_amount}
+          Request to ${props.users[t.recipient_id - 1]["username"]} for $${t.req_amount}
           <br>
           Note: ${t.req_note}
         `
-      )}
+    )}
       </div>
       <br>
       <div>
       Incoming requests
       ${props.inrequest.map(
-        t => `
+      t => `
           <br>
-          Request from ${props.users[t.sender_id-1]["username"]} for $${t.req_amount}
+          Request from ${props.users[t.sender_id - 1]["username"]} for $${t.req_amount}
           <br>
           Note: ${t.req_note}
         `
-      )}
+    )}
       </div>
     `
   );
