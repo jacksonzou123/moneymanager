@@ -169,8 +169,17 @@ export const todos = props => {
 export const settings = props => {
   return (
     `
-      <div>
-      settings
+      <div class='row mb-3'>
+        <h4 class='mx-auto'>Add New Transaction</h4>
+      </div>
+      <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
+        <form class='text-center mb-3'>
+          <input type='password' class='form-control mb-3' name='password' placeholder='Password'>
+          <input type='password' class='form-control mb-3' name='confirmPassword' placeholder='Confirm Password'>
+          <button type='button' name='button' id='' class='btn btn-block btn-md btn-danger'>Update Password</button>
+          <hr>
+          <button type='button' name='button' id='' class='btn btn-block btn-md btn-primary'>Export to Google Sheets</button>
+        </form>
       </div>
     `
   );
@@ -218,7 +227,7 @@ export const app = props => {
             <a type='button' id='toSettings' class='navbar-link btn btn-link text-muted'>Settings</a>
           </li>
           <li class='nav-item'>
-            <a type='button' class='navbar-link btn btn-link text-muted' href='/logout'>Log Out</a>
+            <a type='button' class='navbar-link btn btn-link text-muted text-decoration-none' href='/logout'>Log Out</a>
           </li>
         </ul>
       </div>
