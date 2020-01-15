@@ -39,6 +39,7 @@ export const fetchFrom = async (endpoint, stateAttribute) => {
 };
 
 export const postTo = async (endpoint, form, resolve) => {
+  console.log(serializeForm(form))
   const response = await fetch(
     `${window.location.origin}${endpoint}`,
     { method: 'POST', body: serializeForm(form) }
@@ -91,7 +92,7 @@ export const renderApp = (name, component) => {
       return bbind('submitRequest',
         postTo.bind(
           this, '/octa/new/request', 'form',
-          fetchFrom.bind(this, '/octa/fetch/request', 'request')
+          fetchFrom.bind(this, '/octa/fetch/outrequest', 'outrequest')
         )
       );
     case '/new/tag':
