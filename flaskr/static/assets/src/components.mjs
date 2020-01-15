@@ -174,7 +174,7 @@ const requestForm = props => {
     <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
       <form class='text-center'>
         <input type='text' class='form-control mb-3' name='name' placeholder='Recipient Name'>
-        <input type='date' class='form-control mb-3' name='amount' placeholder='Amount'>
+        <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
         <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
         <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit Request</button>
       </form>
