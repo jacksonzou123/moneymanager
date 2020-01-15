@@ -22,7 +22,7 @@ def new_transaction():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["tag"]}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["tag"] or ""}")'
         )
         g.db.commit()
         return {'success': True}
