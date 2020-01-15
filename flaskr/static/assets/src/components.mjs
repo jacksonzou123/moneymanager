@@ -64,9 +64,9 @@ export const home = props => {
             </table>
           </div>
         </div>
-        <div class='row'>
-          ${calendar(props)}
-        </div>
+      </div>
+      <div class='row'>
+        ${calendar(props)}
       </div>
     `
   );
