@@ -1,35 +1,24 @@
 import { app } from './src/components.mjs';
-import {
-  handleHome,
-  handleAddTransaction,
-  handleTransactions,
-  handleRequests,
-  handleTodos,
-  handleSettings,
-  fetchUserInfo,
-  fetchTransactions,
-  fetchTodos,
-  fetchTags
-} from './src/actions.mjs';
+import { handleViewUpdate, fetchFrom } from './src/actions.mjs';
 
 window.onload = async _ => {
-  await fetchUserInfo();
-  await fetchTransactions();
-  await fetchTodos();
-  await fetchTags();
+  await fetchFrom('/octa/fetch/userinfo', 'user');
+  await fetchFrom('/octa/fetch/transaction', 'transaction');
+  await fetchFrom('/octa/fetch/todo', 'todo');
+  await fetchFrom('/octa/fetch/tag', 'tag');
 
   switch (window.location.pathname) {
     case '/new/transaction':
-      return handleAddTransaction(app);
+      return handleViewUpdate(app, 'New Transaction');
     case '/transactions':
-      return handleTransactions(app);
+      return handleViewUpdate(app, 'Transactions');
     case '/requests':
-      return handleRequests(app);
+      return handleViewUpdate(app, 'Requests');
     case '/todos':
-      return handleTodos(app);
+      return handleViewUpdate(app, 'Todos');
     case '/settings':
-      return handleSettings(app);
+      return handleViewUpdate(app, 'Settings');
     default:
-      return handleHome(app);
+      return handleViewUpdate(app, 'Home');
   };
 };
