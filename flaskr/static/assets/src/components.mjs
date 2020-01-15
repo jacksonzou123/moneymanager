@@ -3,25 +3,25 @@ import { calendar } from './calendar.mjs';
 export const transactionForm = props => {
   return (
     `
-      <div class='row my-3'>
+      <div class='row mb-3'>
         <h4 class='mx-auto'>Add New Transaction</h4>
       </div>
       <div class='row mb-3'>
         <div class='col-sm'>
-          <form class='d-flex flex-column form-group ml-auto' style='max-widtd: 330px;'>
+          <form class='d-flex flex-column form-group mx-auto w-50'>
             <input type='text' class='form-control mb-3' name='name' placeholder='Transaction Name'>
             <input type='date' class='form-control mb-3' name='date'>
             <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
             <div class='d-flex flex-row mb-3'>
-              <div class='flex-fill'>
+              <div class='w-75'>
                 <select class='form-control' name='tag'>
                   <option value='NULL'>None</option>
                   ${props.tag.map(t => `<option>${t.tag_type}</option>`)}
                 </select>
               </div>
-              <div class='justify-content-center'>
-                <button type='button' class='btn btn-primary rounded ml-2'>New Tag</button>
+              <div class='ml-2 flex-fill'>
+                <button type='button' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
             <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
@@ -42,8 +42,7 @@ export const home = props => {
       </div>
       <div class='row mb-3 d-flex justify-content-center mx-3 p-3'>
         <div class='text-center d-flex justify-content-center flex-column'>
-          <h5>Add Transaction</h5>
-          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto' id='addTransaction'>+</a>
+          <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto font-weight-bolder p-3' id='addTransaction'>Add Transaction</a>
         </div>
       </div>
       <div class='card-group mx-5 mb-3'>
