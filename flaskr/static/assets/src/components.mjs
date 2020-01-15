@@ -132,15 +132,16 @@ const transaction = props => {
           Add Transaction
         </button>
       </div>
-      <div class='card p-3'>
+      <div class='card'>
           ${props.transaction.map(t => `
             <div class='card-text border-bottom'>
-              <div class='row'>
+              <div class='row p-2'>
                 <div class='col-3 d-flex flex-column'>
                   <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
                   <p>
                     ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
-                    <span class='text-success'>$${t.transaction_amount}</span>
+                    <span class='text-success'>$${t.transaction_amount}</span><br>
+                    <b>Tag:</b> ${t.tag_type}
                   </p>
                 </div>
                 <div class='col d-flex flex-column'>
