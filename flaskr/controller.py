@@ -127,19 +127,19 @@ def deleteTodo(id):
 
 def quickStats():
     try:
-        info = g.db.execute(
-            f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
-        ).fetchall()
-
-        currentYear = datetime.now().year
-        currentMonth = datetime.now().month
-        currentDay = datetime.now().day
-
-        for item in info:
-            date = item['transaction_date'].split("-")
-            year = int(date[0])
-            month = int(date[1])
-            day = int(date[2])
+        # info = g.db.execute(
+        #     f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
+        # ).fetchall()
+        #
+        # currentYear = datetime.now().year
+        # currentMonth = datetime.now().month
+        # currentDay = datetime.now().day
+        #
+        # for item in info:
+        #     date = item['transaction_date'].split("-")
+        #     year = int(date[0])
+        #     month = int(date[1])
+        #     day = int(date[2])
         return True
     except Error:
         return False
