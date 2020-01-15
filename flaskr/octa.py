@@ -47,7 +47,7 @@ def new_todo():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{req["title"]}", "{req["body"]}", {req["deadline"]}, 0)'
+            f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", "{req["summary"]}", {req["deadline"]}, 0)'
         )
         g.db.commit()
         return {'success': True}

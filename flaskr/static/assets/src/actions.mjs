@@ -61,6 +61,9 @@ export const renderApp = (name, component) => {
     case '/transactions':
       bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
       return;
+    case '/todos':
+      bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));
+      return;
     case '/new/transaction':
       bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
       bbind('submitTransaction',
@@ -77,6 +80,14 @@ export const renderApp = (name, component) => {
           fetchFrom.bind(this, '/octa/fetch/tag', 'tag')
         )
       );
+      return;
+    case '/new/todo':
+      bbind('submitTodo',
+        postTo.bind(
+          this, '/octa/new/todo', 'form',
+          fetchFrom.bind(this, '/octa/fetch/todo', 'todo')
+        ))
+      return;
     default:
       return;
   }

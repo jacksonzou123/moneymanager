@@ -15,6 +15,8 @@ window.onload = async _ => {
       return handleViewUpdate(app, 'New Transaction');
     case '/new/tag':
       return handleViewUpdate(app, 'New Tag');
+    case '/new/todo':
+      return handleViewUpdate(app, 'New Todo');
     case '/transactions':
       return handleViewUpdate(app, 'Transactions');
     case '/requests':

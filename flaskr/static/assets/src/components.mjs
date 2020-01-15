@@ -174,7 +174,7 @@ const todoForm = props => {
   return (
     `
     <div class='row mb-3'>
-      <h4 class='mx-auto'>Add New Tag</h4>
+      <h4 class='mx-auto'>Add New Todo</h4>
     </div>
     <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
       <form class='text-center'>
@@ -195,19 +195,15 @@ const todos = props => {
     <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
       Add Todo
     </button>
+    </div>
+    <div class='d-flex flex-column'>
     ${props.todo.map(t =>
       `
-        <br>
-        Title:
-        ${t.todo_title}
-        <br>
-        Body:
-        ${t.todo_body}
-        <br>
-        Deadline:
-        ${t.todo_deadline}
+        <h5>Title:${t.todo_title}</h5>
+        <p>Body:${t.todo_body}</p>
+        <p>Deadline:${t.todo_deadline}</p>
       `
-    )}
+    ).join('')}
     </div>
     `
   );
@@ -239,6 +235,8 @@ export const app = props => {
         return transactionForm(props);
       case 'New Tag':
         return tagForm(props);
+      case 'New Todo':
+        return todoForm(props);
       case 'Transactions':
         return transaction(props);
       case 'Requests':
