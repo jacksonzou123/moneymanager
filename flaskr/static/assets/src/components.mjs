@@ -1,6 +1,6 @@
 import { calendar } from './calendar.mjs';
 
-export const transactionForm = props => {
+const transactionForm = props => {
   return (
     `
       <div class='row mb-3'>
@@ -33,7 +33,7 @@ export const transactionForm = props => {
   );
 };
 
-export const tagForm = props => {
+const tagForm = props => {
   return (
     `
     <div class='row mb-3'>
@@ -50,7 +50,7 @@ export const tagForm = props => {
   );
 };
 
-export const home = props => {
+const home = props => {
   return (
     `
     <div class='container-fluid p-0 m-0'>
@@ -95,7 +95,7 @@ export const home = props => {
   );
 };
 
-export const transaction = props => {
+const transaction = props => {
   return (
     `
     <div class='container-fluid p-0 m-0'>
@@ -138,7 +138,7 @@ export const transaction = props => {
   );
 };
 
-export const requests = props => {
+const requests = props => {
   console.log(props.outrequest)
   console.log(props.users)
   return (
@@ -170,7 +170,25 @@ export const requests = props => {
   );
 };
 
-export const todos = props => {
+const todoForm = props => {
+  return (
+    `
+    <div class='row mb-3'>
+      <h4 class='mx-auto'>Add New Tag</h4>
+    </div>
+    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
+      <form class='text-center'>
+        <input type='text' class='form-control mb-3' name='name' placeholder='Todo Name'>
+        <input type='text' class='form-control mb-3' name='summary' placeholder='Todo Detail'>
+        <input type='date' class='form-control mb-3' name='deadline' placeholder='Todo Date'>
+        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-success'>Submit New Todo</button>
+      </form>
+    </div>
+    `
+  );
+};
+
+const todos = props => {
   return (
     `
     <div>
@@ -195,7 +213,7 @@ export const todos = props => {
   );
 };
 
-export const settings = props => {
+const settings = props => {
   return (
     `
       <div class='row mb-3'>
