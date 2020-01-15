@@ -27,7 +27,6 @@ export const calendar = props => {
             `).join('')}
           </div>
         `).join('')}
-      </div>  
       </div>
     `
   );
