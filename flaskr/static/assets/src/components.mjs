@@ -13,6 +13,7 @@ export const transactionForm = props => {
             <input type='date' class='form-control mb-3' name='date'>
             <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
             <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
+            <input type='text' class='form-control mb-3' name='location' placeholder='Location'>
             <div class='d-flex flex-row mb-3'>
               <div class='w-75'>
                 <select class='form-control' name='tag'>
@@ -101,6 +102,7 @@ export const transaction = props => {
                 <div class='col d-flex flex-column'>
                   <h6 class='font-weight-bold'>Note:</h6>
                   <p>${t.transaction_note}</p>
+                  <p>${t.transaction_location}</p>
                 </div>
                 <div class='col'>
                   <a class='float-right' href='#'>
@@ -221,7 +223,7 @@ export const app = props => {
         </ul>
       </div>
     </nav >
-    <div class='p-5'>
+    <div class='p-3'>
       <div class='d-flex justify-content-center flex-column container-fluid px-3'>
         ${view()}
       </div>
