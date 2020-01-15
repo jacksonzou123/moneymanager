@@ -8,19 +8,24 @@ export const calendar = props => {
   const calculateRow = _ =>
     Array.from(Array(totalRows()).keys())
   const populateRow = _ =>
-    calculateRow().map(row => Array.from(Array(6).keys()))
+    calculateRow().map(row => Array.from(Array(7).keys()))
 
   return (
     `
-      <div>
+      <div class='d-flex justify-content-center flex-column border rounded mb-3 mx-5 py-3'>
+        <div class='d-flex flex-row justify-content-center'>
+          <h4>Calendar</h4>
+        </div>
         ${populateRow().map(row => `
-          <div class='d-flex flex-row justify-content-center'>${row.map(day => `
-            <div class='card m-1'>
-              <div class='card-body'>
-                <h5 class='card-title'>Date</h5>
+          <div class='row d-flex justify-content-center'>
+            ${row.map(day => `
+              <div class="card cols-1 cols-md-7 m-1">
+                <div class='card-body m-3'>
+                  <h6>Date</h6>
+                </div>
               </div>
-            </div>
-          `).join('')}</div>
+            `).join('')}
+          </div>
         `).join('')}
       </div>
     `
