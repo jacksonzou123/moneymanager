@@ -85,14 +85,17 @@ const home = props => {
                 <button type='button' id='newTag' class='btn btn-sm btn-primary rounded' style='margin:-5px;'>New Tag</button>
               </div>
             </div>
-            <ul class='list-group list-group-flush'>
-                ${props.tag.map(t => `
-                  <li class='list-group-item d-flex flex-column'>
-                    <h5>${t.tag_type}</h5>
-                    <p class='amount'>something</p>
-                  </li>
-                `).join('')}
-            </ul>
+            <div style='max-height:140px; overflow-y: auto;'>
+              <ul class='list-group list-group-flush flex-column'>
+                  ${props.tag.map(t => `
+                    <li class='list-group-item d-flex justify-content-between' style='border-bottom: 0 none; padding-left: 20px; padding-bottom: 0px;'>
+                      ${t.tag_type}
+                      <div class='amount'>something</div>
+                    </li>
+                  `).join('')}
+                </div>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
