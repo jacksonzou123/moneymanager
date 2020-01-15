@@ -3,7 +3,7 @@ import { calendar } from './calendar.mjs';
 const home = props => {
   return (
     `
-    <div class='container-fluid p-0 m-0'><div class='container'>
+    <div class='container-fluid p-0 m-0'>
       <div class='row mb-3 mx-5 d-flex justify-content-between'>
         <h3>Hello, ${props.user.username}!</h3>
         <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
@@ -13,7 +13,7 @@ const home = props => {
           <button type='button' class='d-flex justify-content-center btn addButton text-white rounded mx-auto font-weight-bolder p-3' id='addTransaction'>Add Transaction</a>
         </div>
       </div>
-      <div class='card-group mx-5 mb-3 mb-5'>
+      <div class='card-group mx-5 mb-3'>
         <div class='card'>
           <div class='card-body m-0 p-0'>
             <div class="card-header">
@@ -48,7 +48,7 @@ const home = props => {
         </div>
       </div>
       ${calendar(props)}
-      </div></div>
+    </div>
     `
   );
 };
@@ -271,19 +271,6 @@ const todos = props => {
 
 
 const settings = props => {
-  const allowButton = _ => {
-    const but = document.querySelector('button');
-    const password = document.querySelector('input[name=password]').value;
-    const confirmPassword = document.querySelector('input[name=confirmPassword').value;
-    if ((password !== confirmPassword) || (password === '' && confirmPassword === '')) {
-      but.className = but.className.match(/disabled/) ? but.className + ' disabled' : but.className;
-      but.attributes = but.setAttribute('disabled', '');
-    }
-    else {
-      but.className = but.className.replace(/disabled/, '');
-      but.attributes = but.removeAttribute('disabled');
-    }
-  };
   return (
     `
       <div class='row mb-3'>
@@ -291,11 +278,11 @@ const settings = props => {
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
         <form class='text-center mb-3'>
-          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password' oninput='${_ => allowButton()}' required>
-          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password' oninput='${_ => allowButton()}' required>
-          <button type='button' name='button' id='updatepassword' class='btn btn-block btn-md btn-danger'>Update Password</button>
+          <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password' value='' required="true">
+          <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password' value='' required="true">
+          <button type='submit' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
-        <button type='button' name='button' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
+        <button type='button' name='submit' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
         </form >
       </div >
   `
@@ -370,10 +357,10 @@ export const app = props => {
   return (
     `
    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-    <button type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</button>
-    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
+    <a type='button' id='returnHome' class='navbar-brand btn btn-link'>Spendie</a>
+    <a class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav'>
       <span class='navbar-toggler-icon'></span>
-    </button>
+    </a>
     <div class='collapse navbar-collapse justify-content-end' id='navbarNav'>
       <ul class='navbar-nav'>
         <li class='nav-item'>
