@@ -49,24 +49,6 @@ export const home = props => {
         <div class='card'>
           <div class='card-body'>
             <h4>Quick Stats</h4>
-            <table>
-              <tr>
-                <td>Today:</td>
-                <td class='amount'>$72.05</td>
-              </tr>
-              <tr>
-                <td>Last 7 Days:</td>
-                <td class='amount'>something</td>
-              </tr>
-              <tr>
-                <td>This Month:</td>
-                <td class='amount'>something</td>
-              </tr>
-              <tr>
-                <td>This Year:</td>
-                <td class='amount'>something</td>
-              </tr>
-            </table>
           </div>
         </div>
         <div class='card'>
@@ -86,7 +68,6 @@ export const home = props => {
           ${calendar(props)}
         </div>
       </div>
-    </div>
     `
   );
 };
@@ -102,20 +83,16 @@ export const transaction = props => {
         <button type='button' id='addTransaction' class='btn btn-sm btn-success rounded'>
           Add Transaction
         </button>
-        ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
       </div>
     </div>
-
-
-    <div class='container-fluid p-0 m-0'>
-      <div class='card-group mx-5'>
-        <div class='card'>
-          <div class='card-body'>
-          </div>
+    <div class="container-fluid p-0 m-0">
+      <div class="card-group mx-5">
+        <div class="card">
+        ${JSON.stringify(props)}
+        ${props.transaction.map(t => `<p>${JSON.stringify(t)}</p>`)}
         </div>
       </div>
     </div>
-
     `
   );
 };
