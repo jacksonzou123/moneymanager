@@ -65,6 +65,10 @@ def get_transaction():
 def new_todo():
     try:
         req = loads(request.data)
+        if len(req['deadline']) < 10:
+            req['deadline'] = 'date("now")'
+        else:
+            req['deadline'] = '\"'+req['deadline']+'\"'
         g.db.execute(
             f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", "{req["summary"]}", {req["deadline"]}, 0)'
         )
