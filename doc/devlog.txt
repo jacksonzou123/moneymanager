@@ -1,43 +1,43 @@
-leiJ -- 2020-01-16 01:19
+juntaoL -- 2020-01-16 01:19
   Finished implementation of Google Sheets and Maps Embed APIs
 
-zouJ -- 2020-01-15 22:16
+jacksonZ -- 2020-01-15 22:16
   Added checkers for empty input fields
 
-linJ -- 2020-01-15 20:56
+jeffL -- 2020-01-15 20:56
   Editing calendar styling and styling across pages
 
-zouJ -- 2020-01-15 20:48
+jacksonZ -- 2020-01-15 20:48
   Fixed request adder
 
-linJ -- 2020-1-15 18:52
+jeffL -- 2020-1-15 18:52
   Finished styling request page
 
-zouJ -- 2020-01-15 11:10
+jacksonZ -- 2020-01-15 11:10
   Got password changer working
 
-zouJ -- 2020-01-15 22:49
+jacksonZ -- 2020-01-15 22:49
   Display all requests in requests page, both incoming and outgoing
 
 jacksonZ -- 2020-01-14 21:39
   Display tags when adding transaction
 
-linJ -- 2020-01-14 19:41
+jeffL -- 2020-01-14 19:41
   Finished styling of transaction page and continued editing main page
 
-zouJ -- 2020-01-14 21:39
+jacksonZ -- 2020-01-14 21:39
   Display tags when adding transaction
 
-zouJ -- 2020-01-13 21:45
+jacksonZ -- 2020-01-13 21:45
   Added method for getting todos and transactions to show on site
 
-linJ -- 2020-01-13 13:45
+jeffL -- 2020-01-13 13:45
   Created skeleton for transaction page
 
-linJ -- 2020-01-10 14:47
+jeffL -- 2020-01-10 14:47
   Finished transaction page and continued editing styling of other pages
 
-zouJ -- 2020-01-09 14:44
+jacksonZ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
   Adjusted database table columns
 
@@ -47,17 +47,17 @@ juntaoL -- 2020-01-08 21:59
 jacksonZ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 
-linJ -- 2020-01-08 14:12
+jeffL -- 2020-01-08 14:12
   Worked on responsive layout resizing for different screen resolutions
 
-linJ -- 2020-01-08 11:02
+jeffL -- 2020-01-08 11:02
   Updated design doc with new ideas and approach
 
-leiJ -- 2020-01-04 18:58
+juntaoL -- 2020-01-04 18:58
 	Added reusable code from previous project.
 
-linJ -- 2020-01-03 14:52
+jeffL -- 2020-01-03 14:52
   Started main page display and layout of website
 
-leiJ -- 2020-01-02 08:33
+juntaoL -- 2020-01-02 08:33
 	Updated project structure.
