@@ -79,7 +79,7 @@ const transactionForm = props => {
                 <button type='button' id='newTag' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
-            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-danger'>Submit New Transaction</button>
+            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
           </form>
         </div>
       </div>
