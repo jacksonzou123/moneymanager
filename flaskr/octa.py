@@ -3,6 +3,7 @@
 from os import environ
 from json import loads
 from sqlite3 import Error
+from copy import deepcopy
 
 from flask import Blueprint, request, jsonify, session, g
 
@@ -17,12 +18,12 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @jsonify_response
 def user_info():
     hashed_password = session['user'].pop('password')
+    response = deepcopy(session)
     session['user']['password'] = hashed_password
-    response = session
     response['maps_api_key'] = environ.get('GOOGLE_MAPS_API_KEY') or ''
     response['sheets_client_id'] = environ.get('GOOGLE_SHEETS_CLIENT_ID') or ''
     response['sheets_api_key'] = environ.get('GOOGLE_SHEETS_API_KEY') or ''
-    return session['user']
+    return response
 
 
 @BP.route('/new/transaction', methods=['POST'])
@@ -149,7 +150,7 @@ def new_request():
             return {'success': True}
         return {'success': False}
     except Error:
-        raise(Error)
+        raise (Error)
         return {'success': False}
 
 

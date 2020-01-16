@@ -2,6 +2,7 @@ import { state } from './src/store.mjs';
 import { app } from './src/components.mjs';
 import { handleViewUpdate, fetchFrom } from './src/actions.mjs';
 
+
 window.onload = async _ => {
   await fetchFrom('/octa/fetch/userinfo', 'user');
   await fetchFrom('/octa/fetch/transaction', 'transaction');

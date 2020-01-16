@@ -132,6 +132,15 @@ const transaction = props => {
                   </button>
                 </div>
               </div>
+              <div class='row d-flex'>
+                <iframe
+                  height='300'
+                  frameborder='0'
+                  class='border-0 flex-fill p-1 mx-3'
+                  src="https://www.google.com/maps/embed/v1/place?key=${encodeURI(props.user.maps_api_key)}
+                    &q=${encodeURI(t.transaction_location)}" allowfullscreen>
+                </iframe>
+              </div>
             </div>
           `).join('')}
       </div>
@@ -280,13 +289,13 @@ const settings = props => {
         <h4 class='mx-auto'>Settings</h4>
       </div>
       <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
-        <form class='text-center mb-3'>
+        <form class='text-center'>
           <input type='password' class='form-control mb-3' name='oldpassword' placeholder='Enter Old Password' value='' required="true">
           <input type='password' class='form-control mb-3' name='newpassword' placeholder='New Password' value='' required="true">
           <button type='submit' class='btn btn-block btn-md btn-danger'>Update Password</button>
           <hr>
-        <button type='button' name='submit' id='export' class='btn btn-block btn-primary'>Export to Google Sheets</button>
         </form >
+        <a type='submit' class='btn btn-block btn-primary' href='/export'>Export to Google Sheets</a>
       </div >
   `
   );
