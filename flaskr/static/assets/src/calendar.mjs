@@ -1,12 +1,16 @@
 export const calendar = props => {
   const filterForThisDate = date => {
-    const filtered = props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() === new Date(date).getUTCDate());
+    const filtered = props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() === new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), date).getUTCDate());
+    let amount = 0;
     if (filtered.length) {
-      let amount = 0;
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
-      return amount;
     }
-    return 0;
+    if (new Date().getUTCMonth() === new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), date).getUTCMonth()) {
+      return `<span class='${amount === 0 ? 'text-success' : 'text-danger'}'>${amount === 0 ? '' : '-'}$${amount}</span>`;
+    }
+    else {
+      return '';
+    }
   }
 
   const monthTotalDays = _ =>
@@ -23,7 +27,8 @@ export const calendar = props => {
     let startWeekDay = monthStartWeekDay() * -1 + 1;
     return populateRow().map(row => {
       return row.map(_ => {
-        return new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), startWeekDay++);
+        const date = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), startWeekDay++);
+        return date.getUTCMonth() === new Date().getUTCMonth() ? new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(new Date(date)) : ''
       });
     });
   }
@@ -31,27 +36,29 @@ export const calendar = props => {
   return (
     `
       <div class='d-flex justify-content-center flex-column border rounded mb-3 mx-5 py-3'>
-        <div class='d-flex flex-row justify-content-center'>
+        <div class='d-flex flex-row justify-content-center mb-3'>
           <h4>${new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date())}</h4>
         </div>
         <div class='table-responsive'>
-          <table class='table table-striped'>
+          <table class='table table-hover'>
             <thead>
-              <th>Sunday</th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
+              <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+              </tr>
             </thead>
             <tbody>
             ${populateCalendar().map(row => `
               <tr>
                 ${row.map(date => `
                   <td>
-                    <h6>${new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'numeric' }).format(new Date(date))}</h6>
-                    <span class='text-success'>$${filterForThisDate(date)}</span>
+                    <h6>${date}</h6>
+                    ${filterForThisDate(date)}
                   </td>
                 `).join('')}
               </tr>

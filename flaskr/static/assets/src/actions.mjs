@@ -80,6 +80,7 @@ export const renderApp = (name, component) => {
       return bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));
     case '/todos':
       return bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));
+    case '/home':
     case '/new/transaction':
       bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
       return bbind('submitTransaction',

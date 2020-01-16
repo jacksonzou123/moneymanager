@@ -312,8 +312,7 @@ const search = props => {
   return (
     `
     <div class='card p-3'>
-    ${
-    filtered().map(t => `
+    ${filtered().map(t => `
             <div class='card-text border-bottom'>
               <div class='row'>
                 <div class='col-3 d-flex flex-column'>
@@ -338,10 +337,9 @@ const search = props => {
                 </div>
               </div>
             </div>
-          `).join('')
-    }
-      </div >
-  `
+          `).join('')}
+      </div>
+    `
   )
 };
 
