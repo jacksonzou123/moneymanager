@@ -6,7 +6,7 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='text-success'>$${amount.toFixed(2)}</span>`;
+    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumSignificantDigits: 3 }).format(amount)}</span>`;
   };
 
   return (
