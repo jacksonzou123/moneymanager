@@ -141,6 +141,7 @@ def new_request():
             return {'success': True}
         return {'success': False}
     except Error:
+        raise(Error)
         return {'success': False}
 
 
