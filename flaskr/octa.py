@@ -48,6 +48,17 @@ def delete_transaction():
     except Error:
         return {'success': False}
 
+@BP.route('/delete/todo', methods=['DELETE'])
+@jsonify_response
+def delete_todo():
+    try:
+        req = loads(request.data)
+        g.db.execute(
+            f'DELETE FROM todos WHERE todo_id = "{req["id"]}"')
+        g.db.commit()
+        return {'success': True}
+    except Error:
+        return {'success': False}
 
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response

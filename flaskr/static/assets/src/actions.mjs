@@ -123,6 +123,15 @@ export const renderApp = (name, component) => {
       })
       return bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));
     case '/todos':
+      state.todo.forEach(({ todo_id }) => {
+        bbind(`deleteTodo${todo_id}`,
+          modify.bind(
+            this, '/octa/delete/todo', 'DELETE', g(`deleteTodo${todo_id}`).value,
+            fetchFrom.bind(this, '/octa/fetch/todo', 'todo'),
+            'Todos'
+          )
+        )
+      })
       return bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));
     case '/new/transaction':
       bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
