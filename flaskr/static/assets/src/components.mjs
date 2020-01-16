@@ -3,7 +3,7 @@ import { calendar } from './calendar.mjs';
 const home = props => {
   return (
     `
-    <div class='container-fluid p-0 m-0'>
+    <div class='container-fluid p-0 m-0'><div class='container'>
       <div class='row mb-3 mx-5 d-flex justify-content-between'>
         <h3>Hello, ${props.user.username}!</h3>
         <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
@@ -20,9 +20,10 @@ const home = props => {
               Quick Stats
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between">Today: <div class='text-success'>something</div></li>
-              <li class="list-group-item d-flex justify-content-between">This Week: <div class='text-success'>something</div></li>
-              <li class="list-group-item d-flex justify-content-between">This Month: <div class='text-success'>something</div></li>
+              <li class="list-group-item d-flex justify-content-between">Today:<div class='text-success'>something</div></li>
+              <li class="list-group-item d-flex justify-content-between">This Week:<div class='text-success'>something</div></li>
+              <li class="list-group-item d-flex justify-content-between">This Month:<div class='text-success'>something</div></li>
+              <li class="list-group-item d-flex justify-content-between">Average Daily Spending:<div class='text-success'>something</div></li>
             </ul>
           </div>
         </div>
@@ -34,7 +35,7 @@ const home = props => {
                 <button type='button' id='newTag' class='btn btn-sm btn-primary rounded' style='margin:-5px;'>New Tag</button>
               </div>
             </div>
-            <div style='max-height:140px; overflow-y: auto;'>
+            <div style='max-height:180px; overflow-y: auto;'>
               <ul class='list-group list-group-flush flex-column'>
                 ${props.tag.map(t => `
                   <li class='list-group-item d-flex justify-content-between' style='border-bottom: 0 none; padding: 12px 25px 0px 25px;'>
@@ -48,7 +49,7 @@ const home = props => {
         </div>
       </div>
       ${calendar(props)}
-    </div>
+    </div></div>
     `
   );
 };
