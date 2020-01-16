@@ -53,6 +53,7 @@ def login():
         if error is None:
             session.clear()
             session['user'] = user
+            print(session)
             return redirect('/')
         flash(error)
     return render_template('auth.html')

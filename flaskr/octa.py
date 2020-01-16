@@ -1,5 +1,6 @@
 """Flask octa api endpoint"""
 
+from os import environ
 from json import loads
 from sqlite3 import Error
 
@@ -15,6 +16,12 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @BP.route('/fetch/userinfo', methods=['FETCH'])
 @jsonify_response
 def user_info():
+    hashed_password = session['user'].pop('password')
+    session['user']['password'] = hashed_password
+    response = session
+    response['maps_api_key'] = environ.get('GOOGLE_MAPS_API_KEY') or ''
+    response['sheets_client_id'] = environ.get('GOOGLE_SHEETS_CLIENT_ID') or ''
+    response['sheets_api_key'] = environ.get('GOOGLE_SHEETS_API_KEY') or ''
     return session['user']
 
 
@@ -26,7 +33,7 @@ def new_transaction():
         if len(req['date']) < 10:
             req['date'] = 'date("now")'
         else:
-            req['date'] = '\"'+req['date']+'\"'
+            req['date'] = '\"' + req['date'] + '\"'
         g.db.execute(
             f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", {req["date"]}, "{req["location"]}", "{req["tag"] or "NULL"}")'
         )
@@ -48,17 +55,18 @@ def delete_transaction():
     except Error:
         return {'success': False}
 
+
 @BP.route('/delete/todo', methods=['DELETE'])
 @jsonify_response
 def delete_todo():
     try:
         req = loads(request.data)
-        g.db.execute(
-            f'DELETE FROM todos WHERE todo_id = "{req["id"]}"')
+        g.db.execute(f'DELETE FROM todos WHERE todo_id = "{req["id"]}"')
         g.db.commit()
         return {'success': True}
     except Error:
         return {'success': False}
+
 
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response
@@ -79,7 +87,7 @@ def new_todo():
         if len(req['deadline']) < 10:
             req['deadline'] = 'date("now")'
         else:
-            req['deadline'] = '\"'+req['deadline']+'\"'
+            req['deadline'] = '\"' + req['deadline'] + '\"'
         g.db.execute(
             f'INSERT INTO todos VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", "{req["summary"]}", {req["deadline"]}, 0)'
         )

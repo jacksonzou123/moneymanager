@@ -28,7 +28,7 @@ export const calendar = props => {
     return populateRow().map(row => {
       return row.map(_ => {
         const date = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), startWeekDay++);
-        return date.getUTCMonth() === new Date().getUTCMonth() ? new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(new Date(date)) : ''
+        return date.getUTCMonth() === new Date().getUTCMonth() ? new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(date) : ''
       });
     });
   }
