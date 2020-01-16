@@ -17,6 +17,8 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @BP.route('/fetch/userinfo', methods=['FETCH'])
 @jsonify_response
 def user_info():
+    response = deepcopy(session['user'])
+    response['maps_api_key'] = environ.get('GOOGLE_MAPS_EMBED_API_KEY')
     return session['user']
 
 
