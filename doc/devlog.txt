@@ -47,7 +47,7 @@ juntaoL -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
   Added skeleton for connecting to Flask and storing data
 
-zouJ -- 2020-01-08 14:50
+jacksonZ -- 2020-01-08 14:50
   Implemented database creator and added adding to transactions method
 
 jeffL -- 2020-01-08 14:12
