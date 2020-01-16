@@ -23,8 +23,12 @@ def user_info():
 def new_transaction():
     try:
         req = loads(request.data)
+        if len(req['date']) < 10:
+            req['date'] = 'date("now")'
+        else:
+            req['date'] = '\"'+req['date']+'\"'
         g.db.execute(
-            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", "{req["date"]}", "{req["location"]}", "{req["tag"] or "NULL"}")'
+            f'INSERT INTO transactions VALUES (NULL, {session["user"]["id"]}, "{req["name"]}", {req["amount"]}, "{req["note"]}", {req["date"]}, "{req["location"]}", "{req["tag"] or "NULL"}")'
         )
         g.db.commit()
         return {'success': True}

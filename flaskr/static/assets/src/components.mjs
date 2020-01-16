@@ -6,12 +6,12 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='${amount === 0 ? 'text-success' : 'text-danger'}'>${amount === 0 ? '' : '-'}$${amount}</span>`;
+    return `<span class='text-success'>$${amount.toFixed(2)}</span>`;
   };
 
   return (
     `
-    <div class='container-fluid p-0 m-0'>
+    <div class='container-fluid p-0 m-0'><div class='container'>
       <div class='row mb-3 mx-5 d-flex justify-content-between'>
         <h3>Hello, ${props.user.username}!</h3>
         <h4>${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}</h4>
@@ -31,8 +31,8 @@ const home = props => {
               <li class="list-group-item d-flex justify-content-between">Today: ${filterAmount(props.transaction.filter(
       ({ transaction_date }) => new Date(transaction_date).getUTCDate() === new Date().getDate()
     ))}</li>
-<li class="list-group-item d-flex justify-content-between">Past 7 Day: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 7))}</li>
-<li class="list-group-item d-flex justify-content-between">Past 30 Days: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 30))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 7 Day: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 7))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 30 Days: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 30))}</li>
             </ul>
           </div>
         </div>
@@ -58,7 +58,7 @@ const home = props => {
         </div>
       </div>
       ${calendar(props)}
-    </div>
+    </div></div>
     `
   );
 };
@@ -88,7 +88,7 @@ const transactionForm = props => {
                 <button type='button' id='newTag' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
-            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-danger'>Submit New Transaction</button>
+            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
           </form>
         </div>
       </div>
@@ -168,7 +168,7 @@ const requestForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Recipient Name'>
         <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
         <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit Request</button>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit Request</button>
       </form>
     </div>
     `
