@@ -99,7 +99,7 @@ def new_request():
     try:
         req = loads(request.data)
         id = g.db.execute(
-            f'SELECT id FROM users WHERE username = "{req["user"]}"').fetchone(
+            f'SELECT id FROM users WHERE username = "{req["name"]}"').fetchone(
             )
         if id and session["user"]["id"] != id["id"]:
             g.db.execute(

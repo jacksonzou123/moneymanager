@@ -74,13 +74,14 @@ export const renderApp = (name, component) => {
   );
   switch (window.location.pathname) {
     case '/home':
+      bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
+      return bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
     case '/transactions':
       return bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
     case '/requests':
       return bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));
     case '/todos':
       return bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));
-    case '/home':
     case '/new/transaction':
       bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
       return bbind('submitTransaction',

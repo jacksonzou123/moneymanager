@@ -17,7 +17,7 @@ const home = props => {
         <div class='card'>
           <div class='card-body m-0 p-0'>
             <div class="card-header">
-              Quick Stats
+              <h5>Quick Stats</h5>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex justify-content-between">Today:<div class='text-success'>something</div></li>
@@ -31,8 +31,8 @@ const home = props => {
           <div class='card-body m-0 p-0'>
             <div class='card-header'>
               <div class='d-flex justify-content-between'>
-                Tags
-                <button type='button' id='newTag' class='btn btn-sm btn-primary rounded' style='margin:-5px;'>New Tag</button>
+                <h5>Tags</h5>
+                <button type='button' id='newTag' class='btn btn-sm btn-primary rounded mr-1'>New Tag</button>
               </div>
             </div>
             <div style='max-height:180px; overflow-y: auto;'>
@@ -79,7 +79,7 @@ const transactionForm = props => {
                 <button type='button' id='newTag' class='btn btn-primary btn-block rounded'>New Tag</button>
               </div>
             </div>
-            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-success'>Submit New Transaction</button>
+            <button type='button' name='button' id='submitTransaction' class='btn btn-md btn-danger'>Submit New Transaction</button>
           </form>
         </div>
       </div>
@@ -142,7 +142,7 @@ const tagForm = props => {
       <form class='text-center'>
         <input type='text' class='form-control mb-3' name='name' placeholder='Tag Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Tag Detail'>
-        <button type='button' name='button' id='submitTag' class='btn btn-block btn-success'>Submit New Tag</button>
+        <button type='button' name='button' id='submitTag' class='btn btn-block btn-danger'>Submit New Tag</button>
       </form>
     </div>
     `
@@ -160,7 +160,7 @@ const reqForm = props => {
         <input type='text' class='form-control mb-3' name='user' placeholder='Recipient Username'>
         <input type='number' class='form-control mb-3' name='amount' placeholder='Request Amount'>
         <input type='text' class='form-control mb-3' name='note' placeholder='Request Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit New Request</button>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit New Request</button>
       </form>
     </div>
     `
@@ -178,7 +178,7 @@ const requestForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Recipient Name'>
         <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
         <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit Request</button>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit Request</button>
       </form>
     </div>
     `
@@ -195,53 +195,41 @@ const requests = props => {
           Add Request
         </button>
       </div>
-      <div>
-        <div class='card-group mx-5 mb-3 mb-5'>
-          <div class='card'>
-            <div class='card-body m-0 p-0'>
-              <div class="card-header">
-                Outgoing Requests
-              </div>
+      <div class='card-group mb-3 mb-5'>
+        <div class='card'>
+          <div class='card-body m-0 p-0'>
+            <div class="card-header">
+              Outgoing Requests
+            </div>
+            <ul class='list-group list-group-flush'>
               ${props.outrequest.map(t => `
-                <div class='card-text p-3 border-bottom'>
-                  <div class="row">
-                    <div class="col">
-                      Request to <b>${props.users[t.recipient_id - 1]["username"]}</b><br>
-                      <span class='text-success'>$${t.req_amount}</span>
-                    </div>
-                    <div class="col d-flex flex-column">
-                      <b>Note:</b> ${t.req_note}
-                    </div>
-                  </div>
-                  <div class="row justify-content-center mt-3">
-                    <button class='btn btn-sm btn-danger mt-auto'>Cancel</button>
-                  </div>
-                </div>
+                <li class='list-group-item d-flex flex-column'>
+                  <span class='mb-1'>
+                    Request to <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount}</span>
+                  </span>
+                  <span class='mb-1'><b>Note:</b> ${t.req_note}</span>
+                  <button class='btn btn-sm btn-danger mr-auto mt-1'>Cancel</button>
+                </li>
               `).join('')}
-            </div>
+            </ul>
           </div>
-          <div class='card'>
-            <div class='card-body m-0 p-0'>
-              <div class="card-header">
-                Incoming Requests
-              </div>
-              ${props.inrequest.map(t => `
-                <div class='card-text p-3 border-bottom'>
-                  <div class="row">
-                    <div class="col">
-                      Request from <b>${props.users[t.sender_id - 1]["username"]}</b><br>
-                      <span class='text-danger'>$${t.req_amount}</span>
-                    </div>
-                    <div class="col d-flex flex-column">
-                      <b>Note:</b> ${t.req_note}
-                    </div>
-                  </div>
-                  <div class="row justify-content-center mt-3">
-                    <button class='btn btn-sm btn-success mt-auto'>Finished</button>
-                  </div>
-                </div>
-              `).join('')}
+        </div>
+        <div class='card'>
+          <div class='card-body m-0 p-0'>
+            <div class="card-header">
+              Incoming Requests
             </div>
+            <ul class='list-group list-group-flush'>
+              ${props.inrequest.map(t => `
+                <li class='list-group-item d-flex flex-column'>
+                  <span class='mb-1'>
+                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
+                  </span>
+                  <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
+                  <button class='btn btn-sm btn-success mr-auto mt-1'>Finished</button>
+                </li>
+              `).join('')}
+            </ul>
           </div>
         </div>
       </div>
@@ -260,7 +248,7 @@ const todoForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Todo Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Todo Detail'>
         <input type='date' class='form-control mb-3' name='deadline' placeholder='Todo Date'>
-        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-success'>Submit New Todo</button>
+        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-danger'>Submit New Todo</button>
       </form>
     </div>
     `
@@ -271,7 +259,7 @@ const todos = props => {
   return (
     `
     <div>
-    <button type='button' id='addTodo' class='btn btn-sm btn-primary rounded ml-auto'>
+    <button type='button' id='addTodo' class='btn btn-sm btn-success rounded ml-auto'>
       Add Todo
     </button>
     </div>
@@ -313,32 +301,32 @@ const search = props => {
   return (
     `
     <div class='card p-3'>
-    ${filtered().map(t => `
-            <div class='card-text border-bottom'>
-              <div class='row'>
-                <div class='col-3 d-flex flex-column'>
-                  <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
-                  <p>
-                    ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
-                    <span class='text-success'>$${t.transaction_amount}</span>
-                  </p>
-                </div>
-                <div class='col d-flex flex-column'>
-                  <h6 class='font-weight-bold'>Note:</h6>
-                  <p>${t.transaction_note}</p>
-                  <p>${t.transaction_location}</p>
-                </div>
-                <div class='col'>
-                  <a class='float-right' href='#'>
-                    <svg class='bi bi-pencil' width='1.5em' height='1.5em' viewBox='0 0 20 20' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
-                      <path fill-rule='evenodd' d='M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z' clip-rule='evenodd'/>
-                      <path fill-rule='evenodd' d='M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z' clip-rule='evenodd'/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+      ${filtered().map(t => `
+        <div class='card-text border-bottom'>
+          <div class='row'>
+            <div class='col-3 d-flex flex-column'>
+              <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
+              <p>
+                ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
+                <span class='text-success'>$${t.transaction_amount}</span>
+              </p>
             </div>
-          `).join('')}
+            <div class='col d-flex flex-column'>
+              <h6 class='font-weight-bold'>Note:</h6>
+              <p>${t.transaction_note}</p>
+              <p>${t.transaction_location}</p>
+            </div>
+            <div class='col'>
+              <a class='float-right' href='#'>
+                <svg class='bi bi-pencil' width='1.5em' height='1.5em' viewBox='0 0 20 20' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                  <path fill-rule='evenodd' d='M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z' clip-rule='evenodd'/>
+                  <path fill-rule='evenodd' d='M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z' clip-rule='evenodd'/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('')}
       </div>
     `
   )
