@@ -84,6 +84,8 @@ def get_transaction():
 def new_todo():
     try:
         req = loads(request.data)
+        if req["name"] == "":
+            return {'success': False}
         if len(req['deadline']) < 10:
             req['deadline'] = 'date("now")'
         else:
@@ -124,11 +126,16 @@ def get_tag():
 def new_tag():
     try:
         req = loads(request.data)
-        g.db.execute(
-            f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{req["name"]}", "{req["summary"]}")'
-        )
-        g.db.commit()
-        return {'success': True}
+        oldtag = g.db.execute(f'SELECT * FROM tags WHERE tag_type = "{req["name"]}"').fetchall()
+        if len(oldtag) > 0:
+            return {'success': False}
+        if req["name"] != "":
+            g.db.execute(
+                f'INSERT INTO tags VALUES(NULL, {session["user"]["id"]},"{req["name"]}", "{req["summary"]}")'
+            )
+            g.db.commit()
+            return {'success': True}
+        return {'success': False}
     except Error:
         return {'success': False}
 

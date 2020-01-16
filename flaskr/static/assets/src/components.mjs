@@ -49,7 +49,7 @@ const home = props => {
                 ${props.tag.map(t => `
                   <li class='list-group-item d-flex justify-content-between' style='border-bottom: 0 none; padding: 12px 25px 0px 25px;'>
                     ${t.tag_type}
-                    <div class='text-success'>something</div>
+                    <div class='text-success'>${t.tag_summary}</div>
                   </li>
                 `).join('')}
               </ul>
