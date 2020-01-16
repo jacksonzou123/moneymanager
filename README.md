@@ -23,13 +23,12 @@
 ## What is Spendie
 
 Spendie is a budget/money management web application designed to track your spending and to help visualize it in a intuitive way.
-It has the following features:
+It has the following features that will help you organize your finances:
 - transactions
 - requests
 - todos
 - calender
 - tag search
-All of these will help you keep track of your finances and organize it easily
 
 ## API
 
