@@ -1,27 +1,30 @@
-zouJ -- 2020-01-15 11:10
+jacksonZ -- 2020-01-15 20:48
+  Fixed request adder
+
+jacksonZ -- 2020-01-15 11:10
   Got password changer working
 
-zouJ -- 2020-01-14 22:49
+jacksonZ -- 2020-01-14 22:49
   Display all requests in requests page, both incoming and outgoing
 
-zouJ -- 2020-01-14 21:39
+jacksonZ -- 2020-01-14 21:39
   Display tags when adding transaction
 
-zouJ -- 2020-01-13 21:45
+jacksonZ -- 2020-01-13 21:45
   Added method for getting todos and transactions to show on site
 
-zouJ -- 2020-01-09 14:44
+jacksonZ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
   Adjusted database table columns
 
-leiJ -- 2020-01-08 21:59
+juntaoL -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
 
-zouJ -- 2020-01-08 14:50
+jacksonZ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 
-leiJ -- 2020-01-04 18:58
+juntaoL -- 2020-01-04 18:58
 	Added reusable code from previous project.
 
-leiJ -- 2020-01-02 08:33
+juntaoL -- 2020-01-02 08:33
 	Updated project structure.
