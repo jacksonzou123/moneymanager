@@ -32,8 +32,8 @@ const home = props => {
               <li class="list-group-item d-flex justify-content-between">Today: ${filterAmount(props.transaction.filter(
       ({ transaction_date }) => new Date(transaction_date).getUTCDate() === new Date().getDate()
     ))}</li>
-              <li class="list-group-item d-flex justify-content-between">Past 7 Day: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 7))}</li>
-              <li class="list-group-item d-flex justify-content-between">Past 30 Days: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 30))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 7 Day: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() > new Date().getDate() - 7))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 30 Days: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() > new Date().getDate() - 30))}</li>
             </ul>
           </div>
         </div>
