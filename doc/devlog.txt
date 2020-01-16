@@ -43,7 +43,7 @@ jacksonZ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
   Adjusted database table columns
 
-leiJ -- 2020-01-08 21:59
+juntaoL -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
   Added skeleton for connecting to Flask and storing data
 
@@ -60,7 +60,7 @@ jeffL -- 2020-01-08 11:02
 juntaoL -- 2020-01-04 18:58
 	Added reusable code from previous project.
 
-leiJ -- 2020-01-04 18:58
+juntaoL -- 2020-01-04 18:58
   Added reusable code from previous project.
 
 
@@ -71,5 +71,5 @@ jeffL -- 2020-01-03 14:52
 juntaoL -- 2020-01-02 08:33
 	Updated project structure.
 
-leiJ -- 2020-01-02 08:33
+juntaoL -- 2020-01-02 08:33
   Updated project structure.
