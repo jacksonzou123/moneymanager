@@ -1,8 +1,14 @@
 jacksonZ -- 2020-01-15 22:16
   Added checkers for empty input fields
 
+jeffL -- 2020-01-15 20:56
+  Editing calendar styling and styling across pages
+
 jacksonZ -- 2020-01-15 20:48
   Fixed request adder
+
+jeffL -- 2020-1-15 18:52
+  Finished styling request page
 
 jacksonZ -- 2020-01-15 11:10
   Got password changer working
@@ -13,8 +19,17 @@ jacksonZ -- 2020-01-14 22:49
 jacksonZ -- 2020-01-14 21:39
   Display tags when adding transaction
 
+jeffL -- 2020-01-14 19:41
+  Finished styling of transaction page and continued editing main page
+
 jacksonZ -- 2020-01-13 21:45
   Added method for getting todos and transactions to show on site
+
+jeffL -- 2020-01-13 13:45
+  Created skeleton for transaction page
+
+jeffL -- 2020-01-10 14:47
+  Finished transaction page and continued editing styling of other pages
 
 jacksonZ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
@@ -23,11 +38,20 @@ jacksonZ -- 2020-01-09 14:44
 juntaoL -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
 
+jeffL -- 2020-01-08 14:12
+  Worked on responsive layout resizing for different screen resolutions
+
 jacksonZ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 
+jeffL -- 2020-01-08 11:02
+  Updated design doc with new ideas and approach
+
 juntaoL -- 2020-01-04 18:58
-	Added reusable code from previous project.
+	Added reusable code from previous project
+
+jeffL -- 2020-01-03 14:52
+  Started main page display and layout of website
 
 juntaoL -- 2020-01-02 08:33
-	Updated project structure.
+	Updated project structure

@@ -6,7 +6,7 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumSignificantDigits: 3 }).format(amount)}</span>`;
+    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD'}).format(amount.toFixed(2))}</span>`;
   };
 
   return (
@@ -114,7 +114,7 @@ const transaction = props => {
                   <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
                   <p>
                     ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
-                    <span class='text-success'>$${t.transaction_amount}</span><br>
+                    <span class='text-success'>$${t.transaction_amount.toFixed(2)}</span><br>
                     <b>Tag:</b> ${t.tag_type}
                   </p>
                 </div>
@@ -204,7 +204,7 @@ const requests = props => {
               ${props.outrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request to <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount}</span>
+                    Request to <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount.toFixed(2)}</span>
                   </span>
                   <span class='mb-1'><b>Note:</b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-danger mr-auto mt-1' id='deleteRequest${t.req_id}' value='${t.req_id}'>Cancel</button>` : `<span class='text-success'>Done</span>`}
@@ -222,7 +222,7 @@ const requests = props => {
               ${props.inrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
+                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount.toFixed(2)}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
@@ -313,7 +313,7 @@ const search = props => {
               <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
               <p>
                 ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
-                <span class='text-success'>$${t.transaction_amount}</span>
+                <span class='text-success'>$${t.transaction_amount.toFixed(2)}</span>
               </p>
             </div>
             <div class='col d-flex flex-column'>
