@@ -6,7 +6,7 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='text-success'>$${amount.toFixed(2)}</span>`;
+    return `<span class='text-success'>$${amount === 0 ? '0' : amount.toFixed(2)}</span>`;
   };
 
   return (
@@ -150,7 +150,7 @@ const tagForm = props => {
       <form class='text-center'>
         <input type='text' class='form-control mb-3' name='name' placeholder='Tag Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Tag Detail'>
-        <button type='button' name='button' id='submitTag' class='btn btn-block btn-danger'>Submit New Tag</button>
+        <button type='button' name='button' id='submitTag' class='btn btn-block btn-success'>Submit New Tag</button>
       </form>
     </div>
     `
@@ -213,7 +213,7 @@ const requests = props => {
               ${props.inrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
+                    Request from <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
@@ -238,7 +238,7 @@ const todoForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Todo Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Todo Detail'>
         <input type='date' class='form-control mb-3' name='deadline' placeholder='Todo Date'>
-        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-danger'>Submit New Todo</button>
+        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-success'>Submit New Todo</button>
       </form>
     </div>
     `
