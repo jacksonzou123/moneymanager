@@ -6,8 +6,10 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumSignificantDigits: 3 }).format(amount)}</span>`;
+    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumSignificantDigits: 4 }).format(amount)}</span>`;
   };
+
+  console.log(props)
 
   return (
     `
@@ -132,7 +134,7 @@ const transaction = props => {
                   </button>
                 </div>
               </div>
-              <div class='row d-flex'>
+              ${t.transaction_location !== '' ? `<div class='row d-flex'>
                 <iframe
                   height='300'
                   frameborder='0'
@@ -140,7 +142,7 @@ const transaction = props => {
                   src="https://www.google.com/maps/embed/v1/place?key=${encodeURI(props.user.maps_api_key)}
                     &q=${encodeURI(t.transaction_location)}" allowfullscreen>
                 </iframe>
-              </div>
+              </div>` : ''}
             </div>
           `).join('')}
       </div>

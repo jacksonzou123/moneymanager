@@ -17,13 +17,7 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 @BP.route('/fetch/userinfo', methods=['FETCH'])
 @jsonify_response
 def user_info():
-    hashed_password = session['user'].pop('password')
-    response = deepcopy(session)
-    session['user']['password'] = hashed_password
-    response['maps_api_key'] = environ.get('GOOGLE_MAPS_API_KEY') or ''
-    response['sheets_client_id'] = environ.get('GOOGLE_SHEETS_CLIENT_ID') or ''
-    response['sheets_api_key'] = environ.get('GOOGLE_SHEETS_API_KEY') or ''
-    return response
+    return session['user']
 
 
 @BP.route('/new/transaction', methods=['POST'])
@@ -127,7 +121,8 @@ def get_tag():
 def new_tag():
     try:
         req = loads(request.data)
-        oldtag = g.db.execute(f'SELECT * FROM tags WHERE tag_type = "{req["name"]}"').fetchall()
+        oldtag = g.db.execute(
+            f'SELECT * FROM tags WHERE tag_type = "{req["name"]}"').fetchall()
         if len(oldtag) > 0:
             return {'success': False}
         if req["name"] != "":
