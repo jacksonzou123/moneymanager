@@ -33,7 +33,9 @@ It has the following features that will help you organize your finances:
 ## API
 
 * [Google Maps Embed API](https://docs.google.com/document/d/1BrK8KIi1jxdETaGoEcuEB_UDiGwZhFFeWxZ_dlwiFww/edit)
+  It shows a map of the location for each transaction if you put one in
 * [Google Sheets API](https://docs.google.com/document/d/1RXjh3HHWOUhgDGow2KGhM7Rb3jkI-uMS50rpPrDEkUE/edit)
+  Allows you to export your transactions to google sheets
 
 ## Run Instruction
 

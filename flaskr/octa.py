@@ -19,6 +19,7 @@ BP = Blueprint('octa', __name__, url_prefix='/octa')
 def user_info():
     response = deepcopy(session['user'])
     response['maps_api_key'] = environ.get('GOOGLE_MAPS_EMBED_API_KEY')
+    print(response)
     return response
 
 

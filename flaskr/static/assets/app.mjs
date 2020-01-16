@@ -10,7 +10,7 @@ window.onload = async _ => {
   await fetchFrom('/octa/fetch/tag', 'tag');
   await fetchFrom('/octa/fetch/inrequest', 'inrequest');
   await fetchFrom('/octa/fetch/outrequest', 'outrequest');
-  // await fetchFrom('/octa/getusers', 'users');
+  await fetchFrom('/octa/getusers', 'users');
 
   if (state.user === null) {
     return window.location.replace('/signin');
