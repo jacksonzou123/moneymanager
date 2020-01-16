@@ -19,7 +19,7 @@ zouJ -- 2020-01-15 11:10
 zouJ -- 2020-01-15 22:49
   Display all requests in requests page, both incoming and outgoing
 
-zouJ -- 2020-01-14 21:39
+jacksonZ -- 2020-01-14 21:39
   Display tags when adding transaction
 
 linJ -- 2020-01-14 19:41
@@ -41,10 +41,10 @@ zouJ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
   Adjusted database table columns
 
-leiJ -- 2020-01-08 21:59
+juntaoL -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
 
-zouJ -- 2020-01-08 14:50
+jacksonZ -- 2020-01-08 14:50
 	Implemented database creator and added adding to transactions method
 
 linJ -- 2020-01-08 14:12

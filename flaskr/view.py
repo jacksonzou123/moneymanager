@@ -1,9 +1,12 @@
+from os import environ
+from sqlite3 import Error
+from json import dumps
+
 from flask import (Blueprint, request, g, flash, redirect, render_template,
                    session)
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .controller import require_login, assert_fields
-from .controller import newTag, getTags, deleteTag, getTransactions, editTransaction, deleteTransaction, newTodo, deleteTodo
 
 BP = Blueprint('view', __name__, url_prefix='')
 
@@ -50,7 +53,7 @@ def login():
         if user is None:
             error = f'<div class="alert alert-danger small">Username {username} is incorrect.</div>'
         elif not check_password_hash(user['password'], password):
-            error = f'<div class="alert alert-danger small">"Entered password is incorrect.</div>'
+            error = f'<div class="alert alert-danger small">Entered password is incorrect.</div>'
         if error is None:
             session.clear()
             session['user'] = user
@@ -65,3 +68,22 @@ def logout():
     """Clear session and logout the user"""
     session.clear()
     return redirect('/')
+
+
+@BP.route('/export', methods=['GET', 'POST'])
+@require_login
+def export():
+    try:
+        transactions = {}
+        arr = g.db.execute(
+            f'SELECT * FROM transactions WHERE user_id = {session["user"]["id"]}'
+        ).fetchall()
+        for count, transaction in enumerate(arr):
+            transactions[f'{count}'] = transaction
+        return render_template(
+            'export.html',
+            transactions=transactions,
+            sheets_client_id=environ.get('GOOGLE_SHEETS_CLIENT_ID') or '',
+            sheets_api_key=environ.get('GOOGLE_SHEETS_API_KEY') or '')
+    except Error:
+        return redirect('/')

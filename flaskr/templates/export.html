@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ super() }}
+<link rel="stylesheet" href="../static/styles/auth.css">
+{% endblock %}
+
+{% block content %}
+<!--Add buttons to initiate auth sequence and sign out-->
+<div class='d-flex flex-column justify-content-center align-items-center' style="background-color: #f5f5f5;">
+  <div class="row my-5">
+    <h4>Export Your Transactions to Google</h4>
+  </div>
+  <div class='row my-5 d-flex flex-column'>
+    <span class='alert alert-danger mb-3' id='que'></span>
+    <button id='authorize_button' class='btn btn-md btn-danger btn-block mb-3'>Authorize</button>
+    <a id='signout_button' class='btn btn-md btn-block btn-primary' href='/'>Back</a>
+  </div>
+</div>
+<pre id='content' style='white-space: pre-wrap;'></pre>
+
+<script type='text/javascript'>
+  // Transactions from Flask
+  const transactions = JSON.parse('{{ transactions|tojson|safe }}');
+
+  // Sheets Setting
+  const range = `Sheet1!A1:${String.fromCharCode(Object.keys(transactions[0]).length + 65)}${Object.keys(transactions).length + 1}`;
+  const cell = [Object.keys(transactions[0])];
+  Object.keys(transactions).map(key => cell.push(Object.values(transactions[key])));
+  const body = {
+    'range': range,
+    "majorDimension": "ROWS",
+    'values': cell
+  };
+
+  // Client ID and API key from the Developer Console
+  var CLIENT_ID = '{{ sheets_client_id }}';
+  var API_KEY = '{{ sheets_api_key }}';
+
+  // Array of API discovery doc URLs for APIs used by the quickstart
+  var DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  var SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
+  var authorizeButton = document.getElementById('authorize_button');
+  var signoutButton = document.getElementById('signout_button');
+
+  function initClient() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES
+    }).then(function () {
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+      // Handle the initial sign-in state.
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      authorizeButton.onclick = handleAuthClick;
+      signoutButton.onclick = handleSignoutClick;
+    }).catch(res => console.log(res));
+  }
+
+  function handleClientLoad() {
+    if (Object.keys(transactions).length > 0) {
+      document.getElementById('que').className = 'd-none';
+      gapi.load('client:auth2', initClient);
+    } else {
+      document.getElementById('que').innerHTML = 'No Transactions Found!';
+      document.getElementById('authorize_button').className = 'd-none'
+    }
+  }
+
+  /**
+   *  Called when the signed in status changes, to update the UI
+   *  appropriately. After a sign-in, the API is called.
+   */
+  function updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+      document.getElementById('authorize_button').className = 'd-none'
+      exportToSheets();
+    }
+  }
+
+  /**
+   *  Sign in the user upon button click.
+   */
+  function handleAuthClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+  }
+
+  /**
+   *  Sign out the user upon button click.
+   */
+  function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+  }
+
+  /**
+   * Append a pre element to the body containing the given message
+   * as its text node. Used to display the results of the API call.
+   *
+   * @param {string} message Text to be placed in pre element.
+   */
+  function appendPre(message) {
+    const pre = document.getElementById('content');
+    const textContent = document.createTextNode(message + '\n');
+    pre.appendChild(textContent);
+  }
+
+  // Create Sheets Response
+  let sheetsResponse;
+
+  function exportToSheets() {
+    gapi.client.sheets.spreadsheets.create({ properties: { title: `${new Date()}---Transaction` } })
+      .then(response => sheetsResponse = response)
+      .then(_ => gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: sheetsResponse.result.spreadsheetId,
+        range: range,
+        valueInputOption: 'RAW'
+      }, body))
+      .catch(res => console.log(res));
+  }
+
+</script>
+
+<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+  onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+{% endblock %}
+
+{% block footer %}
+<footer class='mt-auto p-3'>
+  <div class='container d-flex justify-content-end p-0 m-0'>
+    <span class='text-muted'>&copy; Copyright 2019 JaJeJu</span>
+  </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}
