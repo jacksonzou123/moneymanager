@@ -39,7 +39,6 @@ export const fetchFrom = async (endpoint, stateAttribute) => {
 };
 
 export const postTo = async (endpoint, form, resolve) => {
-  console.log(serializeForm(form))
   const response = await fetch(
     `${window.location.origin}${endpoint}`,
     { method: 'POST', body: serializeForm(form) }
@@ -49,6 +48,18 @@ export const postTo = async (endpoint, form, resolve) => {
     await resolve();
     document.querySelector(form).reset();
   };
+};
+
+export const deleteIn = async (endpoint, value, resolve, reload) => {
+  const promise = await fetch(
+    `${window.location.origin}${endpoint}`,
+    { method: 'DELETE', body: JSON.stringify({ 'transaction_id': value }) }
+  );
+  const responseObject = await promise.json();
+  if (responseObject.success) {
+    await resolve();
+    handleViewUpdate(app, reload);
+  }
 };
 
 export const handleViewUpdate = (app, view) => {
@@ -77,6 +88,15 @@ export const renderApp = (name, component) => {
       bbind('newTag', handleViewUpdate.bind(this, app, 'New Tag'));
       return bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
     case '/transactions':
+      state.transaction.forEach(({ transaction_id }) => {
+        bbind(`deleteTransaction${transaction_id}`,
+          deleteIn.bind(
+            this, '/octa/delete/transaction', g(`deleteTransaction${transaction_id}`).value,
+            fetchFrom.bind(this, '/octa/fetch/transaction', 'transaction'),
+            'Transactions'
+          )
+        )
+      })
       return bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
     case '/requests':
       return bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));

@@ -1,6 +1,14 @@
 import { calendar } from './calendar.mjs';
 
 const home = props => {
+  const filterAmount = filtered => {
+    let amount = 0;
+    if (filtered.length) {
+      filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
+    }
+    return `<span class='text-success'>$${amount.toFixed(2)}</span>`;
+  };
+
   return (
     `
     <div class='container-fluid p-0 m-0'><div class='container'>
@@ -20,10 +28,11 @@ const home = props => {
               <h5>Quick Stats</h5>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between">Today:<div class='text-success'>something</div></li>
-              <li class="list-group-item d-flex justify-content-between">This Week:<div class='text-success'>something</div></li>
-              <li class="list-group-item d-flex justify-content-between">This Month:<div class='text-success'>something</div></li>
-              <li class="list-group-item d-flex justify-content-between">Average Daily Spending:<div class='text-success'>something</div></li>
+              <li class="list-group-item d-flex justify-content-between">Today: ${filterAmount(props.transaction.filter(
+                  ({ transaction_date }) => new Date(transaction_date).getUTCDate() === new Date().getDate()
+                ))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 7 Day: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 7))}</li>
+              <li class="list-group-item d-flex justify-content-between">Past 30 Days: ${filterAmount(props.transaction.filter(({ transaction_date }) => new Date(transaction_date).getUTCDate() - new Date().getDate() <= 30))}</li>
             </ul>
           </div>
         </div>
@@ -35,7 +44,7 @@ const home = props => {
                 <button type='button' id='newTag' class='btn btn-sm btn-primary rounded mr-1'>New Tag</button>
               </div>
             </div>
-            <div style='max-height:180px; overflow-y: auto;'>
+            <div style='max-height:140px; overflow-y: auto;'>
               <ul class='list-group list-group-flush flex-column'>
                 ${props.tag.map(t => `
                   <li class='list-group-item d-flex justify-content-between' style='border-bottom: 0 none; padding: 12px 25px 0px 25px;'>
@@ -116,12 +125,11 @@ const transaction = props => {
                   <p>${t.transaction_location}</p>
                 </div>
                 <div class='col'>
-                  <a class='float-right' href='#'>
-                    <svg class='bi bi-pencil' width='1.5em' height='1.5em' viewBox='0 0 20 20' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
-                      <path fill-rule='evenodd' d='M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z' clip-rule='evenodd'/>
-                      <path fill-rule='evenodd' d='M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z' clip-rule='evenodd'/>
+                  <button id='deleteTransaction${t.transaction_id}' class='float-right btn' type='button' value='${t.transaction_id}'>
+                    <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -142,25 +150,7 @@ const tagForm = props => {
       <form class='text-center'>
         <input type='text' class='form-control mb-3' name='name' placeholder='Tag Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Tag Detail'>
-        <button type='button' name='button' id='submitTag' class='btn btn-block btn-danger'>Submit New Tag</button>
-      </form>
-    </div>
-    `
-  );
-};
-
-const reqForm = props => {
-  return (
-    `
-    <div class='row mb-3'>
-      <h4 class='mx-auto'>Add New Request</h4>
-    </div>
-    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
-      <form class='text-center'>
-        <input type='text' class='form-control mb-3' name='user' placeholder='Recipient Username'>
-        <input type='number' class='form-control mb-3' name='amount' placeholder='Request Amount'>
-        <input type='text' class='form-control mb-3' name='note' placeholder='Request Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit New Request</button>
+        <button type='button' name='button' id='submitTag' class='btn btn-block btn-success'>Submit New Tag</button>
       </form>
     </div>
     `
@@ -178,7 +168,7 @@ const requestForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Recipient Name'>
         <input type='number' class='form-control mb-3' name='amount' placeholder='Amount'>
         <input type='text' class='form-control mb-3' name='note' placeholder='Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit Request</button>
+        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-success'>Submit Request</button>
       </form>
     </div>
     `
@@ -275,7 +265,6 @@ const todos = props => {
     `
   );
 };
-
 
 const settings = props => {
   return (
