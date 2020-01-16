@@ -125,7 +125,7 @@ def new_tag():
     try:
         req = loads(request.data)
         oldtag = g.db.execute(
-            f'SELECT * FROM tags WHERE tag_type = "{req["name"]}"').fetchall()
+            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]} and tag_type = "{req["name"]}"').fetchall()
         if len(oldtag) > 0:
             return {'success': False}
         if req["name"] != "":
