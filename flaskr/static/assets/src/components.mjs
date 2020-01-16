@@ -202,10 +202,19 @@ const requests = props => {
                 Outgoing Requests
               </div>
               ${props.outrequest.map(t => `
-                <div class='card-text'>
-                Request to ${props.users[t.recipient_id - 1]["username"]} for $${t.req_amount}
-                <br>
-                Note: ${t.req_note}
+                <div class='card-text p-3 border-bottom'>
+                  <div class="row">
+                    <div class="col">
+                      Request to <b>${props.users[t.recipient_id - 1]["username"]}</b><br>
+                      <span class='text-success'>$${t.req_amount}</span>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <b>Note:</b> ${t.req_note}
+                    </div>
+                  </div>
+                  <div class="row justify-content-center mt-3">
+                    <button class='btn btn-sm btn-danger mt-auto'>Cancel</button>
+                  </div>
                 </div>
               `).join('')}
             </div>
@@ -216,10 +225,19 @@ const requests = props => {
                 Incoming Requests
               </div>
               ${props.inrequest.map(t => `
-                <div class='card-text'>
-                Request from ${props.users[t.sender_id - 1]["username"]} for $${t.req_amount}
-                <br>
-                Note: ${t.req_note}
+                <div class='card-text p-3 border-bottom'>
+                  <div class="row">
+                    <div class="col">
+                      Request from <b>${props.users[t.sender_id - 1]["username"]}</b><br>
+                      <span class='text-danger'>$${t.req_amount}</span>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <b>Note:</b> ${t.req_note}
+                    </div>
+                  </div>
+                  <div class="row justify-content-center mt-3">
+                    <button class='btn btn-sm btn-success mt-auto'>Finished</button>
+                  </div>
                 </div>
               `).join('')}
             </div>
