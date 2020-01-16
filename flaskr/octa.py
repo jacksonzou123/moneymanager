@@ -38,8 +38,7 @@ def delete_transaction():
     try:
         req = loads(request.data)
         g.db.execute(
-            f'DELETE FROM transactions WHERE transaction_id = "{req["transaction_id"]}"'
-        )
+            f'DELETE FROM transactions WHERE transaction_id = "{req["id"]}"')
         g.db.commit()
         return {'success': True}
     except Error:
@@ -117,11 +116,35 @@ def new_request():
             )
         if id and session["user"]["id"] != id["id"]:
             g.db.execute(
-                f'INSERT INTO request VALUES (NULL, {session["user"]["id"]}, {id["id"]}, {req["amount"]}, "{req["note"]}")'
+                f'INSERT INTO request VALUES (NULL, {session["user"]["id"]}, {id["id"]}, {req["amount"]}, "{req["note"]}", 0)'
             )
             g.db.commit()
             return {'success': True}
         return {'success': False}
+    except Error:
+        return {'success': False}
+
+
+@BP.route('/confirm/request', methods=['POST'])
+@jsonify_response
+def confirm_request():
+    try:
+        req = loads(request.data)
+        g.db.execute(f'UPDATE request SET done = 1 WHERE req_id = {req["id"]}')
+        g.db.commit()
+        return {'success': True}
+    except Error:
+        return {'success': False}
+
+
+@BP.route('/delete/request', methods=['DELETE'])
+@jsonify_response
+def delete_request():
+    try:
+        req = loads(request.data)
+        g.db.execute(f'DELETE FROM request WHERE req_id = {req["id"]}')
+        g.db.commit()
+        return {'success': True}
     except Error:
         return {'success': False}
 

@@ -50,10 +50,10 @@ export const postTo = async (endpoint, form, resolve) => {
   };
 };
 
-export const deleteIn = async (endpoint, value, resolve, reload) => {
+export const modify = async (endpoint, http_method, value, resolve, reload) => {
   const promise = await fetch(
     `${window.location.origin}${endpoint}`,
-    { method: 'DELETE', body: JSON.stringify({ 'transaction_id': value }) }
+    { method: http_method, body: JSON.stringify({ 'id': value }) }
   );
   const responseObject = await promise.json();
   if (responseObject.success) {
@@ -90,8 +90,8 @@ export const renderApp = (name, component) => {
     case '/transactions':
       state.transaction.forEach(({ transaction_id }) => {
         bbind(`deleteTransaction${transaction_id}`,
-          deleteIn.bind(
-            this, '/octa/delete/transaction', g(`deleteTransaction${transaction_id}`).value,
+          modify.bind(
+            this, '/octa/delete/transaction', 'DELETE', g(`deleteTransaction${transaction_id}`).value,
             fetchFrom.bind(this, '/octa/fetch/transaction', 'transaction'),
             'Transactions'
           )
@@ -99,6 +99,28 @@ export const renderApp = (name, component) => {
       })
       return bbind('addTransaction', handleViewUpdate.bind(this, app, 'New Transaction'));
     case '/requests':
+      state.outrequest.forEach(({ req_id }) => {
+        if (g(`deleteRequest${req_id}`) !== null) {
+          bbind(`deleteRequest${req_id}`,
+            modify.bind(
+              this, '/octa/delete/request', 'DELETE', g(`deleteRequest${req_id}`).value,
+              fetchFrom.bind(this, '/octa/fetch/outrequest', 'outrequest'),
+              'Requests'
+            )
+          )
+        }
+      })
+      state.inrequest.forEach(({ req_id }) => {
+        if (g(`confirmRequest${req_id}`) !== null) {
+          bbind(`confirmRequest${req_id}`,
+            modify.bind(
+              this, '/octa/confirm/request', 'POST', g(`confirmRequest${req_id}`).value,
+              fetchFrom.bind(this, '/octa/fetch/inrequest', 'inrequest'),
+              'Requests'
+            )
+          )
+        }
+      })
       return bbind('addRequest', handleViewUpdate.bind(this, app, 'New Request'));
     case '/todos':
       return bbind('addTodo', handleViewUpdate.bind(this, app, 'New Todo'));

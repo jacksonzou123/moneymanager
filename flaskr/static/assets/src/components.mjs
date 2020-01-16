@@ -157,24 +157,6 @@ const tagForm = props => {
   );
 };
 
-const reqForm = props => {
-  return (
-    `
-    <div class='row mb-3'>
-      <h4 class='mx-auto'>Add New Request</h4>
-    </div>
-    <div class='row mb-3 d-flex flex-column justify-content-center mx-auto'>
-      <form class='text-center'>
-        <input type='text' class='form-control mb-3' name='user' placeholder='Recipient Username'>
-        <input type='number' class='form-control mb-3' name='amount' placeholder='Request Amount'>
-        <input type='text' class='form-control mb-3' name='note' placeholder='Request Note'>
-        <button type='button' name='button' id='submitRequest' class='btn btn-block btn-danger'>Submit New Request</button>
-      </form>
-    </div>
-    `
-  );
-};
-
 const requestForm = props => {
   return (
     `
@@ -216,7 +198,7 @@ const requests = props => {
                     Request to <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note:</b> ${t.req_note}</span>
-                  <button class='btn btn-sm btn-danger mr-auto mt-1'>Cancel</button>
+                  ${t.done === 0 ? `<button class='btn btn-sm btn-danger mr-auto mt-1' id='deleteRequest${t.req_id}' value='${t.req_id}'>Cancel</button>` : `<span class='text-success'>Done</span>`}
                 </li>
               `).join('')}
             </ul>
@@ -234,7 +216,7 @@ const requests = props => {
                     Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
-                  <button class='btn btn-sm btn-success mr-auto mt-1'>Finished</button>
+                  ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
                 </li>
               `).join('')}
             </ul>
@@ -351,7 +333,7 @@ export const app = props => {
       case 'New Todo':
         return todoForm(props);
       case 'New Request':
-        return reqForm(props);
+        return requestForm(props);
       case 'Transactions':
         return transaction(props);
       case 'Requests':
