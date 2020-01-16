@@ -6,7 +6,7 @@ export const calendar = props => {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
     if (new Date().getUTCMonth() === new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), date).getUTCMonth()) {
-      return `<span class='${amount === 0 ? 'text-muted' : 'text-success'}'>$${amount === 0 ? '0' : amount.toFixed(2)}</span>`;
+      return `<span class='${amount === 0 ? 'text-muted' : 'text-success'}'>${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(amount)}</span>`;
     }
     else {
       return '';

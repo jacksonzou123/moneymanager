@@ -79,6 +79,7 @@
    */
   function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
+      document.getElementById('authorize_button').className = 'd-none'
       exportToSheets();
     }
   }

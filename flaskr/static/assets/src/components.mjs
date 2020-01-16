@@ -6,10 +6,9 @@ const home = props => {
     if (filtered.length) {
       filtered.forEach(({ transaction_amount }) => amount += transaction_amount);
     }
-    return `<span class='text-success'>${new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumSignificantDigits: 4 }).format(amount)}</span>`;
+    return `<span class='text-success'>${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(amount)}</span>`;
   };
 
-  console.log(props)
 
   return (
     `
@@ -267,9 +266,14 @@ const todos = props => {
     <div class='d-flex flex-column'>
     ${props.todo.map(t =>
       `
-        <h5>Title:${t.todo_title}</h5>
-        <p>Body:${t.todo_body}</p>
-        <p>Deadline:${t.todo_deadline}</p>
+      <div class='card p-0 my-3'>
+        <div class='card-body p-0'>
+        <div class='card-header'>
+          <h5>${t.todo_title}</h5>
+        </div>
+        <div class='card-text'>
+        <p class='ml-3 mt-3'>${t.todo_body}</p>
+        <p class='ml-3 mt-3'>${t.todo_deadline}</p>
         <div class='col'>
           <button id='deleteTodo${t.todo_id}' class='float-right btn' type='button' value='${t.todo_id}'>
             <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -277,6 +281,9 @@ const todos = props => {
             </svg>
           </button>
         </div>
+        </div>
+        </div>
+      </div>
       `
     ).join('')}
     </div>
