@@ -36,7 +36,7 @@ export const calendar = props => {
   return (
     `
       <div class='d-flex justify-content-center flex-column border rounded mb-3 mx-5 py-3'>
-        <div class='d-flex flex-row justify-content-center'>
+        <div class='d-flex flex-row justify-content-center mb-3'>
           <h4>${new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date())}</h4>
         </div>
         <div class='table-responsive'>
