@@ -1,12 +1,13 @@
 export let state = {
   'user': {},
+  'all_users': {},
   'view': 'home',
   'todo': {},
   'tag': {},
   'transaction': {},
   'inrequest': {},
   'outrequest': {},
-  'users:': {}
+  'searchedTag': '',
 };
 
 export const setState = update => {

@@ -17,17 +17,23 @@
   * Front-end
     * Javascript Functionalities
   * Back-end
-    * Setup Database and File System Transfer
+    * Setup Database
     * Setup Authentication
 
 ## What is Spendie
 
-Spendie is a budget/money management web application designed to track your spending and visualize it in a intuitive way.
+Spendie is a budget/money management web application designed to track your spending and to help visualize it in a intuitive way.
+It has the following features that will help you organize your finances:
+- transactions
+- requests
+- todos
+- calender
+- tag search
 
 ## API
 
-* [Google Maps Embed API](./doc/api_googlemapsembed.pdf)
-* [Google Sheets API](./doc/api_googlesheets.pdf)
+* [Google Maps Embed API](https://docs.google.com/document/d/1BrK8KIi1jxdETaGoEcuEB_UDiGwZhFFeWxZ_dlwiFww/edit)
+* [Google Sheets API](https://docs.google.com/document/d/1RXjh3HHWOUhgDGow2KGhM7Rb3jkI-uMS50rpPrDEkUE/edit)
 
 ## Run Instruction
 
@@ -57,7 +63,7 @@ Spendie is a budget/money management web application designed to track your spen
    pip3 install -r doc/requirements.txt
    ```
 
-6. Export any required enviroment variables(skip for now).
+6. Export any required environment variables
 
    ```bash
    export GOOGLE_MAPS_EMBED_API_KEY='your_super_secret_api_key'
