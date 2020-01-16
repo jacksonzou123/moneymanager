@@ -36,6 +36,20 @@ def new_transaction():
         return {'success': False}
 
 
+@BP.route('/delete/transaction', methods=['DELETE'])
+@jsonify_response
+def delete_transaction():
+    try:
+        req = loads(request.data)
+        g.db.execute(
+            f'DELETE FROM transactions WHERE transaction_id = "{req["transaction_id"]}"'
+        )
+        g.db.commit()
+        return {'success': True}
+    except Error:
+        return {'success': False}
+
+
 @BP.route('/fetch/transaction', methods=['FETCH'])
 @jsonify_response
 def get_transaction():
