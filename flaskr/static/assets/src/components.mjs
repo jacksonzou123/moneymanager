@@ -150,7 +150,7 @@ const tagForm = props => {
       <form class='text-center'>
         <input type='text' class='form-control mb-3' name='name' placeholder='Tag Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Tag Detail'>
-        <button type='button' name='button' id='submitTag' class='btn btn-block btn-danger'>Submit New Tag</button>
+        <button type='button' name='button' id='submitTag' class='btn btn-block btn-success'>Submit New Tag</button>
       </form>
     </div>
     `
@@ -213,7 +213,7 @@ const requests = props => {
               ${props.inrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
+                    Request from <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
@@ -238,7 +238,7 @@ const todoForm = props => {
         <input type='text' class='form-control mb-3' name='name' placeholder='Todo Name'>
         <input type='text' class='form-control mb-3' name='summary' placeholder='Todo Detail'>
         <input type='date' class='form-control mb-3' name='deadline' placeholder='Todo Date'>
-        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-danger'>Submit New Todo</button>
+        <button type='button' name='button' id='submitTodo' class='btn btn-block btn-success'>Submit New Todo</button>
       </form>
     </div>
     `
@@ -259,6 +259,13 @@ const todos = props => {
         <h5>Title:${t.todo_title}</h5>
         <p>Body:${t.todo_body}</p>
         <p>Deadline:${t.todo_deadline}</p>
+        <div class='col'>
+          <button id='deleteTodo${t.todo_id}' class='float-right btn' type='button' value='${t.todo_id}'>
+            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
       `
     ).join('')}
     </div>
