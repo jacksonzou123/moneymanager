@@ -11,7 +11,6 @@ def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            print('ds')
             return redirect('/signin')
         return f(*args, **kwargs)
 
@@ -21,10 +20,8 @@ def require_login(f):
 def assert_fields(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print('ds')
         if request.method == 'POST':
             error = None
-            print('Heloo')
             for name in request.form:
                 # print(name)
                 # print(request.form[name])

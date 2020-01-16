@@ -49,7 +49,7 @@ def login():
         if user is None:
             error = f'<div class="alert alert-danger small">Username {username} is incorrect.</div>'
         elif not check_password_hash(user['password'], password):
-            error = f'<div class="alert alert-danger small">"Entered password is incorrect.</div>'
+            error = f'<div class="alert alert-danger small">Entered password is incorrect.</div>'
         if error is None:
             session.clear()
             session['user'] = user
