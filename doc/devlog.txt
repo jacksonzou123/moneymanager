@@ -1,5 +1,7 @@
 juntaoL -- 2020-01-16 01:19
   Finished implementation of Google Sheets and Maps Embed APIs
+  Fixed search bar
+  Finished calendar
 
 jacksonZ -- 2020-01-15 22:16
   Added checkers for empty input fields
@@ -41,11 +43,12 @@ jacksonZ -- 2020-01-09 14:44
   Added more database mutator and accessor methods
   Adjusted database table columns
 
-juntaoL -- 2020-01-08 21:59
+leiJ -- 2020-01-08 21:59
   Added javascript to templates to allow for functionalities without reload
+  Added skeleton for connecting to Flask and storing data
 
-jacksonZ -- 2020-01-08 14:50
-	Implemented database creator and added adding to transactions method
+zouJ -- 2020-01-08 14:50
+  Implemented database creator and added adding to transactions method
 
 jeffL -- 2020-01-08 14:12
   Worked on responsive layout resizing for different screen resolutions
@@ -53,11 +56,20 @@ jeffL -- 2020-01-08 14:12
 jeffL -- 2020-01-08 11:02
   Updated design doc with new ideas and approach
 
+
 juntaoL -- 2020-01-04 18:58
 	Added reusable code from previous project.
+
+leiJ -- 2020-01-04 18:58
+  Added reusable code from previous project.
+
 
 jeffL -- 2020-01-03 14:52
   Started main page display and layout of website
 
+
 juntaoL -- 2020-01-02 08:33
 	Updated project structure.
+
+leiJ -- 2020-01-02 08:33
+  Updated project structure.
