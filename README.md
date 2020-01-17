@@ -30,7 +30,7 @@ It has the following features that will help you organize your finances:
 - calender
 - tag search
 
-## [VIDEO](https://youtube.com)
+## [VIDEO](https://youtu.be/9HhC08uPWtE)
 
 ## API
 
