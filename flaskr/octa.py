@@ -125,7 +125,8 @@ def new_tag():
     try:
         req = loads(request.data)
         oldtag = g.db.execute(
-            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]} and tag_type = "{req["name"]}"').fetchall()
+            f'SELECT * FROM tags WHERE user_id = {session["user"]["id"]} and tag_type = "{req["name"]}"'
+        ).fetchall()
         if len(oldtag) > 0:
             return {'success': False}
         if req["name"] != "":
@@ -200,7 +201,7 @@ def get_inrequest():
 def get_outrequest():
     try:
         return g.db.execute(
-            f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]}'
+            f'SELECT * FROM request WHERE sender_id = {session["user"]["id"]} ORDER BY recipient_id ASC'
         ).fetchall()
     except Error:
         raise (Error)
