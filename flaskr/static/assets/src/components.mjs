@@ -205,7 +205,7 @@ const requests = props => {
               ${props.outrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request to for <span class='text-success'>$${t.req_amount}</span>
+                    Request for <span class='text-success'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note:</b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-danger mr-auto mt-1' id='deleteRequest${t.req_id}' value='${t.req_id}'>Cancel</button>` : `<span class='text-success'>Done</span>`}
@@ -223,7 +223,7 @@ const requests = props => {
               ${props.inrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request from for <span class='text-danger'>$${t.req_amount}</span>
+                    Request for <span class='text-danger'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
