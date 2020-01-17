@@ -50,7 +50,7 @@ const home = props => {
                 ${props.tag.map(t => `
                   <li class='list-group-item d-flex justify-content-between' style='border-bottom: 0 none; padding: 12px 25px 0px 25px;'>
                     ${t.tag_type}
-                    <div class='text-success'>${t.tag_summary}</div>
+                    <div class='text-muted'>${t.tag_summary}</div>
                   </li>
                 `).join('')}
               </ul>
@@ -108,42 +108,42 @@ const transaction = props => {
         </button>
       </div>
       <div class='card'>
-          ${props.transaction.map(t => `
-            <div class='card-text border-bottom'>
-              <div class='row p-2'>
-                <div class='col-3 d-flex flex-column'>
-                  <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
-                  <p>
-                    ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
-                    <span class='text-success'>$${t.transaction_amount}</span><br>
-                    <b>Tag:</b> ${t.tag_type}
-                  </p>
-                </div>
-                <div class='col d-flex flex-column'>
-                  <b>Note:</b>
-                  <p>${t.transaction_note}</p>
-                  <b>Location:</b>
-                  <p>${t.transaction_location}</p>
-                </div>
-                <div class='col'>
-                  <button id='deleteTransaction${t.transaction_id}' class='float-right btn' type='button' value='${t.transaction_id}'>
-                    <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                    </svg>
-                  </button>
-                </div>
+        ${props.transaction.map(t => `
+          <div class='card-text border-bottom'>
+            <div class='row p-2'>
+              <div class='col-3 d-flex flex-column'>
+                <h6 class='font-weight-bolder'>${t.transaction_name}</h6>
+                <p>
+                  ${new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(t.transaction_date))}<br>
+                  <span class='text-success'>${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(t.transaction_amount)}</span><br>
+                  <b>Tag:</b> ${t.tag_type}
+                </p>
               </div>
-              ${t.transaction_location !== '' ? `<div class='row d-flex'>
-                <iframe
-                  height='300'
-                  frameborder='0'
-                  class='border-0 flex-fill p-1 mx-3'
-                  src="https://www.google.com/maps/embed/v1/place?key=${encodeURI(props.user.maps_api_key)}
-                    &q=${encodeURI(t.transaction_location)}" allowfullscreen>
-                </iframe>
-              </div>` : ''}
+              <div class='col d-flex flex-column'>
+                <b>Note:</b>
+                <p>${t.transaction_note}</p>
+                <b>Location:</b>
+                <p>${t.transaction_location}</p>
+              </div>
+              <div class='col'>
+                <button id='deleteTransaction${t.transaction_id}' class='float-right btn' type='button' value='${t.transaction_id}'>
+                  <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
             </div>
-          `).join('')}
+            ${t.transaction_location !== '' ? `<div class='row d-flex'>
+              <iframe
+                height='300'
+                frameborder='0'
+                class='border-0 flex-fill p-1 mx-3'
+                src="https://www.google.com/maps/embed/v1/place?key=${encodeURI(props.user.maps_api_key)}
+                  &q=${encodeURI(t.transaction_location)}" allowfullscreen>
+              </iframe>
+            </div>` : ''}
+          </div>
+        `).join('')}
       </div>
     </div></div>
     `
@@ -205,7 +205,7 @@ const requests = props => {
               ${props.outrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request to <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount}</span>
+                    Request to <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-success'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note:</b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-danger mr-auto mt-1' id='deleteRequest${t.req_id}' value='${t.req_id}'>Cancel</button>` : `<span class='text-success'>Done</span>`}
@@ -223,7 +223,7 @@ const requests = props => {
               ${props.inrequest.map(t => `
                 <li class='list-group-item d-flex flex-column'>
                   <span class='mb-1'>
-                    Request from <b>${props.users[t.sender_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
+                    Request from <b>${props.users[t.recipient_id - 1]["username"]}</b> for <span class='text-danger'>$${t.req_amount}</span>
                   </span>
                   <span class='mb-1'><b>Note: </b> ${t.req_note}</span>
                   ${t.done === 0 ? `<button class='btn btn-sm btn-success mr-auto mt-1' id='confirmRequest${t.req_id}' value='${t.req_id}'>Finished</button>` : `<span class='text-success'>Done</span>`}
@@ -258,35 +258,38 @@ const todoForm = props => {
 const todos = props => {
   return (
     `
-    <div>
-    <button type='button' id='addTodo' class='btn btn-sm btn-success rounded ml-auto'>
-      Add Todo
-    </button>
-    </div>
-    <div class='d-flex flex-column'>
-    ${props.todo.map(t =>
-      `
-      <div class='card p-0 my-3'>
-        <div class='card-body p-0'>
-        <div class='card-header'>
-          <h5>${t.todo_title}</h5>
-        </div>
-        <div class='card-text'>
-        <p class='ml-3 mt-3'>${t.todo_body}</p>
-        <p class='ml-3 mt-3'>${t.todo_deadline}</p>
-        <div class='col'>
-          <button id='deleteTodo${t.todo_id}' class='float-right btn' type='button' value='${t.todo_id}'>
-            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-            </svg>
-          </button>
-        </div>
-        </div>
-        </div>
+    <div class='container-fluid p-0 m-0'><div class='container'>
+      <div class='d-flex justify-content-between p-0 m-0 mb-3'>
+        <h4>Todos</h4>
+        <button type='button' id='addTodo' class='btn btn-sm btn-success rounded'>
+          Add Todo
+        </button>
       </div>
-      `
-    ).join('')}
-    </div>
+      <div class='card'>
+        ${props.todo.map(t => `
+          <div class='card-text border-bottom'>
+            <div class='row p-2'>
+              <div class='col-3 d-flex flex-column'>
+                <b>${t.todo_title}</b>
+                <p>
+                  ${t.todo_deadline}
+                </p>
+              </div>
+              <div class='col'>
+                ${t.todo_body}
+              </div>
+              <div class='col-1'>
+                <button id='deleteTodo${t.todo_id}' class='d-flex btn justify-content-end' type='button' value='${t.todo_id}'>
+                  <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.5 3a1 1 0 00-1 1v1a1 1 0 001 1H5v9a2 2 0 002 2h6a2 2 0 002-2V6h.5a1 1 0 001-1V4a1 1 0 00-1-1H12a1 1 0 00-1-1H9a1 1 0 00-1 1H4.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM10 7a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 0110 7zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div></div>
     `
   );
 };
